@@ -42,3 +42,8 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+
+######################################################################
+# 数据库相关配置不上传
+ruoyi-admin/src/main/resources/application-druid.yml
+ruoyi-admin/src/main/resources/application.yml
