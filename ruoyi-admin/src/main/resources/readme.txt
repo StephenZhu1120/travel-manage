@@ -1,0 +1,3 @@
+这里提前为数据库及相关配置文件做了备份，并在后缀加上了.backup
+若需要项目正常运行，需要将项目克隆到本地之后将application-druid.yml和application.yml
+这两个文件恢复正常并配置数据库和redis相关内容
