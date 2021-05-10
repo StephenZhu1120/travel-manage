@@ -129,10 +129,10 @@
               <i class="el-icon-school"></i> 院校信息：北京航空航天大学 软件学院 2017级
             </p>
             <p>
-              <i class="el-icon-chat-round"></i> 微信：13520540878
+              <i class="el-icon-chat-line-round"></i> 微信：13520540878
             </p>
             <p>
-              <i class="el-icon-chat-dot-round"></i> QQ：1940323593
+              <i class="el-icon-chat-dot-square"></i> QQ：1940323593
             </p>
 <!--            <p>-->
 <!--              <i class="el-icon-user-solid"></i> QQ群：<s>满937441</s>-->
