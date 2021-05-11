@@ -58,4 +58,12 @@ public interface IUserBasicService
      * @return 结果
      */
     public int deleteUserBasicById(Integer id);
+
+    /**
+     * 重置用户密码
+     *
+     * @param userBasic 用户信息
+     * @return 结果
+     */
+    public int resetPwd(UserBasic userBasic);
 }

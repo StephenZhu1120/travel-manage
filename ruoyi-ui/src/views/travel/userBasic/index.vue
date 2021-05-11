@@ -156,6 +156,12 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            type="info"
+            icon="el-icon-edit"
+            @click="handleView(scope.row)"
+          >详情</el-button>
+          <el-button
+            size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
@@ -164,6 +170,13 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-key"
+            @click="handleResetPwd(scope.row)"
+            v-hasPermi="['travel:userBasic:resetPwd']"
+          >重置密码</el-button>
+          <el-button
+            size="mini"
+            type="danger"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['travel:userBasic:remove']"
@@ -229,11 +242,45 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+<!--    查看详情页（无法编辑）-->
+    <el-dialog :title="title" :visible.sync="openDetail" width="500px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="用户昵称" prop="userName">
+          {{form.userName}}
+        </el-form-item>
+        <el-form-item label="用户状态" prop="userStatus">
+          <span v-if="form.userStatus === 0">封禁</span>
+          <span v-else>正常</span>
+        </el-form-item>
+        <el-form-item label="真实姓名" prop="userIdName">
+         {{form.userIdName}}
+        </el-form-item>
+        <el-form-item label="身份证号" prop="userIdCard">
+          {{form.userIdCard}}
+        </el-form-item>
+        <el-form-item label="电子邮箱" prop="email">
+          {{form.email}}
+        </el-form-item>
+        <el-form-item label="手机号码" prop="phoneNumber">
+          {{form.phoneNumber}}
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <span v-if="form.sex === 0">未设置</span>
+          <span v-else-if="form.sex === 1">男</span>
+          <span v-else-if="form.sex === 2">女</span>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listUserBasic, getUserBasic, delUserBasic, addUserBasic, updateUserBasic, exportUserBasic } from "@/api/travel/userBasic";
+import { listUserBasic, getUserBasic, delUserBasic, addUserBasic, updateUserBasic, exportUserBasic, resetUserPwd } from "@/api/travel/userBasic";
 
 export default {
   name: "UserBasic",
@@ -259,6 +306,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      openDetail: false,
       // 用户状态字典
       userStatusOptions: [],
       // 性别字典
@@ -314,6 +362,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.openDetail = false;
       this.reset();
     },
     // 表单重置
@@ -364,6 +413,24 @@ export default {
         this.open = true;
         this.title = "修改账户管理";
       });
+    },
+    /** 详细按钮操作 */
+    handleView(row) {
+      this.openDetail = true;
+      this.title = "详情";
+      this.form = row;
+    },
+    /** 密码重置按钮操作 */
+    handleResetPwd(row) {
+
+      this.$prompt('请输入"'+row.userName+'"的新密码', "重置密码",{
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+      }).then(({value}) => {
+        resetUserPwd(row.id, value).then(response => {
+          this.msgSuccess("密码修改成功，新密码是：" + value);
+        });
+      }).catch(()=>{});
     },
     /** 提交按钮 */
     submitForm() {

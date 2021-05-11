@@ -51,3 +51,16 @@ export function exportUserBasic(query) {
     params: query
   })
 }
+
+// 重置密码
+export function resetUserPwd(id, password) {
+  const data = {
+    id,
+    password
+  }
+  return request({
+    url: '/travel/userBasic/resetPwd',
+    method: 'put',
+    data: data
+  })
+}

@@ -1,6 +1,7 @@
 package com.ruoyi.travel.controller;
 
 import java.util.List;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import com.ruoyi.travel.domain.UserBasic;
 import com.ruoyi.travel.service.IUserBasicService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.utils.SecurityUtils;
 
 /**
  * 账户管理Controller
@@ -79,6 +81,7 @@ public class UserBasicController extends BaseController
         return toAjax(userBasicService.insertUserBasic(userBasic));
     }
 
+
     /**
      * 修改账户管理
      */
@@ -88,6 +91,19 @@ public class UserBasicController extends BaseController
     public AjaxResult edit(@RequestBody UserBasic userBasic)
     {
         return toAjax(userBasicService.updateUserBasic(userBasic));
+    }
+
+
+    /**
+     * 重置密码
+     */
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:resetPwd')")
+    @Log(title = "账户管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/resetPwd")
+    public AjaxResult resetPwd(@RequestBody UserBasic userBasic) {
+//        UserBasic userBasic = userBasicService.selectUserBasicById(userPassword.getId());
+        userBasic.setPassword(SecurityUtils.encryptPassword(userBasic.getPassword()));
+        return toAjax(userBasicService.resetPwd(userBasic));
     }
 
     /**

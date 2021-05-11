@@ -92,4 +92,16 @@ public class UserBasicServiceImpl implements IUserBasicService
     {
         return userBasicMapper.deleteUserBasicById(id);
     }
+
+    /**
+     * 重置用户密码
+     *
+     * @param userBasic 用户信息
+     * @return 结果
+     */
+    @Override
+    public int resetPwd(UserBasic userBasic)
+    {
+        return userBasicMapper.updateUserBasic(userBasic);
+    }
 }
