@@ -137,13 +137,13 @@
 
     <el-table v-loading="loading" :data="userBasicList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户id" align="center" prop="id" />
-      <el-table-column label="用户昵称" align="center" prop="userName" />
+      <el-table-column label="用户id" align="center" prop="id" width="60"/>
+      <el-table-column label="用户昵称" align="center" prop="userName" width="300" />
 <!--      <el-table-column label="用户密码" align="center" prop="password" />-->
-      <el-table-column label="用户状态" align="center" prop="userStatus" :formatter="userStatusFormat" />
-      <el-table-column label="账号创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="用户状态" align="center" prop="userStatus" width="80" :formatter="userStatusFormat" />
+      <el-table-column label="账号创建时间" align="center" prop="createTime" width="200">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
 <!--      <el-table-column label="真实姓名" align="center" prop="userIdName" />-->
@@ -155,32 +155,32 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-            size="mini"
+            size="small"
             type="info"
             icon="el-icon-edit"
             @click="handleView(scope.row)"
-          >详情</el-button>
+          >查看详情</el-button>
           <el-button
-            size="mini"
-            type="text"
+            size="small"
+            type="success"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['travel:userBasic:edit']"
-          >修改</el-button>
+          >编辑信息</el-button>
           <el-button
-            size="mini"
-            type="text"
+            size="small"
+            type="success"
             icon="el-icon-key"
             @click="handleResetPwd(scope.row)"
             v-hasPermi="['travel:userBasic:resetPwd']"
           >重置密码</el-button>
           <el-button
-            size="mini"
+            size="small"
             type="danger"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['travel:userBasic:remove']"
-          >删除</el-button>
+          >删 除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -194,14 +194,14 @@
     />
 
     <!-- 添加或修改账户管理对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="用户昵称" prop="userName">
           <el-input v-model="form.userName" placeholder="请输入用户昵称" />
         </el-form-item>
-        <el-form-item label="用户密码" prop="password">
-          <el-input v-model="form.password" placeholder="请输入用户密码" />
-        </el-form-item>
+<!--        <el-form-item label="用户密码" prop="password">-->
+<!--          <el-input v-model="form.password" placeholder="请输入用户密码" />-->
+<!--        </el-form-item>-->
         <el-form-item label="用户状态">
           <el-radio-group v-model="form.userStatus">
             <el-radio
@@ -244,14 +244,17 @@
     </el-dialog>
 
 <!--    查看详情页（无法编辑）-->
-    <el-dialog :title="title" :visible.sync="openDetail" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="openDetail" width="600px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="用户昵称" prop="userName">
           {{form.userName}}
         </el-form-item>
         <el-form-item label="用户状态" prop="userStatus">
           <span v-if="form.userStatus === 0">封禁</span>
           <span v-else>正常</span>
+        </el-form-item>
+        <el-form-item label="账号创建时间" prop="createTime">
+          {{form.createTime}}
         </el-form-item>
         <el-form-item label="真实姓名" prop="userIdName">
          {{form.userIdName}}
@@ -272,8 +275,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+<!--        <el-button type="primary" @click="submitForm">确 定</el-button>-->
+        <el-button @click="cancel">关 闭</el-button>
       </div>
     </el-dialog>
   </div>
