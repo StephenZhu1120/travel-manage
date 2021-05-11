@@ -94,4 +94,16 @@ public class ProductBasicServiceImpl implements IProductBasicService
     {
         return productBasicMapper.deleteProductBasicById(id);
     }
+
+    /**
+     * 通过id查询产品名称
+     *
+     * @param id 产品信息ID
+     * @return 结果产品名称
+     */
+    @Override
+    public String getProductNameById(Long id)
+    {
+        return  productBasicMapper.selectProductBasicById(id).getProductName();
+    }
 }
