@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.TestTravelMapper">
+    
+    <resultMap type="TestTravel" id="TestTravelResult">
+        <result property="id"    column="id"    />
+        <result property="textVarchar"    column="text_varchar"    />
+        <result property="textLongtext"    column="text_longtext"    />
+        <result property="hunVarchar"    column="hun_varchar"    />
+        <result property="hunLongtext"    column="hun_longtext"    />
+    </resultMap>
+
+    <sql id="selectTestTravelVo">
+        select id, text_varchar, text_longtext, hun_varchar, hun_longtext from test_travel
+    </sql>
+
+    <select id="selectTestTravelList" parameterType="TestTravel" resultMap="TestTravelResult">
+        <include refid="selectTestTravelVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="textVarchar != null  and textVarchar != ''"> and text_varchar = #{textVarchar}</if>
+            <if test="textLongtext != null  and textLongtext != ''"> and text_longtext = #{textLongtext}</if>
+            <if test="hunVarchar != null  and hunVarchar != ''"> and hun_varchar = #{hunVarchar}</if>
+            <if test="hunLongtext != null  and hunLongtext != ''"> and hun_longtext = #{hunLongtext}</if>
+        </where>
+    </select>
+    
+    <select id="selectTestTravelById" parameterType="Long" resultMap="TestTravelResult">
+        <include refid="selectTestTravelVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTestTravel" parameterType="TestTravel" useGeneratedKeys="true" keyProperty="id">
+        insert into test_travel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="textVarchar != null">text_varchar,</if>
+            <if test="textLongtext != null">text_longtext,</if>
+            <if test="hunVarchar != null">hun_varchar,</if>
+            <if test="hunLongtext != null">hun_longtext,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="textVarchar != null">#{textVarchar},</if>
+            <if test="textLongtext != null">#{textLongtext},</if>
+            <if test="hunVarchar != null">#{hunVarchar},</if>
+            <if test="hunLongtext != null">#{hunLongtext},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTestTravel" parameterType="TestTravel">
+        update test_travel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="textVarchar != null">text_varchar = #{textVarchar},</if>
+            <if test="textLongtext != null">text_longtext = #{textLongtext},</if>
+            <if test="hunVarchar != null">hun_varchar = #{hunVarchar},</if>
+            <if test="hunLongtext != null">hun_longtext = #{hunLongtext},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTestTravelById" parameterType="Long">
+        delete from test_travel where id = #{id}
+    </delete>
+
+    <delete id="deleteTestTravelByIds" parameterType="String">
+        delete from test_travel where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

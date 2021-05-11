@@ -137,11 +137,11 @@
 
     <el-table v-loading="loading" :data="userBasicList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户id" align="center" prop="id" width="60"/>
+      <el-table-column label="用户id" align="center" prop="id" width="100"/>
       <el-table-column label="用户昵称" align="center" prop="userName" width="300" />
 <!--      <el-table-column label="用户密码" align="center" prop="password" />-->
-      <el-table-column label="用户状态" align="center" prop="userStatus" width="80" :formatter="userStatusFormat" />
-      <el-table-column label="账号创建时间" align="center" prop="createTime" width="200">
+      <el-table-column label="用户状态" align="center" prop="userStatus" width="100" :formatter="userStatusFormat" />
+      <el-table-column label="账号创建时间" align="center" prop="createTime" width="300">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
@@ -157,12 +157,14 @@
           <el-button
             size="small"
             type="info"
+            round
             icon="el-icon-edit"
             @click="handleView(scope.row)"
           >查看详情</el-button>
           <el-button
             size="small"
             type="success"
+            round
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['travel:userBasic:edit']"
@@ -170,6 +172,7 @@
           <el-button
             size="small"
             type="success"
+            round
             icon="el-icon-key"
             @click="handleResetPwd(scope.row)"
             v-hasPermi="['travel:userBasic:resetPwd']"
@@ -177,6 +180,7 @@
           <el-button
             size="small"
             type="danger"
+            round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['travel:userBasic:remove']"

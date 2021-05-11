@@ -10,19 +10,19 @@ import com.ruoyi.travel.service.IUserBasicService;
 
 /**
  * 账户管理Service业务层处理
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-11
  */
 @Service
-public class UserBasicServiceImpl implements IUserBasicService 
+public class UserBasicServiceImpl implements IUserBasicService
 {
     @Autowired
     private UserBasicMapper userBasicMapper;
 
     /**
      * 查询账户管理
-     * 
+     *
      * @param id 账户管理ID
      * @return 账户管理
      */
@@ -34,7 +34,7 @@ public class UserBasicServiceImpl implements IUserBasicService
 
     /**
      * 查询账户管理列表
-     * 
+     *
      * @param userBasic 账户管理
      * @return 账户管理
      */
@@ -46,7 +46,7 @@ public class UserBasicServiceImpl implements IUserBasicService
 
     /**
      * 新增账户管理
-     * 
+     *
      * @param userBasic 账户管理
      * @return 结果
      */
@@ -59,7 +59,7 @@ public class UserBasicServiceImpl implements IUserBasicService
 
     /**
      * 修改账户管理
-     * 
+     *
      * @param userBasic 账户管理
      * @return 结果
      */
@@ -71,7 +71,7 @@ public class UserBasicServiceImpl implements IUserBasicService
 
     /**
      * 批量删除账户管理
-     * 
+     *
      * @param ids 需要删除的账户管理ID
      * @return 结果
      */
@@ -83,7 +83,7 @@ public class UserBasicServiceImpl implements IUserBasicService
 
     /**
      * 删除账户管理信息
-     * 
+     *
      * @param id 账户管理ID
      * @return 结果
      */
