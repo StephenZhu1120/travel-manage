@@ -1,6 +1,9 @@
 package com.ruoyi.travel.controller;
 
 import java.util.List;
+
+import com.ruoyi.travel.domain.ProductBasic;
+import com.ruoyi.travel.service.IProductBasicService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 产品路线Controller
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-11
  */
@@ -32,6 +35,8 @@ public class ProductRouteController extends BaseController
 {
     @Autowired
     private IProductRouteService productRouteService;
+    @Autowired
+    private IProductBasicService productBasicService;
 
     /**
      * 查询产品路线列表
@@ -76,6 +81,9 @@ public class ProductRouteController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProductRoute productRoute)
     {
+        productRoute.setPrice(productRouteService.calculateRoutePrice(productRoute));
+        ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());
+        productBasicService.updateProductBasic(productBasic);
         return toAjax(productRouteService.insertProductRoute(productRoute));
     }
 
@@ -87,6 +95,9 @@ public class ProductRouteController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ProductRoute productRoute)
     {
+        productRoute.setPrice(productRouteService.calculateRoutePrice(productRoute));
+        ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());
+        productBasicService.updateProductBasic(productBasic);
         return toAjax(productRouteService.updateProductRoute(productRoute));
     }
 
