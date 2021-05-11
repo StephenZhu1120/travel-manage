@@ -20,6 +20,14 @@ public interface ProductRouteMapper
     public ProductRoute selectProductRouteById(Long id);
 
     /**
+     * 查询产品包含的路线数量
+     *
+     * @param productId 产品路线ID
+     * @return 产品路线
+     */
+    public int countRouteNumberByProductId(Long productId);
+
+    /**
      * 查询产品路线列表
      * 
      * @param productRoute 产品路线

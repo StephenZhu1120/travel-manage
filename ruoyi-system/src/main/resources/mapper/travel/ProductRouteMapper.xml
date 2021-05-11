@@ -37,6 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
+    <select id="countRouteNumberByProductId" parameterType="Long" resultType="Long">
+        select COUNT(*) from travel_product_route
+        where productId = #{productId}
+    </select>
+    
     <select id="selectProductRouteById" parameterType="Long" resultMap="ProductRouteResult">
         <include refid="selectProductRouteVo"/>
         where id = #{id}

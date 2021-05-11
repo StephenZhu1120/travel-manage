@@ -205,7 +205,8 @@
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="130px">
         <el-form-item label="所属产品id" prop="productId">
-          {{form.productId}}
+<!--          {{form.productId}}-->
+          <el-input v-model="form.productId" placeholder="请输入所属产品id" />
         </el-form-item>
         <el-form-item label="路线名称" prop="routeName">
           <el-input v-model="form.routeName" placeholder="请输入路线名称" />
