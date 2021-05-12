@@ -324,6 +324,15 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        transportPrice: [
+          { required: true, message: "交通费用不能为空（未定请填0）", trigger: "blur" }
+        ],
+        hotelPrice: [
+          { required: true, message: "宾馆费用不能为空（未定请填0）", trigger: "blur" }
+        ],
+        travelPrice: [
+          { required: true, message: "旅行费用不能为空（未定请填0）", trigger: "blur" }
+        ],
       }
     };
   },

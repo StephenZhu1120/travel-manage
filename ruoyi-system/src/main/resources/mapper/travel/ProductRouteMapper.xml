@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="countRouteNumberByProductId" parameterType="Long" resultType="Long">
         select COUNT(*) from travel_product_route
-        where productId = #{productId}
+        where product_id = #{productId}
     </select>
 
     <select id="selectProductRouteById" parameterType="Long" resultMap="ProductRouteResult">
@@ -47,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
-    <select id="getProductRoutePriceMin" parameterType="Long" resultType="Long">
-        SELECT MIN(price) FROM travel_product_route WHERE productId = #{productId}
+    <select id="getProductRoutePriceMin" parameterType="Long" resultType="BigDecimal">
+        SELECT MIN(price) FROM travel_product_route WHERE product_id = #{productId}
     </select>
 
     <insert id="insertProductRoute" parameterType="ProductRoute" useGeneratedKeys="true" keyProperty="id">
