@@ -1,33 +1,33 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="自动编号" prop="id">
-        <el-input
-          v-model="queryParams.id"
-          placeholder="请输入自动编号"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="对应订单编号" prop="orderId">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="120px">
+<!--      <el-form-item label="自动编号" prop="id">-->
+<!--        <el-input-->
+<!--          v-model="queryParams.id"-->
+<!--          placeholder="请输入自动编号"-->
+<!--          clearable-->
+<!--          size="small"-->
+<!--          @keyup.enter.native="handleQuery"-->
+<!--        />-->
+<!--      </el-form-item>-->
+      <el-form-item label="订单编号" prop="orderId">
         <el-input
           v-model="queryParams.orderId"
-          placeholder="请输入对应订单编号"
+          placeholder="请输入订单编号"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="交易金额" prop="price">
-        <el-input
-          v-model="queryParams.price"
-          placeholder="请输入交易金额"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+<!--      <el-form-item label="交易金额" prop="price">-->
+<!--        <el-input-->
+<!--          v-model="queryParams.price"-->
+<!--          placeholder="请输入交易金额"-->
+<!--          clearable-->
+<!--          size="small"-->
+<!--          @keyup.enter.native="handleQuery"-->
+<!--        />-->
+<!--      </el-form-item>-->
       <el-form-item label="交易方向" prop="tradeType">
         <el-select v-model="queryParams.tradeType" placeholder="请选择交易方向" clearable size="small">
           <el-option
@@ -55,8 +55,8 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery" style="margin-left: 60px">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"style="margin-left: 75px">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -108,19 +108,19 @@
 
     <el-table v-loading="loading" :data="financeBasicList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="自动编号" align="center" prop="id" />
-      <el-table-column label="对应订单编号" align="center" prop="orderId" />
-      <el-table-column label="交易金额" align="center" prop="price" />
-      <el-table-column label="交易方向" align="center" prop="tradeType" :formatter="tradeTypeFormat" />
-      <el-table-column label="交易备注" align="center" prop="comment" />
-      <el-table-column label="发起时间" align="center" prop="startTime" width="180">
+<!--      <el-table-column label="自动编号" align="center" prop="id" />-->
+      <el-table-column label="订单id" align="center" prop="orderId" width="180"/>
+      <el-table-column label="交易金额" align="center" prop="price" width="180"/>
+      <el-table-column label="交易方向" align="center" prop="tradeType" :formatter="tradeTypeFormat" width="150"/>
+      <el-table-column label="交易备注" align="center" prop="comment" width="300"/>
+      <el-table-column label="发起时间" align="center" prop="startTime" width="270">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.startTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.startTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="交易时间" align="center" prop="tradeTime" width="180">
+      <el-table-column label="交易时间" align="center" prop="tradeTime" width="270">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.tradeTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.tradeTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -142,7 +142,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -175,16 +175,16 @@
         <el-form-item label="发起时间" prop="startTime">
           <el-date-picker clearable size="small"
             v-model="form.startTime"
-            type="date"
-            value-format="yyyy-MM-dd"
+            type="datetime"
+            value-format="yyyy-MM-dd HH-mm-ss"
             placeholder="选择发起时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="交易时间" prop="tradeTime">
           <el-date-picker clearable size="small"
             v-model="form.tradeTime"
-            type="date"
-            value-format="yyyy-MM-dd"
+            type="datetime"
+            value-format="yyyy-MM-dd HH-mm-ss"
             placeholder="选择交易时间">
           </el-date-picker>
         </el-form-item>
