@@ -81,8 +81,9 @@ public class ProductRouteController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProductRoute productRoute)
     {
-        productRoute.setPrice(productRouteService.calculateRoutePrice(productRoute));
-        ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());
+        productRoute.setPrice(productRouteService.calculateRoutePrice(productRoute));//自动计算路线总金额
+        ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
+        productBasic.setRouteNumber(productBasic.getRouteNumber() + 1);//该产品的路线数量加1
         productBasicService.updateProductBasic(productBasic);
         return toAjax(productRouteService.insertProductRoute(productRoute));
     }
@@ -95,9 +96,10 @@ public class ProductRouteController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ProductRoute productRoute)
     {
-        productRoute.setPrice(productRouteService.calculateRoutePrice(productRoute));
-        ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());
-        productBasicService.updateProductBasic(productBasic);
+        productRoute.setPrice(productRouteService.calculateRoutePrice(productRoute));//自动计算路线总金额
+        ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
+        //还需要找到产品所有路线中的最低价格
+        productBasicService.updateProductBasic(productBasic);//自动更新产品的最后编辑时间
         return toAjax(productRouteService.updateProductRoute(productRoute));
     }
 
@@ -109,6 +111,14 @@ public class ProductRouteController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
+        int num = ids.length;
+        for(int i=0; i < num; i++){
+            ProductRoute productRoute = productRouteService.selectProductRouteById(ids[i]);//先通过路线id定位到路线
+            ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
+            productBasic.setRouteNumber(productBasic.getRouteNumber() - 1);//该产品的路线数量减1
+            productBasicService.updateProductBasic(productBasic);//自动更新产品的最后编辑时间
+            //还需要找到产品所有路线中的最低价格
+        }
         return toAjax(productRouteService.deleteProductRouteByIds(ids));
     }
 }
