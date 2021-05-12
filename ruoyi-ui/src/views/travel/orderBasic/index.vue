@@ -386,18 +386,18 @@
               <el-input v-model="scope.row.memberPhonenumber" placeholder="请输入手机号码" />
             </template>
           </el-table-column>
-          <el-table-column label="性别" prop="memberSex">
-            <template slot-scope="scope">
-              <el-select v-model="scope.row.sex" placeholder="请选择性别">
-                <el-option
-                  v-for="dict in sexOptions"
-                  :key="dict.dictValue"
-                  :label="dict.dictLabel"
-                  :value="parseInt(dict.dictValue)"
-                ></el-option>
-              </el-select>
-            </template>
-          </el-table-column>
+<!--          <el-table-column label="性别" prop="memberSex">-->
+<!--            <template slot-scope="scope">-->
+<!--              <el-select v-model="scope.row.sex" placeholder="请选择性别">-->
+<!--                <el-option-->
+<!--                  v-for="dict in sexOptions"-->
+<!--                  :key="dict.dictValue"-->
+<!--                  :label="dict.dictLabel"-->
+<!--                  :value="parseInt(dict.dictValue)"-->
+<!--                ></el-option>-->
+<!--              </el-select>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
         </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -491,13 +491,13 @@
               {{scope.row.memberPhonenumber}}
             </template>
           </el-table-column>
-          <el-table-column label="性别" prop="memberSex">
-            <template slot-scope="scope">
-              <span v-if="scope.row.memberSex === 0">未设置</span>
-              <span v-else-if="scope.row.memberSex === 1">男</span>
-              <span v-else-if="scope.row.memberSex === 2">女</span>
-            </template>
-          </el-table-column>
+<!--          <el-table-column label="性别" prop="memberSex">-->
+<!--            <template slot-scope="scope">-->
+<!--              <span v-if="scope.row.memberSex === 0">未设置</span>-->
+<!--              <span v-else-if="scope.row.memberSex === 1">男</span>-->
+<!--              <span v-else-if="scope.row.memberSex === 2">女</span>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
         </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer">
