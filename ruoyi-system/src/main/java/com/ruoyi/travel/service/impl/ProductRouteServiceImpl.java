@@ -102,4 +102,15 @@ public class ProductRouteServiceImpl implements IProductRouteService
     {
         return productRoute.getTransportPrice().add(productRoute.getHotelPrice().add(productRoute.getTravelPrice()));
     }
+
+    /**
+     * 计算某个产品的最低路线价格
+     *
+     * @param productId 产品id
+     * @return 产品路线的最低价格
+     */
+    public BigDecimal getProductRoutePriceMin(Long productId)
+    {
+        return productRouteMapper.getProductRoutePriceMin(productId);
+    }
 }

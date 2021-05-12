@@ -67,4 +67,12 @@ public interface IProductRouteService
      * @return 路线总价格
      */
     public BigDecimal calculateRoutePrice(ProductRoute productRoute);
+
+    /**
+     * 计算某个产品的最低路线价格
+     *
+     * @param productId 产品id
+     * @return 产品路线的最低价格
+     */
+    public BigDecimal getProductRoutePriceMin(Long productId);
 }

@@ -1,5 +1,6 @@
 package com.ruoyi.travel.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.ruoyi.travel.domain.ProductRoute;
 
@@ -41,7 +42,7 @@ public interface ProductRouteMapper
      * @param productId 产品id
      * @return 价格最小值
      */
-    public int getProductRoutePriceMin(Long productId);
+    public BigDecimal getProductRoutePriceMin(Long productId);
 
     /**
      * 新增产品路线
