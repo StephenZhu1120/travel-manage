@@ -371,17 +371,17 @@
         <el-table :data="orderMemberList" :row-class-name="rowOrderMemberIndex" @selection-change="handleOrderMemberSelectionChange" ref="orderMember">
           <el-table-column type="selection" width="50" align="center" />
           <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="真实姓名" prop="memberName">
+          <el-table-column label="真实姓名" prop="memberName" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.memberName" placeholder="请输入真实姓名" />
             </template>
           </el-table-column>
-          <el-table-column label="身份证号" prop="memberIdCard">
+          <el-table-column label="身份证号" prop="memberIdCard" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.memberIdCard" placeholder="请输入身份证号" />
             </template>
           </el-table-column>
-          <el-table-column label="手机号码" prop="memberPhonenumber">
+          <el-table-column label="手机号码" prop="memberPhonenumber" align="center">
             <template slot-scope="scope">
               <el-input v-model="scope.row.memberPhonenumber" placeholder="请输入手机号码" />
             </template>
@@ -407,7 +407,7 @@
     </el-dialog>
     <!-- 查看订单详情管理对话框(无法编辑) -->
     <el-dialog :title="title" :visible.sync="openDetail" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px" label-position="right">
         <el-form-item label="下单产品id" prop="productId" >
           {{form.productId}}
         </el-form-item>
@@ -476,17 +476,17 @@
         <el-table :data="orderMemberList" :row-class-name="rowOrderMemberIndex" @selection-change="handleOrderMemberSelectionChange" ref="orderMember">
 <!--          <el-table-column type="selection" width="50" align="center" />-->
           <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="真实姓名" prop="memberName">
+          <el-table-column label="真实姓名" prop="memberName" align="center">
             <template slot-scope="scope">
               {{scope.row.memberName}}
             </template>
           </el-table-column>
-          <el-table-column label="身份证号" prop="memberIdCard">
+          <el-table-column label="身份证号" prop="memberIdCard" align="center">
             <template slot-scope="scope">
               {{scope.row.memberIdCard}}
             </template>
           </el-table-column>
-          <el-table-column label="手机号码" prop="memberPhonenumber">
+          <el-table-column label="手机号码" prop="memberPhonenumber" align="center">
             <template slot-scope="scope">
               {{scope.row.memberPhonenumber}}
             </template>
