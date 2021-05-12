@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.FinanceBasicMapper">
+    
+    <resultMap type="FinanceBasic" id="FinanceBasicResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="price"    column="price"    />
+        <result property="tradeType"    column="trade_type"    />
+        <result property="comment"    column="comment"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="tradeTime"    column="trade_time"    />
+    </resultMap>
+
+    <sql id="selectFinanceBasicVo">
+        select id, order_id, price, trade_type, comment, start_time, trade_time from travel_finance_basic
+    </sql>
+
+    <select id="selectFinanceBasicList" parameterType="FinanceBasic" resultMap="FinanceBasicResult">
+        <include refid="selectFinanceBasicVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="tradeType != null "> and trade_type = #{tradeType}</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="tradeTime != null "> and trade_time = #{tradeTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectFinanceBasicById" parameterType="Long" resultMap="FinanceBasicResult">
+        <include refid="selectFinanceBasicVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFinanceBasic" parameterType="FinanceBasic" useGeneratedKeys="true" keyProperty="id">
+        insert into travel_finance_basic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="price != null">price,</if>
+            <if test="tradeType != null">trade_type,</if>
+            <if test="comment != null">comment,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="tradeTime != null">trade_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="tradeType != null">#{tradeType},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="tradeTime != null">#{tradeTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFinanceBasic" parameterType="FinanceBasic">
+        update travel_finance_basic
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="tradeType != null">trade_type = #{tradeType},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="tradeTime != null">trade_time = #{tradeTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFinanceBasicById" parameterType="Long">
+        delete from travel_finance_basic where id = #{id}
+    </delete>
+
+    <delete id="deleteFinanceBasicByIds" parameterType="String">
+        delete from travel_finance_basic where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
