@@ -32,15 +32,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="id != null "> and id = #{id}</if>
             <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
-            <if test="productStatus != null  and productStatus != ''"> and product_status = #{productStatus}</if>
-            <if test="productDay != null  and productDay != ''"> and product_day = #{productDay}</if>
+            <if test="productStatus != null "> and product_status = #{productStatus}</if>
+            <if test="productDay != null "> and product_day = #{productDay}</if>
             <if test="createTime != null "> and create_time = #{createTime}</if>
             <if test="editTime != null "> and edit_time = #{editTime}</if>
-            <if test="productDesign != null  and productDesign != ''"> and product_design = #{productDesign}</if>
-            <if test="productPlan != null  and productPlan != ''"> and product_plan = #{productPlan}</if>
             <if test="birthland != null  and birthland != ''"> and birthland = #{birthland}</if>
             <if test="destination != null  and destination != ''"> and destination = #{destination}</if>
-            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="routeNumber != null "> and route_number = #{routeNumber}</if>
         </where>
     </select>
     
@@ -53,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into travel_product_basic
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="productName != null">product_name,</if>
-            <if test="productStatus != null and productStatus != ''">product_status,</if>
+            <if test="productStatus != null">product_status,</if>
             <if test="productDay != null">product_day,</if>
             <if test="createTime != null">create_time,</if>
             <if test="editTime != null">edit_time,</if>
@@ -70,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="productName != null">#{productName},</if>
-            <if test="productStatus != null and productStatus != ''">#{productStatus},</if>
+            <if test="productStatus != null">#{productStatus},</if>
             <if test="productDay != null">#{productDay},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="editTime != null">#{editTime},</if>
@@ -91,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update travel_product_basic
         <trim prefix="SET" suffixOverrides=",">
             <if test="productName != null">product_name = #{productName},</if>
-            <if test="productStatus != null and productStatus != ''">product_status = #{productStatus},</if>
+            <if test="productStatus != null">product_status = #{productStatus},</if>
             <if test="productDay != null">product_day = #{productDay},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="editTime != null">edit_time = #{editTime},</if>

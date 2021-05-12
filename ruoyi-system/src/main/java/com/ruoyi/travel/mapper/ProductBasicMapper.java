@@ -7,7 +7,7 @@ import com.ruoyi.travel.domain.ProductBasic;
  * 产品信息Mapper接口
  * 
  * @author buaa_travel
- * @date 2021-05-11
+ * @date 2021-05-12
  */
 public interface ProductBasicMapper 
 {

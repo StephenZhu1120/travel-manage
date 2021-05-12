@@ -24,7 +24,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 产品信息Controller
  * 
  * @author buaa_travel
- * @date 2021-05-11
+ * @date 2021-05-12
  */
 @RestController
 @RequestMapping("/travel/productBasic")

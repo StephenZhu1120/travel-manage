@@ -39,10 +39,10 @@
 <!--      </el-form-item>-->
       <el-form-item label="产品最后编辑时间" prop="editTime">
         <el-date-picker clearable size="small"
-                        v-model="queryParams.editTime"
-                        type="date"
-                        value-format="yyyy-MM-dd"
-                        placeholder="选择产品最后编辑时间">
+          v-model="queryParams.editTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="选择产品最后编辑时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="旅行天数" prop="productDay">
@@ -72,6 +72,15 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <!-- <el-form-item label="路线数量" prop="routeNumber">
+        <el-input
+          v-model="queryParams.routeNumber"
+          placeholder="请输入路线数量"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery" style="margin-left: 150px">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery" style="margin-left: 75px">重置</el-button>
@@ -187,7 +196,7 @@
         </template>
       </el-table-column>
     </el-table>
-
+    
     <pagination
       v-show="total>0"
       :total="total"
@@ -241,7 +250,7 @@
         <el-form-item label="订单完成数量" prop="orderNumber">
           <el-input v-model="form.orderNumber" placeholder="请输入订单完成数量" />
         </el-form-item>
-        <el-form-item label="产品展示文字" prop="description">
+        <el-form-item label="产品描述简介" prop="description">
           <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="图片链接地址" prop="imgUrl">
@@ -259,7 +268,7 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
-
+    
     <!-- 查看产品信息对话框（无法编辑） -->
     <el-dialog :title="title" :visible.sync="openDetail" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="110px">
@@ -387,11 +396,9 @@ export default {
         productDay: null,
         createTime: null,
         editTime: null,
-        productDesign: null,
-        productPlan: null,
         birthland: null,
         destination: null,
-        description: null,
+        routeNumber: null
       },
       // 表单参数
       form: {},
@@ -435,7 +442,7 @@ export default {
       this.form = {
         id: null,
         productName: null,
-        productStatus: "0",
+        productStatus: null,
         productDay: null,
         createTime: null,
         editTime: null,

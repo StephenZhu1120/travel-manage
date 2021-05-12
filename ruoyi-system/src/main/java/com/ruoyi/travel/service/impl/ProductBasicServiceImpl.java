@@ -10,19 +10,19 @@ import com.ruoyi.travel.service.IProductBasicService;
 
 /**
  * 产品信息Service业务层处理
- *
+ * 
  * @author buaa_travel
- * @date 2021-05-11
+ * @date 2021-05-12
  */
 @Service
-public class ProductBasicServiceImpl implements IProductBasicService
+public class ProductBasicServiceImpl implements IProductBasicService 
 {
     @Autowired
     private ProductBasicMapper productBasicMapper;
 
     /**
      * 查询产品信息
-     *
+     * 
      * @param id 产品信息ID
      * @return 产品信息
      */
@@ -34,7 +34,7 @@ public class ProductBasicServiceImpl implements IProductBasicService
 
     /**
      * 查询产品信息列表
-     *
+     * 
      * @param productBasic 产品信息
      * @return 产品信息
      */
@@ -46,7 +46,7 @@ public class ProductBasicServiceImpl implements IProductBasicService
 
     /**
      * 新增产品信息
-     *
+     * 
      * @param productBasic 产品信息
      * @return 结果
      */
@@ -60,7 +60,7 @@ public class ProductBasicServiceImpl implements IProductBasicService
 
     /**
      * 修改产品信息
-     *
+     * 
      * @param productBasic 产品信息
      * @return 结果
      */
@@ -73,7 +73,7 @@ public class ProductBasicServiceImpl implements IProductBasicService
 
     /**
      * 批量删除产品信息
-     *
+     * 
      * @param ids 需要删除的产品信息ID
      * @return 结果
      */
@@ -85,7 +85,7 @@ public class ProductBasicServiceImpl implements IProductBasicService
 
     /**
      * 删除产品信息信息
-     *
+     * 
      * @param id 产品信息ID
      * @return 结果
      */
@@ -94,7 +94,7 @@ public class ProductBasicServiceImpl implements IProductBasicService
     {
         return productBasicMapper.deleteProductBasicById(id);
     }
-
+    
     /**
      * 通过id查询产品名称
      *

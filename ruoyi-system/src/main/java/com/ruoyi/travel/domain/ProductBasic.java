@@ -9,9 +9,9 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 产品信息对象 travel_product_basic
- *
+ * 
  * @author buaa_travel
- * @date 2021-05-11
+ * @date 2021-05-12
  */
 public class ProductBasic extends BaseEntity
 {
@@ -27,11 +27,11 @@ public class ProductBasic extends BaseEntity
 
     /** 旅游产品状态 */
     @Excel(name = "旅游产品状态")
-    private String productStatus;
+    private Long productStatus;
 
     /** 旅行天数 */
     @Excel(name = "旅行天数")
-    private String productDay;
+    private Long productDay;
 
     /** 产品最后编辑时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -62,8 +62,8 @@ public class ProductBasic extends BaseEntity
     @Excel(name = "订单完成数量")
     private Long orderNumber;
 
-    /** 产品展示文字 */
-    @Excel(name = "产品展示文字")
+    /** 产品描述简介 */
+    @Excel(name = "产品描述简介")
     private String description;
 
     /** 图片链接地址 */
@@ -78,138 +78,138 @@ public class ProductBasic extends BaseEntity
     @Excel(name = "路线数量")
     private Long routeNumber;
 
-    public void setId(Long id)
+    public void setId(Long id) 
     {
         this.id = id;
     }
 
-    public Long getId()
+    public Long getId() 
     {
         return id;
     }
-    public void setProductName(String productName)
+    public void setProductName(String productName) 
     {
         this.productName = productName;
     }
 
-    public String getProductName()
+    public String getProductName() 
     {
         return productName;
     }
-    public void setProductStatus(String productStatus)
+    public void setProductStatus(Long productStatus) 
     {
         this.productStatus = productStatus;
     }
 
-    public String getProductStatus()
+    public Long getProductStatus() 
     {
         return productStatus;
     }
-    public void setProductDay(String productDay)
+    public void setProductDay(Long productDay) 
     {
         this.productDay = productDay;
     }
 
-    public String getProductDay()
+    public Long getProductDay() 
     {
         return productDay;
     }
-    public void setEditTime(Date editTime)
+    public void setEditTime(Date editTime) 
     {
         this.editTime = editTime;
     }
 
-    public Date getEditTime()
+    public Date getEditTime() 
     {
         return editTime;
     }
-    public void setProductDesign(String productDesign)
+    public void setProductDesign(String productDesign) 
     {
         this.productDesign = productDesign;
     }
 
-    public String getProductDesign()
+    public String getProductDesign() 
     {
         return productDesign;
     }
-    public void setProductPlan(String productPlan)
+    public void setProductPlan(String productPlan) 
     {
         this.productPlan = productPlan;
     }
 
-    public String getProductPlan()
+    public String getProductPlan() 
     {
         return productPlan;
     }
-    public void setBirthland(String birthland)
+    public void setBirthland(String birthland) 
     {
         this.birthland = birthland;
     }
 
-    public String getBirthland()
+    public String getBirthland() 
     {
         return birthland;
     }
-    public void setDestination(String destination)
+    public void setDestination(String destination) 
     {
         this.destination = destination;
     }
 
-    public String getDestination()
+    public String getDestination() 
     {
         return destination;
     }
-    public void setPriceStart(Long priceStart)
+    public void setPriceStart(Long priceStart) 
     {
         this.priceStart = priceStart;
     }
 
-    public Long getPriceStart()
+    public Long getPriceStart() 
     {
         return priceStart;
     }
-    public void setOrderNumber(Long orderNumber)
+    public void setOrderNumber(Long orderNumber) 
     {
         this.orderNumber = orderNumber;
     }
 
-    public Long getOrderNumber()
+    public Long getOrderNumber() 
     {
         return orderNumber;
     }
-    public void setDescription(String description)
+    public void setDescription(String description) 
     {
         this.description = description;
     }
 
-    public String getDescription()
+    public String getDescription() 
     {
         return description;
     }
-    public void setImgUrl(String imgUrl)
+    public void setImgUrl(String imgUrl) 
     {
         this.imgUrl = imgUrl;
     }
 
-    public String getImgUrl()
+    public String getImgUrl() 
     {
         return imgUrl;
     }
-    public void setProductDetailAds(String productDetailAds)
+    public void setProductDetailAds(String productDetailAds) 
     {
         this.productDetailAds = productDetailAds;
     }
 
-    public String getProductDetailAds()
+    public String getProductDetailAds() 
     {
         return productDetailAds;
     }
-    public void setRouteNumber(Long routeNumber)
+    public void setRouteNumber(Long routeNumber) 
     {
         this.routeNumber = routeNumber;
     }
 
-    public Long getRouteNumber()
+    public Long getRouteNumber() 
     {
         return routeNumber;
     }
