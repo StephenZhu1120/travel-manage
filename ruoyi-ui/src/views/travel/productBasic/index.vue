@@ -196,7 +196,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -268,7 +268,7 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
-    
+
     <!-- 查看产品信息对话框（无法编辑） -->
     <el-dialog :title="title" :visible.sync="openDetail" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="110px">
@@ -293,10 +293,10 @@
           {{form.editTime}}
         </el-form-item>
         <el-form-item label="产品策划" prop="productDesign">
-          {{form.productDesign}}
+          <span v-html="form.productDesign"></span>
         </el-form-item>
         <el-form-item label="产品计划" prop="productPlan">
-          {{form.productPlan}}
+          <span v-html="form.productPlan"></span>
         </el-form-item>
         <el-form-item label="出发地" prop="birthland">
           {{form.birthland}}
