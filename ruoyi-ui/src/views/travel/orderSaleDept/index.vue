@@ -239,6 +239,7 @@
             round
             icon="el-icon-edit"
             @click="handleSaleEditMember(scope.row)"
+            :disabled="! (scope.row.orderStatus===0 || scope.row.orderStatus===1)"
             v-hasPermi="['travel:orderBasic:edit']"
           >编辑成员</el-button>
           <el-button
@@ -256,6 +257,7 @@
             round
             icon="el-icon-edit"
             @click="handleSaleCancelOrder(scope.row)"
+            :disabled="! (scope.row.orderStatus===0 || scope.row.orderStatus===1)"
             v-hasPermi="['travel:orderBasic:edit']"
           >取消订单</el-button>
           <el-button

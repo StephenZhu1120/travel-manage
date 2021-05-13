@@ -147,6 +147,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
+          disabled
           v-hasPermi="['travel:orderBasic:add']"
         >新增</el-button>
       </el-col>
@@ -156,7 +157,7 @@
           plain
           icon="el-icon-edit"
           size="mini"
-          :disabled="single"
+          disabled
           @click="handleUpdate"
           v-hasPermi="['travel:orderBasic:edit']"
         >修改</el-button>
