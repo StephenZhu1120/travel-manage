@@ -126,15 +126,17 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-            size="mini"
-            type="text"
+            size="small"
+            type="success"
+            round
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['travel:financeBasic:edit']"
           >修改</el-button>
           <el-button
-            size="mini"
-            type="text"
+            size="small"
+            type="danger"
+            round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['travel:financeBasic:remove']"
@@ -176,7 +178,7 @@
           <el-date-picker clearable size="small"
             v-model="form.startTime"
             type="datetime"
-            value-format="yyyy-MM-dd HH-mm-ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择发起时间">
           </el-date-picker>
         </el-form-item>
@@ -184,7 +186,7 @@
           <el-date-picker clearable size="small"
             v-model="form.tradeTime"
             type="datetime"
-            value-format="yyyy-MM-dd HH-mm-ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择交易时间">
           </el-date-picker>
         </el-form-item>

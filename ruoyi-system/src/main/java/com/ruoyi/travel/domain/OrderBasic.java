@@ -11,7 +11,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 订单管理对象 travel_order_basic
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-12
  */
@@ -49,8 +49,8 @@ public class OrderBasic extends BaseEntity
     private Date travelTime;
 
     /** 下单时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "下单时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "下单时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
 
     /** 订单人数 */
@@ -66,8 +66,8 @@ public class OrderBasic extends BaseEntity
     private Long orderStatus;
 
     /** 支付时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "支付时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "支付时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date payTime;
 
     /** 支付备注 */
@@ -79,8 +79,8 @@ public class OrderBasic extends BaseEntity
     private Long payWay;
 
     /** 退款时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "退款时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "退款时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date refundTime;
 
     /** 退款备注 */
@@ -88,163 +88,163 @@ public class OrderBasic extends BaseEntity
     private String refundComment;
 
     /** 最后编辑时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "最后编辑时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "最后编辑时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date editTime;
 
     /** 订单成员管理信息 */
     private List<OrderMember> orderMemberList;
 
-    public void setId(Long id) 
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setProductId(Long productId) 
+    public void setProductId(Long productId)
     {
         this.productId = productId;
     }
 
-    public Long getProductId() 
+    public Long getProductId()
     {
         return productId;
     }
-    public void setRouteId(Long routeId) 
+    public void setRouteId(Long routeId)
     {
         this.routeId = routeId;
     }
 
-    public Long getRouteId() 
+    public Long getRouteId()
     {
         return routeId;
     }
-    public void setProductName(String productName) 
+    public void setProductName(String productName)
     {
         this.productName = productName;
     }
 
-    public String getProductName() 
+    public String getProductName()
     {
         return productName;
     }
-    public void setUserId(Long userId) 
+    public void setUserId(Long userId)
     {
         this.userId = userId;
     }
 
-    public Long getUserId() 
+    public Long getUserId()
     {
         return userId;
     }
-    public void setPhonenumber(String phonenumber) 
+    public void setPhonenumber(String phonenumber)
     {
         this.phonenumber = phonenumber;
     }
 
-    public String getPhonenumber() 
+    public String getPhonenumber()
     {
         return phonenumber;
     }
-    public void setTravelTime(Date travelTime) 
+    public void setTravelTime(Date travelTime)
     {
         this.travelTime = travelTime;
     }
 
-    public Date getTravelTime() 
+    public Date getTravelTime()
     {
         return travelTime;
     }
-    public void setOrderTime(Date orderTime) 
+    public void setOrderTime(Date orderTime)
     {
         this.orderTime = orderTime;
     }
 
-    public Date getOrderTime() 
+    public Date getOrderTime()
     {
         return orderTime;
     }
-    public void setPeopleNumber(Long peopleNumber) 
+    public void setPeopleNumber(Long peopleNumber)
     {
         this.peopleNumber = peopleNumber;
     }
 
-    public Long getPeopleNumber() 
+    public Long getPeopleNumber()
     {
         return peopleNumber;
     }
-    public void setPrice(BigDecimal price) 
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
 
-    public BigDecimal getPrice() 
+    public BigDecimal getPrice()
     {
         return price;
     }
-    public void setOrderStatus(Long orderStatus) 
+    public void setOrderStatus(Long orderStatus)
     {
         this.orderStatus = orderStatus;
     }
 
-    public Long getOrderStatus() 
+    public Long getOrderStatus()
     {
         return orderStatus;
     }
-    public void setPayTime(Date payTime) 
+    public void setPayTime(Date payTime)
     {
         this.payTime = payTime;
     }
 
-    public Date getPayTime() 
+    public Date getPayTime()
     {
         return payTime;
     }
-    public void setPayComment(String payComment) 
+    public void setPayComment(String payComment)
     {
         this.payComment = payComment;
     }
 
-    public String getPayComment() 
+    public String getPayComment()
     {
         return payComment;
     }
-    public void setPayWay(Long payWay) 
+    public void setPayWay(Long payWay)
     {
         this.payWay = payWay;
     }
 
-    public Long getPayWay() 
+    public Long getPayWay()
     {
         return payWay;
     }
-    public void setRefundTime(Date refundTime) 
+    public void setRefundTime(Date refundTime)
     {
         this.refundTime = refundTime;
     }
 
-    public Date getRefundTime() 
+    public Date getRefundTime()
     {
         return refundTime;
     }
-    public void setRefundComment(String refundComment) 
+    public void setRefundComment(String refundComment)
     {
         this.refundComment = refundComment;
     }
 
-    public String getRefundComment() 
+    public String getRefundComment()
     {
         return refundComment;
     }
-    public void setEditTime(Date editTime) 
+    public void setEditTime(Date editTime)
     {
         this.editTime = editTime;
     }
 
-    public Date getEditTime() 
+    public Date getEditTime()
     {
         return editTime;
     }

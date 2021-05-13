@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.travel.mapper.FinanceBasicMapper">
-    
+
     <resultMap type="FinanceBasic" id="FinanceBasicResult">
         <result property="id"    column="id"    />
         <result property="orderId"    column="order_id"    />
@@ -20,22 +20,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectFinanceBasicList" parameterType="FinanceBasic" resultMap="FinanceBasicResult">
         <include refid="selectFinanceBasicVo"/>
-        <where>  
+        <where>
             <if test="id != null "> and id = #{id}</if>
             <if test="orderId != null "> and order_id = #{orderId}</if>
             <if test="price != null "> and price = #{price}</if>
             <if test="tradeType != null "> and trade_type = #{tradeType}</if>
             <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
-            <if test="startTime != null "> and start_time = #{startTime}</if>
-            <if test="tradeTime != null "> and trade_time = #{tradeTime}</if>
+            <if test="startTime != null "> and to_days(start_time) = to_days(#{startTime})</if>
+            <if test="tradeTime != null "> and to_days(trade_time) = to_days(#{tradeTime})</if>
         </where>
     </select>
-    
+
     <select id="selectFinanceBasicById" parameterType="Long" resultMap="FinanceBasicResult">
         <include refid="selectFinanceBasicVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertFinanceBasic" parameterType="FinanceBasic" useGeneratedKeys="true" keyProperty="id">
         insert into travel_finance_basic
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteFinanceBasicByIds" parameterType="String">
-        delete from travel_finance_basic where id in 
+        delete from travel_finance_basic where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

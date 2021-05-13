@@ -302,7 +302,7 @@
           <el-date-picker clearable size="small"
             v-model="form.orderTime"
             type="datetime"
-            value-format="yyyy-MM-dd HH-mm-ss"
+            value-format="yyyy-MM-dd HH:mm-ss"
             placeholder="选择下单时间">
           </el-date-picker>
         </el-form-item>
@@ -326,7 +326,7 @@
           <el-date-picker clearable size="small"
             v-model="form.payTime"
             type="datetime"
-            value-format="yyyy-MM-dd HH-mm-ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择支付时间">
           </el-date-picker>
         </el-form-item>
@@ -347,7 +347,7 @@
           <el-date-picker clearable size="small"
             v-model="form.refundTime"
             type="datetime"
-            value-format="yyyy-MM-dd HH-mm-ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择退款时间">
           </el-date-picker>
         </el-form-item>
@@ -358,7 +358,7 @@
           <el-date-picker clearable size="small"
             v-model="form.editTime"
             type="datetime"
-            value-format="yyyy-MM- HH-mm-ss"
+            value-format="yyyy-MM- HH:mm:ss"
             placeholder="选择最后编辑时间">
           </el-date-picker>
         </el-form-item>

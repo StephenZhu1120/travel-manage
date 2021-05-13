@@ -164,9 +164,15 @@
             <span>更新日志</span>
           </div>
           <el-collapse accordion>
+            <el-collapse-item title="v1.0.1 - 2021-05-04">
+              <ol>
+                <p>版本升级，新增财务管理模块</p>
+              </ol>
+            </el-collapse-item>
             <el-collapse-item title="v1.0.0 - 2021-04-30">
               <ol>
-                <li>奥游管理系统初版正式上线</li>
+                <p>奥游管理系统初版正式上线</p>
+                <p>功能模块：客户管理、产品管理、订单管理</p>
               </ol>
             </el-collapse-item>
           </el-collapse>
@@ -199,7 +205,7 @@ export default {
   data() {
     return {
       // 版本号
-      version: "1.0.0",
+      version: "1.0.1",
     };
   },
   methods: {
