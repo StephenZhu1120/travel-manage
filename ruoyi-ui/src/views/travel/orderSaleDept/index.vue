@@ -710,12 +710,13 @@ export default {
               this.msgSuccess("支付成功");
               this.openSalePayOrder  = false;
               this.getList();
+              changeOrderStatus_PAY(this.form.id).then(response => {
+                this.msgSuccess("订单状态修改成功");
+                this.openSalePayOrder  = false;
+                this.getList();
+              });
             });
-            changeOrderStatus_PAY(this.form.id).then(response => {
-              this.msgSuccess("订单状态修改成功");
-              this.openSalePayOrder  = false;
-              this.getList();
-            })
+
           } else {
               this.msgSuccess("新增成功");
               this.openSalePayOrder = false;
