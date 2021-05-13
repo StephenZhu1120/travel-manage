@@ -137,4 +137,18 @@ public class OrderBasicController extends BaseController
         financeBasicService.insertFinanceBasicByOrder(financeBasic);
         return toAjax(orderBasicService.payOrderBasic(id));
     }
+
+    /**
+     * 退款订单更改状态
+     */
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @Log(title = "订单管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/refund/status/{id}")
+    public AjaxResult refundOrderBasic(@PathVariable Long id)
+    {
+        OrderBasic orderBasic = orderBasicService.selectOrderBasicById(id);
+        FinanceBasic financeBasic = new FinanceBasic(orderBasic.getId(), orderBasic.getPrice(), 1L, orderBasic.getRefundComment());
+        financeBasicService.insertFinanceBasicByOrder(financeBasic);
+        return toAjax(orderBasicService.refundOrderBasic(id));
+    }
 }

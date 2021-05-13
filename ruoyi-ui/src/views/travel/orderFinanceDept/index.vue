@@ -238,17 +238,10 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleFinanceRefund(scope.row)"
+            @click="handleFinanceRefundOrder(scope.row)"
+            :disabled="scope.row.orderStatus !== 4"
             v-hasPermi="['travel:orderBasic:edit']"
           >订单退款</el-button>
-          <el-button
-            size="small"
-            type="success"
-            round
-            icon="el-icon-edit"
-            @click="handleStatus(scope.row)"
-            v-hasPermi="['travel:orderBasic:edit']"
-          >修改状态</el-button>
           <el-button
             size="small"
             type="danger"
@@ -409,127 +402,6 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
-
-    <!-- 管理员修改订单管理对话框 -->
-    <el-dialog :title="title" :visible.sync="openAdminEdit" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-        <!--        <el-form-item label="下单产品id" prop="productId" >-->
-        <!--          <el-input v-model="form.productId" placeholder="请输入下单产品id" disabled="true"/>-->
-        <!--        </el-form-item>-->
-        <el-form-item label="产品名称" prop="productName" >
-          {{form.productName}}
-        </el-form-item>
-        <!--        <el-form-item label="具体路线id" prop="routeId" >-->
-        <!--          <el-input v-model="form.routeId" placeholder="请输入具体路线id" disabled="true"/>-->
-        <!--        </el-form-item>-->
-        <el-form-item label="下单用户id" prop="userId" >
-          {{form.userId}}
-        </el-form-item>
-        <el-form-item label="下单手机号" prop="phonenumber">
-          <el-input v-model="form.phonenumber" placeholder="请输入下单手机号" />
-        </el-form-item>
-        <el-form-item label="旅行时间" prop="travelTime">
-          {{form.travelTime}}
-        </el-form-item>
-        <el-form-item label="下单时间" prop="orderTime">
-          {{form.orderTime}}
-        </el-form-item>
-        <el-form-item label="订单人数" prop="peopleNumber">
-          {{form.peopleNumber}}
-        </el-form-item>
-        <el-form-item label="订单价格" prop="price">
-          {{form.price}}
-        </el-form-item>
-        <el-form-item label="订单状态" prop="orderStatus">
-          <span v-if="form.orderStatus === 0">已下单，暂未支付</span>
-          <span v-else-if="form.orderStatus === 1">已支付</span>
-          <span v-else-if="form.orderStatus === 2">未支付，超时自动取消</span>
-          <span v-else-if="form.orderStatus === 3">未支付，已主动取消</span>
-          <span v-else-if="form.orderStatus === 4">已取消，待财务退款</span>
-          <span v-else-if="form.orderStatus === 5">已退款</span>
-          <span v-else-if="form.orderStatus === 6">已完成</span>
-        </el-form-item>
-        <!--        <el-form-item label="支付时间" prop="payTime">-->
-        <!--          <el-date-picker clearable size="small"-->
-        <!--            v-model="form.payTime"-->
-        <!--            type="date"-->
-        <!--            value-format="yyyy-MM-dd"-->
-        <!--            placeholder="选择支付时间">-->
-        <!--          </el-date-picker>-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="支付备注" prop="payComment">-->
-        <!--          <el-input v-model="form.payComment" type="textarea" placeholder="请输入内容" />-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="支付方式" prop="payWay">-->
-        <!--          <el-select v-model="form.payWay" placeholder="请选择支付方式">-->
-        <!--            <el-option-->
-        <!--              v-for="dict in payWayOptions"-->
-        <!--              :key="dict.dictValue"-->
-        <!--              :label="dict.dictLabel"-->
-        <!--              :value="parseInt(dict.dictValue)"-->
-        <!--            ></el-option>-->
-        <!--          </el-select>-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="退款时间" prop="refundTime">-->
-        <!--          <el-date-picker clearable size="small"-->
-        <!--            v-model="form.refundTime"-->
-        <!--            type="date"-->
-        <!--            value-format="yyyy-MM-dd"-->
-        <!--            placeholder="选择退款时间">-->
-        <!--          </el-date-picker>-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="退款备注" prop="refundComment">-->
-        <!--          <el-input v-model="form.refundComment" type="textarea" placeholder="请输入内容" />-->
-        <!--        </el-form-item>-->
-        <el-form-item label="最后编辑时间" prop="editTime">
-          {{form.editTime}}
-        </el-form-item>
-        <el-divider content-position="center">订单成员管理信息</el-divider>
-        <el-row :gutter="10" class="mb8">
-          <el-col :span="1.5">
-            <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddOrderMember">添加</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteOrderMember">删除</el-button>
-          </el-col>
-        </el-row>
-        <el-table :data="orderMemberList" :row-class-name="rowOrderMemberIndex" @selection-change="handleOrderMemberSelectionChange" ref="orderMember">
-          <el-table-column type="selection" width="50" align="center" />
-          <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="真实姓名" prop="memberName" align="center">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.memberName" placeholder="请输入真实姓名" />
-            </template>
-          </el-table-column>
-          <el-table-column label="身份证号" prop="memberIdCard" align="center">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.memberIdCard" placeholder="请输入身份证号" />
-            </template>
-          </el-table-column>
-          <el-table-column label="手机号码" prop="memberPhonenumber" align="center">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.memberPhonenumber" placeholder="请输入手机号码" />
-            </template>
-          </el-table-column>
-          <!--          <el-table-column label="性别" prop="memberSex">-->
-          <!--            <template slot-scope="scope">-->
-          <!--              <el-select v-model="scope.row.sex" placeholder="请选择性别">-->
-          <!--                <el-option-->
-          <!--                  v-for="dict in sexOptions"-->
-          <!--                  :key="dict.dictValue"-->
-          <!--                  :label="dict.dictLabel"-->
-          <!--                  :value="parseInt(dict.dictValue)"-->
-          <!--                ></el-option>-->
-          <!--              </el-select>-->
-          <!--            </template>-->
-          <!--          </el-table-column>-->
-        </el-table>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
-      </div>
-    </el-dialog>
     <!-- 查看订单详情管理对话框(无法编辑) -->
     <el-dialog :title="title" :visible.sync="openDetail" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px" label-position="right">
@@ -630,22 +502,30 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
-    <!-- 修改订单状态对话框 -->
-    <el-dialog :title="title" :visible.sync="openStatus" width="600px" append-to-body>
+
+    <!-- 财务部处理退款信息 -->
+    <el-dialog :title="title" :visible.sync="openFinanceRefundOrder" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-        <el-form-item label="订单状态" prop="orderStatus">
-          <el-select v-model="form.orderStatus" placeholder="请选择订单状态">
-            <el-option
-              v-for="dict in orderStatusOptions"
-              :key="dict.dictValue"
-              :label="dict.dictLabel"
-              :value="parseInt(dict.dictValue)"
-            ></el-option>
-          </el-select>
+        <el-form-item label="下单手机号" prop="phonenumber">
+          {{form.phonenumber}}
+        </el-form-item>
+        <el-form-item label="订单人数" prop="peopleNumber">
+          {{form.peopleNumber}}
+        </el-form-item>
+        <el-form-item label="订单价格" prop="price">
+          {{form.price}}
+        </el-form-item>
+        <el-form-item label="支付方式" prop="payWay">
+          <span v-if="form.payWay === 0">现金</span>
+          <span v-else-if="form.payWay === 1">银行卡</span>
+          <span v-else-if="form.payWay === 2">电子支付</span>
+        </el-form-item>
+        <el-form-item label="退款备注" prop="refundComment">
+          <el-input v-model="form.refundComment" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button type="primary" @click="submitFormPay">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -653,7 +533,15 @@
 </template>
 
 <script>
-import { listOrderBasic, getOrderBasic, delOrderBasic, addOrderBasic, updateOrderBasic, exportOrderBasic } from "@/api/travel/orderBasic";
+import {
+  listOrderBasic,
+  getOrderBasic,
+  delOrderBasic,
+  addOrderBasic,
+  updateOrderBasic,
+  exportOrderBasic,
+  changeOrderStatus_REFUND
+} from "@/api/travel/orderBasic";
 
 export default {
   name: "OrderBasic",
@@ -684,7 +572,7 @@ export default {
       // 是否显示弹出层
       open: false,
       openDetail: false,
-      openAdminEdit: false,
+      openFinanceRefundOrder: false,
       openStatus: false,
       // 订单状态字典
       orderStatusOptions: [],
@@ -818,17 +706,6 @@ export default {
         this.title = "修改订单信息（管理员）";
       });
     },
-    /** 修改按钮操作 */
-    handleAdminEdit(row) {
-      this.reset();
-      const id = row.id || this.ids
-      getOrderBasic(id).then(response => {
-        this.form = response.data;
-        this.orderMemberList = response.data.orderMemberList;
-        this.openAdminEdit = true;
-        this.title = "修改订单信息";
-      });
-    },
     /** 详情按钮操作 */
     handleView(row) {
       this.reset();
@@ -840,15 +717,16 @@ export default {
         this.title = "查看订单详情";
       });
     },
-    /** 编辑状态按钮操作 */
-    handleStatus(row) {
+
+    /** 退款按钮操作 */
+    handleFinanceRefundOrder(row) {
       this.reset();
       const id = row.id || this.ids
       getOrderBasic(id).then(response => {
         this.form = response.data;
         this.orderMemberList = response.data.orderMemberList;
-        this.openStatus = true;
-        this.title = "订单状态修改";
+        this.openFinanceRefundOrder = true;
+        this.title = "修改订单信息";
       });
     },
 
@@ -875,6 +753,32 @@ export default {
         }
       });
     },
+
+    /** 提交退款按钮 */
+    submitFormPay() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          this.form.orderMemberList = this.orderMemberList;
+          if (this.form.id != null) {
+            updateOrderBasic(this.form).then(response => {
+              this.msgSuccess("退款成功");
+              this.getList();
+              changeOrderStatus_REFUND(this.form.id).then(response => {
+                this.msgSuccess("订单状态修改成功");
+                this.openFinanceRefundOrder  = false;
+                this.getList();
+              });
+            });
+
+          } else {
+            this.msgSuccess("新增成功");
+            this.openFinanceRefundOrder = false;
+            this.getList();
+          }
+        }
+      });
+    },
+
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;

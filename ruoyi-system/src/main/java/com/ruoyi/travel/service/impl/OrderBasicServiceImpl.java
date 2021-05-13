@@ -119,6 +119,23 @@ public class OrderBasicServiceImpl implements IOrderBasicService
     }
 
     /**
+     * 退款订单更改状态（更改状态）
+     *
+     * @param id 订单id
+     * @return 结果
+     */
+    @Transactional
+    public int refundOrderBasic(Long id)
+    {
+        OrderBasic orderBasic =  orderBasicMapper.selectOrderBasicById(id);
+        if(orderBasic.getOrderStatus() == 4)
+            orderBasic.setOrderStatus(5L);
+        else
+            return -1;
+        return orderBasicMapper.updateOrderBasic(orderBasic);
+    }
+
+    /**
      * 批量删除订单管理
      *
      * @param ids 需要删除的订单管理ID

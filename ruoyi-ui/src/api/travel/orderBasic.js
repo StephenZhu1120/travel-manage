@@ -51,6 +51,14 @@ export function changeOrderStatus_PAY(id) {
   })
 }
 
+// 退款订单状态更改
+export function changeOrderStatus_REFUND(id) {
+  return request({
+    url: '/travel/orderBasic/refund/status/' + id,
+    method: 'put',
+  })
+}
+
 // 删除订单管理
 export function delOrderBasic(id) {
   return request({

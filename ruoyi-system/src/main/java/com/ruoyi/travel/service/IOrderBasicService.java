@@ -60,6 +60,14 @@ public interface IOrderBasicService
     public int payOrderBasic(Long id);
 
     /**
+     * 退款订单
+     *
+     * @param id 订单id
+     * @return 结果
+     */
+    public int refundOrderBasic(Long id);
+
+    /**
      * 批量删除订单管理
      *
      * @param ids 需要删除的订单管理ID
