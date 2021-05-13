@@ -121,11 +121,17 @@ public class OrderBasicController extends BaseController
     @PutMapping("/cancel/{id}")
     public AjaxResult CancelOrderBasic(@PathVariable Long id)
     {
+        //需要在财务信息中创建一条退款记录（暂不包括退款时间和退款附言）
+        OrderBasic orderBasic = orderBasicService.selectOrderBasicById(id);
+        FinanceBasic financeBasic = new FinanceBasic();
+        financeBasic.setOrderId(orderBasic.getId()); financeBasic.setPrice(orderBasic.getPrice()); financeBasic.setTradeType(1L);
+        financeBasicService.insertFinanceBasicByOrder(financeBasic);
+        //最后实现取消订单的状态更改
         return toAjax(orderBasicService.cancelOrderBasic(id));
     }
 
     /**
-     * 支付订单更改状态
+     * 支付订单
      */
     @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
     @Log(title = "订单管理", businessType = BusinessType.UPDATE)
@@ -133,8 +139,12 @@ public class OrderBasicController extends BaseController
     public AjaxResult payOrderBasic(@PathVariable Long id)
     {
         OrderBasic orderBasic = orderBasicService.selectOrderBasicById(id);
-        FinanceBasic financeBasic = new FinanceBasic(orderBasic.getId(), orderBasic.getPrice(), 0L, orderBasic.getPayComment());
+        FinanceBasic financeBasic = new FinanceBasic();
+        financeBasic.setOrderId(orderBasic.getId()); financeBasic.setPrice(orderBasic.getPrice()); financeBasic.setTradeType(0L);
+        //需要在财务系统中创建一条支付记录（为保持与退款的一致性，拆分为两步干）
         financeBasicService.insertFinanceBasicByOrder(financeBasic);
+        //通过订单id，流水方向，找到唯一财务记录，然后添加转账时间和附言
+        financeBasicService.appendFinanceTimeByOrder(orderBasic.getId(), 0L, orderBasic.getPayComment());
         return toAjax(orderBasicService.payOrderBasic(id));
     }
 
@@ -147,8 +157,8 @@ public class OrderBasicController extends BaseController
     public AjaxResult refundOrderBasic(@PathVariable Long id)
     {
         OrderBasic orderBasic = orderBasicService.selectOrderBasicById(id);
-        FinanceBasic financeBasic = new FinanceBasic(orderBasic.getId(), orderBasic.getPrice(), 1L, orderBasic.getRefundComment());
-        financeBasicService.insertFinanceBasicByOrder(financeBasic);
+        //通过订单id，流水方向，找到唯一财务记录，然后添加转账时间和附言
+        financeBasicService.appendFinanceTimeByOrder(orderBasic.getId(), 1L, orderBasic.getRefundComment());
         return toAjax(orderBasicService.refundOrderBasic(id));
     }
 }

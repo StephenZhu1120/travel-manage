@@ -112,12 +112,27 @@ public class FinanceBasic extends BaseEntity
         return tradeTime;
     }
 
-    public FinanceBasic(Long orderId, BigDecimal price, Long tradeType, String comment){
-        this.orderId = orderId;
-        this.price = price;
-        this.tradeType = tradeType;
-        this.comment = comment;
-    }
+//    public FinanceBasic(Long orderId, BigDecimal price, Long tradeType){
+//        this.orderId = orderId;
+//        this.price = price;
+//        this.tradeType = tradeType;
+//    }
+//
+//    public FinanceBasic(Long orderId, Long tradeType){
+//        this.orderId = orderId;
+//        this.tradeType = tradeType;
+//    }
+//
+//    @
+//    public FinanceBasic(Long id, Long orderId, BigDecimal price, Long tradeType, String comment, Date startTime, Date tradeTime){
+//        this.id = id;
+//        this.orderId = orderId;
+//        this.price = price;
+//        this.tradeType = tradeType;
+//        this.comment = comment;
+//        this.startTime = startTime;
+//        this.tradeTime = tradeTime;
+//    }
 
     @Override
     public String toString() {
