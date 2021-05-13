@@ -19,24 +19,24 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-<!--      <el-form-item label="路线id" prop="routeId">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.routeId"-->
-<!--          placeholder="请输入路线id"-->
-<!--          clearable-->
-<!--          size="small"-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="产品名称" prop="productName">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.productName"-->
-<!--          placeholder="请输入产品名称"-->
-<!--          clearable-->
-<!--          size="small"-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
+      <!--      <el-form-item label="路线id" prop="routeId">-->
+      <!--        <el-input-->
+      <!--          v-model="queryParams.routeId"-->
+      <!--          placeholder="请输入路线id"-->
+      <!--          clearable-->
+      <!--          size="small"-->
+      <!--          @keyup.enter.native="handleQuery"-->
+      <!--        />-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="产品名称" prop="productName">-->
+      <!--        <el-input-->
+      <!--          v-model="queryParams.productName"-->
+      <!--          placeholder="请输入产品名称"-->
+      <!--          clearable-->
+      <!--          size="small"-->
+      <!--          @keyup.enter.native="handleQuery"-->
+      <!--        />-->
+      <!--      </el-form-item>-->
       <el-form-item label="下单用户id" prop="userId">
         <el-input
           v-model="queryParams.userId"
@@ -55,40 +55,40 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-<!--      <el-form-item label="旅行时间" prop="travelTime">-->
-<!--        <el-date-picker clearable size="small"-->
-<!--          v-model="queryParams.travelTime"-->
-<!--          type="date"-->
-<!--          value-format="yyyy-MM-dd"-->
-<!--          placeholder="选择旅行时间">-->
-<!--        </el-date-picker>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="下单时间" prop="orderTime">-->
-<!--        <el-date-picker clearable size="small"-->
-<!--          v-model="queryParams.orderTime"-->
-<!--          type="date"-->
-<!--          value-format="yyyy-MM-dd"-->
-<!--          placeholder="选择下单时间">-->
-<!--        </el-date-picker>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="订单人数" prop="peopleNumber">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.peopleNumber"-->
-<!--          placeholder="请输入订单人数"-->
-<!--          clearable-->
-<!--          size="small"-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="订单价格" prop="price">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.price"-->
-<!--          placeholder="请输入订单价格"-->
-<!--          clearable-->
-<!--          size="small"-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
+      <el-form-item label="旅行时间" prop="travelTime">
+        <el-date-picker clearable size="small"
+          v-model="queryParams.travelTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="选择旅行时间">
+        </el-date-picker>
+      </el-form-item>
+      <!--      <el-form-item label="下单时间" prop="orderTime">-->
+      <!--        <el-date-picker clearable size="small"-->
+      <!--          v-model="queryParams.orderTime"-->
+      <!--          type="date"-->
+      <!--          value-format="yyyy-MM-dd"-->
+      <!--          placeholder="选择下单时间">-->
+      <!--        </el-date-picker>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="订单人数" prop="peopleNumber">-->
+      <!--        <el-input-->
+      <!--          v-model="queryParams.peopleNumber"-->
+      <!--          placeholder="请输入订单人数"-->
+      <!--          clearable-->
+      <!--          size="small"-->
+      <!--          @keyup.enter.native="handleQuery"-->
+      <!--        />-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="订单价格" prop="price">-->
+      <!--        <el-input-->
+      <!--          v-model="queryParams.price"-->
+      <!--          placeholder="请输入订单价格"-->
+      <!--          clearable-->
+      <!--          size="small"-->
+      <!--          @keyup.enter.native="handleQuery"-->
+      <!--        />-->
+      <!--      </el-form-item>-->
       <el-form-item label="订单状态" prop="orderStatus">
         <el-select v-model="queryParams.orderStatus" placeholder="请选择订单状态" clearable size="small">
           <el-option
@@ -99,40 +99,40 @@
           />
         </el-select>
       </el-form-item>
-<!--      <el-form-item label="支付时间" prop="payTime">-->
-<!--        <el-date-picker clearable size="small"-->
-<!--          v-model="queryParams.payTime"-->
-<!--          type="date"-->
-<!--          value-format="yyyy-MM-dd"-->
-<!--          placeholder="选择支付时间">-->
-<!--        </el-date-picker>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="支付方式" prop="payWay">-->
-<!--        <el-select v-model="queryParams.payWay" placeholder="请选择支付方式" clearable size="small">-->
-<!--          <el-option-->
-<!--            v-for="dict in payWayOptions"-->
-<!--            :key="dict.dictValue"-->
-<!--            :label="dict.dictLabel"-->
-<!--            :value="dict.dictValue"-->
-<!--          />-->
-<!--        </el-select>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="退款时间" prop="refundTime">-->
-<!--        <el-date-picker clearable size="small"-->
-<!--          v-model="queryParams.refundTime"-->
-<!--          type="date"-->
-<!--          value-format="yyyy-MM-dd"-->
-<!--          placeholder="选择退款时间">-->
-<!--        </el-date-picker>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="最后编辑时间" prop="editTime">-->
-<!--        <el-date-picker clearable size="small"-->
-<!--          v-model="queryParams.editTime"-->
-<!--          type="date"-->
-<!--          value-format="yyyy-MM-dd"-->
-<!--          placeholder="选择最后编辑时间">-->
-<!--        </el-date-picker>-->
-<!--      </el-form-item>-->
+      <!--      <el-form-item label="支付时间" prop="payTime">-->
+      <!--        <el-date-picker clearable size="small"-->
+      <!--          v-model="queryParams.payTime"-->
+      <!--          type="date"-->
+      <!--          value-format="yyyy-MM-dd"-->
+      <!--          placeholder="选择支付时间">-->
+      <!--        </el-date-picker>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="支付方式" prop="payWay">-->
+      <!--        <el-select v-model="queryParams.payWay" placeholder="请选择支付方式" clearable size="small">-->
+      <!--          <el-option-->
+      <!--            v-for="dict in payWayOptions"-->
+      <!--            :key="dict.dictValue"-->
+      <!--            :label="dict.dictLabel"-->
+      <!--            :value="dict.dictValue"-->
+      <!--          />-->
+      <!--        </el-select>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="退款时间" prop="refundTime">-->
+      <!--        <el-date-picker clearable size="small"-->
+      <!--          v-model="queryParams.refundTime"-->
+      <!--          type="date"-->
+      <!--          value-format="yyyy-MM-dd"-->
+      <!--          placeholder="选择退款时间">-->
+      <!--        </el-date-picker>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="最后编辑时间" prop="editTime">-->
+      <!--        <el-date-picker clearable size="small"-->
+      <!--          v-model="queryParams.editTime"-->
+      <!--          type="date"-->
+      <!--          value-format="yyyy-MM-dd"-->
+      <!--          placeholder="选择最后编辑时间">-->
+      <!--        </el-date-picker>-->
+      <!--      </el-form-item>-->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -188,42 +188,42 @@
     <el-table v-loading="loading" :data="orderBasicList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="订单id" align="center" prop="id" width="100"/>
-<!--      <el-table-column label="产品id" align="center" prop="productId" />-->
-<!--      <el-table-column label="具体路线id" align="center" prop="routeId" />-->
+      <!--      <el-table-column label="产品id" align="center" prop="productId" />-->
+      <!--      <el-table-column label="具体路线id" align="center" prop="routeId" />-->
       <el-table-column label="产品名称" align="center" prop="productName" width="300"/>
-<!--      <el-table-column label="下单用户id" align="center" prop="userId" />-->
+      <!--      <el-table-column label="下单用户id" align="center" prop="userId" />-->
       <el-table-column label="下单手机号" align="center" prop="phonenumber" width="150"/>
-<!--      <el-table-column label="旅行时间" align="center" prop="travelTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.travelTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <!--      <el-table-column label="旅行时间" align="center" prop="travelTime" width="180">-->
+      <!--        <template slot-scope="scope">-->
+      <!--          <span>{{ parseTime(scope.row.travelTime, '{y}-{m}-{d}') }}</span>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
       <el-table-column label="下单时间" align="center" prop="orderTime" width="300">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
-<!--      <el-table-column label="订单人数" align="center" prop="peopleNumber" />-->
+      <!--      <el-table-column label="订单人数" align="center" prop="peopleNumber" />-->
       <el-table-column label="订单价格" align="center" prop="price" width="100"/>
       <el-table-column label="订单状态" align="center" prop="orderStatus" :formatter="orderStatusFormat" width="120"/>
-<!--      <el-table-column label="支付时间" align="center" prop="payTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.payTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column label="支付备注" align="center" prop="payComment" />-->
-<!--      <el-table-column label="支付方式" align="center" prop="payWay" :formatter="payWayFormat" />-->
-<!--      <el-table-column label="退款时间" align="center" prop="refundTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.refundTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column label="退款备注" align="center" prop="refundComment" />-->
-<!--      <el-table-column label="最后编辑时间" align="center" prop="editTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.editTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <!--      <el-table-column label="支付时间" align="center" prop="payTime" width="180">-->
+      <!--        <template slot-scope="scope">-->
+      <!--          <span>{{ parseTime(scope.row.payTime, '{y}-{m}-{d}') }}</span>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
+      <!--      <el-table-column label="支付备注" align="center" prop="payComment" />-->
+      <!--      <el-table-column label="支付方式" align="center" prop="payWay" :formatter="payWayFormat" />-->
+      <!--      <el-table-column label="退款时间" align="center" prop="refundTime" width="180">-->
+      <!--        <template slot-scope="scope">-->
+      <!--          <span>{{ parseTime(scope.row.refundTime, '{y}-{m}-{d}') }}</span>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
+      <!--      <el-table-column label="退款备注" align="center" prop="refundComment" />-->
+      <!--      <el-table-column label="最后编辑时间" align="center" prop="editTime" width="180">-->
+      <!--        <template slot-scope="scope">-->
+      <!--          <span>{{ parseTime(scope.row.editTime, '{y}-{m}-{d}') }}</span>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -238,9 +238,9 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleAdminEdit(scope.row)"
+            @click="handleFinanceRefund(scope.row)"
             v-hasPermi="['travel:orderBasic:edit']"
-          >编辑信息</el-button>
+          >订单退款</el-button>
           <el-button
             size="small"
             type="success"
@@ -254,6 +254,7 @@
             type="danger"
             round
             icon="el-icon-delete"
+            disabled
             @click="handleDelete(scope.row)"
             v-hasPermi="['travel:orderBasic:remove']"
           >删 除</el-button>
@@ -278,9 +279,9 @@
         <el-form-item label="下单产品id" prop="productId" >
           <el-input v-model="form.productId" placeholder="请输入下单产品id"/>
         </el-form-item>
-<!--        <el-form-item label="产品名称" prop="productName" >-->
-<!--          <el-input v-model="form.productName" placeholder="请输入产品名称" disabled="true"/>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="产品名称" prop="productName" >-->
+        <!--          <el-input v-model="form.productName" placeholder="请输入产品名称" disabled="true"/>-->
+        <!--        </el-form-item>-->
         <el-form-item label="具体路线id" prop="routeId" >
           <el-input v-model="form.routeId" placeholder="请输入具体路线id"/>
         </el-form-item>
@@ -292,18 +293,18 @@
         </el-form-item>
         <el-form-item label="旅行时间" prop="travelTime">
           <el-date-picker clearable size="small"
-            v-model="form.travelTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="选择旅行时间">
+                          v-model="form.travelTime"
+                          type="date"
+                          value-format="yyyy-MM-dd"
+                          placeholder="选择旅行时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="下单时间" prop="orderTime">
           <el-date-picker clearable size="small"
-            v-model="form.orderTime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择下单时间">
+                          v-model="form.orderTime"
+                          type="datetime"
+                          value-format="yyyy-MM-dd HH:mm:ss"
+                          placeholder="选择下单时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="订单人数" prop="peopleNumber">
@@ -324,10 +325,10 @@
         </el-form-item>
         <el-form-item label="支付时间" prop="payTime">
           <el-date-picker clearable size="small"
-            v-model="form.payTime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择支付时间">
+                          v-model="form.payTime"
+                          type="datetime"
+                          value-format="yyyy-MM-dd HH:mm:ss"
+                          placeholder="选择支付时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="支付备注" prop="payComment">
@@ -345,10 +346,10 @@
         </el-form-item>
         <el-form-item label="退款时间" prop="refundTime">
           <el-date-picker clearable size="small"
-            v-model="form.refundTime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择退款时间">
+                          v-model="form.refundTime"
+                          type="datetime"
+                          value-format="yyyy-MM-dd HH:mm:ss"
+                          placeholder="选择退款时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="退款备注" prop="refundComment">
@@ -356,10 +357,10 @@
         </el-form-item>
         <el-form-item label="最后编辑时间" prop="editTime">
           <el-date-picker clearable size="small"
-            v-model="form.editTime"
-            type="datetime"
-            value-format="yyyy-MM- HH:mm:ss"
-            placeholder="选择最后编辑时间">
+                          v-model="form.editTime"
+                          type="datetime"
+                          value-format="yyyy-MM- HH:mm:ss"
+                          placeholder="选择最后编辑时间">
           </el-date-picker>
         </el-form-item>
         <el-divider content-position="center">订单成员管理信息</el-divider>
@@ -389,18 +390,18 @@
               <el-input v-model="scope.row.memberPhonenumber" placeholder="请输入手机号码" />
             </template>
           </el-table-column>
-<!--          <el-table-column label="性别" prop="memberSex">-->
-<!--            <template slot-scope="scope">-->
-<!--              <el-select v-model="scope.row.sex" placeholder="请选择性别">-->
-<!--                <el-option-->
-<!--                  v-for="dict in sexOptions"-->
-<!--                  :key="dict.dictValue"-->
-<!--                  :label="dict.dictLabel"-->
-<!--                  :value="parseInt(dict.dictValue)"-->
-<!--                ></el-option>-->
-<!--              </el-select>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
+          <!--          <el-table-column label="性别" prop="memberSex">-->
+          <!--            <template slot-scope="scope">-->
+          <!--              <el-select v-model="scope.row.sex" placeholder="请选择性别">-->
+          <!--                <el-option-->
+          <!--                  v-for="dict in sexOptions"-->
+          <!--                  :key="dict.dictValue"-->
+          <!--                  :label="dict.dictLabel"-->
+          <!--                  :value="parseInt(dict.dictValue)"-->
+          <!--                ></el-option>-->
+          <!--              </el-select>-->
+          <!--            </template>-->
+          <!--          </el-table-column>-->
         </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -412,15 +413,15 @@
     <!-- 管理员修改订单管理对话框 -->
     <el-dialog :title="title" :visible.sync="openAdminEdit" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-<!--        <el-form-item label="下单产品id" prop="productId" >-->
-<!--          <el-input v-model="form.productId" placeholder="请输入下单产品id" disabled="true"/>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="下单产品id" prop="productId" >-->
+        <!--          <el-input v-model="form.productId" placeholder="请输入下单产品id" disabled="true"/>-->
+        <!--        </el-form-item>-->
         <el-form-item label="产品名称" prop="productName" >
           {{form.productName}}
         </el-form-item>
-<!--        <el-form-item label="具体路线id" prop="routeId" >-->
-<!--          <el-input v-model="form.routeId" placeholder="请输入具体路线id" disabled="true"/>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="具体路线id" prop="routeId" >-->
+        <!--          <el-input v-model="form.routeId" placeholder="请输入具体路线id" disabled="true"/>-->
+        <!--        </el-form-item>-->
         <el-form-item label="下单用户id" prop="userId" >
           {{form.userId}}
         </el-form-item>
@@ -448,38 +449,38 @@
           <span v-else-if="form.orderStatus === 5">已退款</span>
           <span v-else-if="form.orderStatus === 6">已完成</span>
         </el-form-item>
-<!--        <el-form-item label="支付时间" prop="payTime">-->
-<!--          <el-date-picker clearable size="small"-->
-<!--            v-model="form.payTime"-->
-<!--            type="date"-->
-<!--            value-format="yyyy-MM-dd"-->
-<!--            placeholder="选择支付时间">-->
-<!--          </el-date-picker>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="支付备注" prop="payComment">-->
-<!--          <el-input v-model="form.payComment" type="textarea" placeholder="请输入内容" />-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="支付方式" prop="payWay">-->
-<!--          <el-select v-model="form.payWay" placeholder="请选择支付方式">-->
-<!--            <el-option-->
-<!--              v-for="dict in payWayOptions"-->
-<!--              :key="dict.dictValue"-->
-<!--              :label="dict.dictLabel"-->
-<!--              :value="parseInt(dict.dictValue)"-->
-<!--            ></el-option>-->
-<!--          </el-select>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="退款时间" prop="refundTime">-->
-<!--          <el-date-picker clearable size="small"-->
-<!--            v-model="form.refundTime"-->
-<!--            type="date"-->
-<!--            value-format="yyyy-MM-dd"-->
-<!--            placeholder="选择退款时间">-->
-<!--          </el-date-picker>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="退款备注" prop="refundComment">-->
-<!--          <el-input v-model="form.refundComment" type="textarea" placeholder="请输入内容" />-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="支付时间" prop="payTime">-->
+        <!--          <el-date-picker clearable size="small"-->
+        <!--            v-model="form.payTime"-->
+        <!--            type="date"-->
+        <!--            value-format="yyyy-MM-dd"-->
+        <!--            placeholder="选择支付时间">-->
+        <!--          </el-date-picker>-->
+        <!--        </el-form-item>-->
+        <!--        <el-form-item label="支付备注" prop="payComment">-->
+        <!--          <el-input v-model="form.payComment" type="textarea" placeholder="请输入内容" />-->
+        <!--        </el-form-item>-->
+        <!--        <el-form-item label="支付方式" prop="payWay">-->
+        <!--          <el-select v-model="form.payWay" placeholder="请选择支付方式">-->
+        <!--            <el-option-->
+        <!--              v-for="dict in payWayOptions"-->
+        <!--              :key="dict.dictValue"-->
+        <!--              :label="dict.dictLabel"-->
+        <!--              :value="parseInt(dict.dictValue)"-->
+        <!--            ></el-option>-->
+        <!--          </el-select>-->
+        <!--        </el-form-item>-->
+        <!--        <el-form-item label="退款时间" prop="refundTime">-->
+        <!--          <el-date-picker clearable size="small"-->
+        <!--            v-model="form.refundTime"-->
+        <!--            type="date"-->
+        <!--            value-format="yyyy-MM-dd"-->
+        <!--            placeholder="选择退款时间">-->
+        <!--          </el-date-picker>-->
+        <!--        </el-form-item>-->
+        <!--        <el-form-item label="退款备注" prop="refundComment">-->
+        <!--          <el-input v-model="form.refundComment" type="textarea" placeholder="请输入内容" />-->
+        <!--        </el-form-item>-->
         <el-form-item label="最后编辑时间" prop="editTime">
           {{form.editTime}}
         </el-form-item>
@@ -510,18 +511,18 @@
               <el-input v-model="scope.row.memberPhonenumber" placeholder="请输入手机号码" />
             </template>
           </el-table-column>
-<!--          <el-table-column label="性别" prop="memberSex">-->
-<!--            <template slot-scope="scope">-->
-<!--              <el-select v-model="scope.row.sex" placeholder="请选择性别">-->
-<!--                <el-option-->
-<!--                  v-for="dict in sexOptions"-->
-<!--                  :key="dict.dictValue"-->
-<!--                  :label="dict.dictLabel"-->
-<!--                  :value="parseInt(dict.dictValue)"-->
-<!--                ></el-option>-->
-<!--              </el-select>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
+          <!--          <el-table-column label="性别" prop="memberSex">-->
+          <!--            <template slot-scope="scope">-->
+          <!--              <el-select v-model="scope.row.sex" placeholder="请选择性别">-->
+          <!--                <el-option-->
+          <!--                  v-for="dict in sexOptions"-->
+          <!--                  :key="dict.dictValue"-->
+          <!--                  :label="dict.dictLabel"-->
+          <!--                  :value="parseInt(dict.dictValue)"-->
+          <!--                ></el-option>-->
+          <!--              </el-select>-->
+          <!--            </template>-->
+          <!--          </el-table-column>-->
         </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -589,16 +590,16 @@
           {{form.editTime}}
         </el-form-item>
         <el-divider content-position="center">订单成员管理信息</el-divider>
-<!--        <el-row :gutter="10" class="mb8">-->
-<!--          <el-col :span="1.5">-->
-<!--            <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddOrderMember">添加</el-button>-->
-<!--          </el-col>-->
-<!--          <el-col :span="1.5">-->
-<!--            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteOrderMember">删除</el-button>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
+        <!--        <el-row :gutter="10" class="mb8">-->
+        <!--          <el-col :span="1.5">-->
+        <!--            <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddOrderMember">添加</el-button>-->
+        <!--          </el-col>-->
+        <!--          <el-col :span="1.5">-->
+        <!--            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteOrderMember">删除</el-button>-->
+        <!--          </el-col>-->
+        <!--        </el-row>-->
         <el-table :data="orderMemberList" :row-class-name="rowOrderMemberIndex" @selection-change="handleOrderMemberSelectionChange" ref="orderMember">
-<!--          <el-table-column type="selection" width="50" align="center" />-->
+          <!--          <el-table-column type="selection" width="50" align="center" />-->
           <el-table-column label="序号" align="center" prop="index" width="50"/>
           <el-table-column label="真实姓名" prop="memberName" align="center">
             <template slot-scope="scope">
@@ -615,17 +616,17 @@
               {{scope.row.memberPhonenumber}}
             </template>
           </el-table-column>
-<!--          <el-table-column label="性别" prop="memberSex">-->
-<!--            <template slot-scope="scope">-->
-<!--              <span v-if="scope.row.memberSex === 0">未设置</span>-->
-<!--              <span v-else-if="scope.row.memberSex === 1">男</span>-->
-<!--              <span v-else-if="scope.row.memberSex === 2">女</span>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
+          <!--          <el-table-column label="性别" prop="memberSex">-->
+          <!--            <template slot-scope="scope">-->
+          <!--              <span v-if="scope.row.memberSex === 0">未设置</span>-->
+          <!--              <span v-else-if="scope.row.memberSex === 1">男</span>-->
+          <!--              <span v-else-if="scope.row.memberSex === 2">女</span>-->
+          <!--            </template>-->
+          <!--          </el-table-column>-->
         </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer">
-<!--        <el-button type="primary" @click="submitForm">确 定</el-button>-->
+        <!--        <el-button type="primary" @click="submitForm">确 定</el-button>-->
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -878,17 +879,17 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$confirm('是否确认删除订单管理编号为"' + ids + '"的数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return delOrderBasic(ids);
-        }).then(() => {
-          this.getList();
-          this.msgSuccess("删除成功");
-        })
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(function() {
+        return delOrderBasic(ids);
+      }).then(() => {
+        this.getList();
+        this.msgSuccess("删除成功");
+      })
     },
-	/** 订单成员管理序号 */
+    /** 订单成员管理序号 */
     rowOrderMemberIndex({ row, rowIndex }) {
       row.index = rowIndex + 1;
     },
@@ -922,14 +923,14 @@ export default {
     handleExport() {
       const queryParams = this.queryParams;
       this.$confirm('是否确认导出所有订单管理数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return exportOrderBasic(queryParams);
-        }).then(response => {
-          this.download(response.msg);
-        })
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(function() {
+        return exportOrderBasic(queryParams);
+      }).then(response => {
+        this.download(response.msg);
+      })
     }
   }
 };

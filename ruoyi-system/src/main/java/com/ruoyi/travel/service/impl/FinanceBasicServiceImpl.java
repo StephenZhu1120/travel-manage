@@ -1,6 +1,8 @@
 package com.ruoyi.travel.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.travel.mapper.FinanceBasicMapper;
@@ -52,6 +54,19 @@ public class FinanceBasicServiceImpl implements IFinanceBasicService
     @Override
     public int insertFinanceBasic(FinanceBasic financeBasic)
     {
+        return financeBasicMapper.insertFinanceBasic(financeBasic);
+    }
+
+    /**
+     * 新增财务信息通过订单
+     *
+     * @param financeBasic 财务信息
+     * @return 结果
+     */
+    public int insertFinanceBasicByOrder(FinanceBasic financeBasic)
+    {
+        financeBasic.setStartTime(DateUtils.getNowDate());
+        financeBasic.setTradeTime(DateUtils.getNowDate());
         return financeBasicMapper.insertFinanceBasic(financeBasic);
     }
 

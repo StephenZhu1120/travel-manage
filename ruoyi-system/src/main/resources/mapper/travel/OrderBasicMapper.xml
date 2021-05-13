@@ -50,14 +50,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
             <if test="userId != null "> and user_id = #{userId}</if>
             <if test="phonenumber != null  and phonenumber != ''"> and phonenumber = #{phonenumber}</if>
-            <if test="travelTime != null "> and travel_time = #{travelTime}</if>
-            <if test="orderTime != null "> and order_time = #{orderTime}</if>
+            <if test="travelTime != null "> and to_days(travel_time) = to_days(#{travelTime})</if>
+            <if test="orderTime != null "> and to_days(order_time) = to_days(#{orderTime})</if>
             <if test="peopleNumber != null "> and people_number = #{peopleNumber}</if>
             <if test="price != null "> and price = #{price}</if>
             <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
-            <if test="payTime != null "> and pay_time = #{payTime}</if>
+            <if test="payTime != null "> and to_days(pay_time) = to_days(#{payTime})</if>
             <if test="payWay != null "> and pay_way = #{payWay}</if>
-            <if test="refundTime != null "> and refund_time = #{refundTime}</if>
+            <if test="refundTime != null "> and to_days(refund_time) = to_days(#{refundTime})</if>
             <if test="editTime != null "> and edit_time = #{editTime}</if>
         </where>
     </select>

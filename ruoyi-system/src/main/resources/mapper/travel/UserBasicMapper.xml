@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="id != null "> and id = #{id}</if>
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="userStatus != null "> and user_status = #{userStatus}</if>
-            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="createTime != null "> and to_days(create_time) = to_days(#{createTime})</if>
             <if test="userIdName != null  and userIdName != ''"> and user_id_name like concat('%', #{userIdName}, '%')</if>
             <if test="userIdCard != null  and userIdCard != ''"> and user_id_card = #{userIdCard}</if>
             <if test="email != null  and email != ''"> and email = #{email}</if>

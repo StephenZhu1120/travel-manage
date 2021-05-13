@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
             <if test="productStatus != null "> and product_status = #{productStatus}</if>
             <if test="productDay != null "> and product_day = #{productDay}</if>
-            <if test="createTime != null "> and create_time = #{createTime}</if>
-            <if test="editTime != null "> and edit_time = #{editTime}</if>
+            <if test="createTime != null "> and to_days(create_time) = to_days(#{createTime})</if>
+            <if test="editTime != null "> and to_days(edit_time) = to_days(#{editTime})</if>
             <if test="birthland != null  and birthland != ''"> and birthland = #{birthland}</if>
             <if test="destination != null  and destination != ''"> and destination = #{destination}</if>
             <if test="routeNumber != null "> and route_number = #{routeNumber}</if>

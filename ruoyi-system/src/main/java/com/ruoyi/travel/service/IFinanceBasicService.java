@@ -36,6 +36,14 @@ public interface IFinanceBasicService
     public int insertFinanceBasic(FinanceBasic financeBasic);
 
     /**
+     * 新增财务信息通过订单
+     *
+     * @param financeBasic 财务信息
+     * @return 结果
+     */
+    public int insertFinanceBasicByOrder(FinanceBasic financeBasic);
+
+    /**
      * 修改财务信息
      * 
      * @param financeBasic 财务信息

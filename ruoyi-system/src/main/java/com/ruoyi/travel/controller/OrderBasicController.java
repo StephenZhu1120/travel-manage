@@ -1,6 +1,11 @@
 package com.ruoyi.travel.controller;
 
 import java.util.List;
+
+import com.ruoyi.travel.domain.FinanceBasic;
+import com.ruoyi.travel.service.IFinanceBasicService;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +40,9 @@ public class OrderBasicController extends BaseController
 {
     @Autowired
     private IOrderBasicService orderBasicService;
+
+    @Autowired
+    private IFinanceBasicService financeBasicService;
 
     /**
      * 查询订单管理列表
@@ -124,6 +132,9 @@ public class OrderBasicController extends BaseController
     @PutMapping("/pay/status/{id}")
     public AjaxResult payOrderBasic(@PathVariable Long id)
     {
+        OrderBasic orderBasic = orderBasicService.selectOrderBasicById(id);
+        FinanceBasic financeBasic = new FinanceBasic(orderBasic.getId(), orderBasic.getPrice(), 0L, orderBasic.getPayComment());
+        financeBasicService.insertFinanceBasicByOrder(financeBasic);
         return toAjax(orderBasicService.payOrderBasic(id));
     }
 }

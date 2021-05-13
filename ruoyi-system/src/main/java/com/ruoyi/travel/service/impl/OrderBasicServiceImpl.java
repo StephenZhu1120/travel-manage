@@ -59,10 +59,10 @@ public class OrderBasicServiceImpl implements IOrderBasicService
     @Override
     public int insertOrderBasic(OrderBasic orderBasic)
     {
+        orderBasic.setOrderTime(DateUtils.getNowDate());
+        orderBasic.setEditTime(DateUtils.getNowDate());
         int rows = orderBasicMapper.insertOrderBasic(orderBasic);
         insertOrderMember(orderBasic);
-        orderBasic.setCreateTime(DateUtils.getNowDate());
-        orderBasic.setEditTime(DateUtils.getNowDate());
         return rows;
     }
 
