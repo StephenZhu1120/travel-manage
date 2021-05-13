@@ -22,12 +22,15 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 订单管理Controller
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-12
  */
 @RestController
-@RequestMapping("/travel/orderBasic")
+@RequestMapping(value = {
+        "/travel/orderBasic",
+        "/travel/orderSaleDept"
+})
 public class OrderBasicController extends BaseController
 {
     @Autowired
