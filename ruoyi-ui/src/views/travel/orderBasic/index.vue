@@ -841,9 +841,14 @@ export default {
     },
     /** 编辑状态按钮操作 */
     handleStatus(row) {
-      this.openStatus = true;
-      this.title = "订单状态修改";
-      this.form = row;
+      this.reset();
+      const id = row.id || this.ids
+      getOrderBasic(id).then(response => {
+        this.form = response.data;
+        this.orderMemberList = response.data.orderMemberList;
+        this.openStatus = true;
+        this.title = "订单状态修改";
+      });
     },
 
     /** 提交按钮 */
@@ -856,6 +861,7 @@ export default {
               this.msgSuccess("修改成功");
               this.open = false;
               this.openStatus = false;
+              this.openAdminEdit = false;
               this.getList();
             });
           } else {

@@ -5,15 +5,15 @@ import com.ruoyi.travel.domain.OrderBasic;
 
 /**
  * 订单管理Service接口
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-12
  */
-public interface IOrderBasicService 
+public interface IOrderBasicService
 {
     /**
      * 查询订单管理
-     * 
+     *
      * @param id 订单管理ID
      * @return 订单管理
      */
@@ -21,7 +21,7 @@ public interface IOrderBasicService
 
     /**
      * 查询订单管理列表
-     * 
+     *
      * @param orderBasic 订单管理
      * @return 订单管理集合
      */
@@ -29,7 +29,7 @@ public interface IOrderBasicService
 
     /**
      * 新增订单管理
-     * 
+     *
      * @param orderBasic 订单管理
      * @return 结果
      */
@@ -37,15 +37,31 @@ public interface IOrderBasicService
 
     /**
      * 修改订单管理
-     * 
+     *
      * @param orderBasic 订单管理
      * @return 结果
      */
     public int updateOrderBasic(OrderBasic orderBasic);
 
     /**
+     * 取消订单
+     *
+     * @param id 订单id
+     * @return 结果
+     */
+    public int cancelOrderBasic(Long id);
+
+    /**
+     * 支付订单
+     *
+     * @param id 订单id
+     * @return 结果
+     */
+    public int payOrderBasic(Long id);
+
+    /**
      * 批量删除订单管理
-     * 
+     *
      * @param ids 需要删除的订单管理ID
      * @return 结果
      */
@@ -53,7 +69,7 @@ public interface IOrderBasicService
 
     /**
      * 删除订单管理信息
-     * 
+     *
      * @param id 订单管理ID
      * @return 结果
      */

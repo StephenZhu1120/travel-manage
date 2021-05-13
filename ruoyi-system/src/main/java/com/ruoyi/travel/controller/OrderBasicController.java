@@ -90,7 +90,8 @@ public class OrderBasicController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody OrderBasic orderBasic)
     {
-        return toAjax(orderBasicService.updateOrderBasic(orderBasic));
+        AjaxResult ajaxResult = toAjax(orderBasicService.updateOrderBasic(orderBasic));
+        return ajaxResult;
     }
 
     /**
@@ -102,5 +103,27 @@ public class OrderBasicController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(orderBasicService.deleteOrderBasicByIds(ids));
+    }
+
+    /**
+     * 取消订单
+     */
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @Log(title = "订单管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/cancel/{id}")
+    public AjaxResult CancelOrderBasic(@PathVariable Long id)
+    {
+        return toAjax(orderBasicService.cancelOrderBasic(id));
+    }
+
+    /**
+     * 支付订单更改状态
+     */
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @Log(title = "订单管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/pay/status/{id}")
+    public AjaxResult payOrderBasic(@PathVariable Long id)
+    {
+        return toAjax(orderBasicService.payOrderBasic(id));
     }
 }

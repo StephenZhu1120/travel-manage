@@ -35,6 +35,22 @@ export function updateOrderBasic(data) {
   })
 }
 
+// 取消订单
+export function cancelOrderBasic(id) {
+  return request({
+    url: '/travel/orderBasic/cancel/' +id,
+    method: 'put',
+  })
+}
+
+// 支付订单状态更改
+export function changeOrderStatus_PAY(id) {
+  return request({
+    url: '/travel/orderBasic/pay/status/' + id,
+    method: 'put',
+  })
+}
+
 // 删除订单管理
 export function delOrderBasic(id) {
   return request({

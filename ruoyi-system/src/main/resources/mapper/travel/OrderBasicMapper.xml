@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.travel.mapper.OrderBasicMapper">
-    
+
     <resultMap type="OrderBasic" id="OrderBasicResult">
         <result property="id"    column="id"    />
         <result property="productId"    column="product_id"    />
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectOrderBasicList" parameterType="OrderBasic" resultMap="OrderBasicResult">
         <include refid="selectOrderBasicVo"/>
-        <where>  
+        <where>
             <if test="id != null "> and id = #{id}</if>
             <if test="productId != null "> and product_id = #{productId}</if>
             <if test="routeId != null "> and route_id = #{routeId}</if>
@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="editTime != null "> and edit_time = #{editTime}</if>
         </where>
     </select>
-    
+
     <select id="selectOrderBasicById" parameterType="Long" resultMap="OrderBasicOrderMemberResult">
         select a.id, a.product_id, a.route_id, a.product_name, a.user_id, a.phonenumber, a.travel_time, a.order_time, a.people_number, a.price, a.order_status, a.pay_time, a.pay_comment, a.pay_way, a.refund_time, a.refund_comment, a.edit_time,
             b.id as sub_id, b.order_id as sub_order_id, b.member_name as sub_member_name, b.member_id_card as sub_member_id_card, b.member_phonenumber as sub_member_phonenumber, b.member_sex as sub_member_sex
@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join travel_order_member b on b.order_id = a.id
         where a.id = #{id}
     </select>
-        
+
     <insert id="insertOrderBasic" parameterType="OrderBasic" useGeneratedKeys="true" keyProperty="id">
         insert into travel_order_basic
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -138,14 +138,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteOrderBasicByIds" parameterType="String">
-        delete from travel_order_basic where id in 
+        delete from travel_order_basic where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
     <delete id="deleteOrderMemberByOrderIds" parameterType="String">
-        delete from travel_order_member where order_id in 
+        delete from travel_order_member where order_id in
         <foreach item="orderId" collection="array" open="(" separator="," close=")">
             #{orderId}
         </foreach>
