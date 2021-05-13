@@ -174,7 +174,7 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
+            @click="handleAdminEdit(scope.row)"
             v-hasPermi="['travel:productBasic:edit']"
           >编辑信息</el-button>
           <el-button
@@ -205,8 +205,84 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改产品信息对话框 -->
+    <!-- 全变量修改！！！添加或修改产品信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="旅游产品名称" prop="id">
+          {{form.id}}
+        </el-form-item>
+        <el-form-item label="旅游产品名称" prop="productName">
+          <el-input v-model="form.productName" placeholder="请输入旅游产品名称" />
+        </el-form-item>
+        <el-form-item label="旅游产品状态" prop="productStatus">
+          <el-select v-model="form.productStatus" placeholder="请选择产品状态">
+            <el-option
+              v-for="dict in productStatusOptions"
+              :key="dict.dictValue"
+              :label="dict.dictLabel"
+              :value="parseInt(dict.dictValue)"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="旅行天数" prop="productDay">
+          <el-input v-model="form.productDay" placeholder="请输入旅行天数" />
+        </el-form-item>
+        <el-form-item label="产品创建时间" prop="createTime">
+          <el-date-picker clearable size="small"
+            v-model="form.createTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH-mm-ss"
+            placeholder="选择产品创建时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="产品最后编辑时间" prop="editTime">
+          <el-date-picker clearable size="small"
+            v-model="form.editTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH-mm-ss"
+            placeholder="选择产品最后编辑时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="产品策划">
+          <editor v-model="form.productDesign" :min-height="192"/>
+        </el-form-item>
+        <el-form-item label="产品计划">
+          <editor v-model="form.productPlan" :min-height="192"/>
+        </el-form-item>
+        <el-form-item label="出发地" prop="birthland">
+          <el-input v-model="form.birthland" placeholder="请输入出发地" />
+        </el-form-item>
+        <el-form-item label="目的地" prop="destination">
+          <el-input v-model="form.destination" placeholder="请输入目的地" />
+        </el-form-item>
+        <el-form-item label="起始最低价格" prop="priceStart">
+          <el-input v-model="form.priceStart" placeholder="请输入起始最低价格" />
+          <span>此项如非必要请勿单独编辑，系统根据路线自动生成</span>
+        </el-form-item>
+        <el-form-item label="订单完成数量" prop="orderNumber">
+          <el-input v-model="form.orderNumber" placeholder="请输入订单完成数量" />
+        </el-form-item>
+        <el-form-item label="产品描述简介" prop="description">
+          <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
+        </el-form-item>
+        <el-form-item label="图片链接地址" prop="imgUrl">
+          <el-input v-model="form.imgUrl" type="textarea" placeholder="请输入内容" />
+        </el-form-item>
+        <el-form-item label="图片宣传内容">
+          <editor v-model="form.productDetailAds" :min-height="192"/>
+        </el-form-item>
+        <el-form-item label="路线数量" prop="routeNumber">
+          <el-input v-model="form.routeNumber" placeholder="请输入路线数量" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 管理员修改产品信息对话框 -->
+    <el-dialog :title="title" :visible.sync="openAdminEdit" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="旅游产品名称" prop="productName">
           <el-input v-model="form.productName" placeholder="请输入旅游产品名称" />
@@ -224,14 +300,14 @@
         <el-form-item label="旅行天数" prop="productDay">
           <el-input v-model="form.productDay" placeholder="请输入旅行天数" />
         </el-form-item>
-<!--        <el-form-item label="产品最后编辑时间" prop="editTime">-->
-<!--          <el-date-picker clearable size="small"-->
-<!--            v-model="form.editTime"-->
-<!--            type="date"-->
-<!--            value-format="yyyy-MM-dd"-->
-<!--            placeholder="选择产品最后编辑时间">-->
-<!--          </el-date-picker>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="产品最后编辑时间" prop="editTime">-->
+        <!--          <el-date-picker clearable size="small"-->
+        <!--            v-model="form.editTime"-->
+        <!--            type="date"-->
+        <!--            value-format="yyyy-MM-dd"-->
+        <!--            placeholder="选择产品最后编辑时间">-->
+        <!--          </el-date-picker>-->
+        <!--        </el-form-item>-->
         <el-form-item label="产品策划">
           <editor v-model="form.productDesign" :min-height="192"/>
         </el-form-item>
@@ -328,6 +404,7 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
     <!-- 编辑产品状态对话框 -->
     <el-dialog :title="title" :visible.sync="openStatus" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
@@ -382,6 +459,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      openAdminEdit: false,
       openDetail: false,
       openStatus: false,
       // 旅游产品状态字典
@@ -434,6 +512,7 @@ export default {
     cancel() {
       this.open = false;
       this.openDetail = false;
+      this.openAdminEdit = false;
       this.openStatus = false;
       this.reset();
     },
@@ -481,13 +560,23 @@ export default {
       this.open = true;
       this.title = "添加产品信息";
     },
-    /** 修改按钮操作 */
+    /** 全变量！！！修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
       getProductBasic(id).then(response => {
         this.form = response.data;
         this.open = true;
+        this.title = "修改产品信息（管理员）";
+      });
+    },
+    /** 修改按钮操作 */
+    handleAdminEdit(row) {
+      this.reset();
+      const id = row.id || this.ids
+      getProductBasic(id).then(response => {
+        this.form = response.data;
+        this.openAdminEdit = true;
         this.title = "修改产品信息";
       });
     },
@@ -511,6 +600,7 @@ export default {
             updateProductBasic(this.form).then(response => {
               this.msgSuccess("修改成功");
               this.open = false;
+              this.openAdminEdit = false;
               this.openStatus = false;
               this.getList();
             });

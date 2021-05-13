@@ -166,7 +166,7 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
+            @click="handleAdminEdit(scope.row)"
             v-hasPermi="['travel:userBasic:edit']"
           >编辑信息</el-button>
           <el-button
@@ -197,15 +197,77 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改账户管理对话框 -->
+    <!-- 全变量修改！！！添加或修改账户管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="110px">
+        <el-form-item label="用户id" prop="id">
+          {{form.id}}
+        </el-form-item>
+        <el-form-item label="用户昵称" prop="userName">
+          <el-input v-model="form.userName" placeholder="请输入用户昵称" />
+        </el-form-item>
+        <el-form-item label="用户密码" prop="password">
+          <el-input v-model="form.password" placeholder="请输入用户密码" />
+          <span>(修改密码请用右侧“重置密码”按钮)</span>
+        </el-form-item>
+        <el-form-item label="用户状态">
+          <el-radio-group v-model="form.userStatus">
+            <el-radio
+              v-for="dict in userStatusOptions"
+              :key="dict.dictValue"
+              :label="parseInt(dict.dictValue)"
+            >{{dict.dictLabel}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="账号创建时间" prop="createTime">
+          <el-date-picker clearable size="small"
+            v-model="form.createTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH-mm-ss"
+            placeholder="选择账号创建时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="真实姓名" prop="userIdName">
+          <el-input v-model="form.userIdName" placeholder="请输入真实姓名" />
+        </el-form-item>
+        <el-form-item label="身份证号" prop="userIdCard">
+          <el-input v-model="form.userIdCard" placeholder="请输入身份证号" />
+        </el-form-item>
+        <el-form-item label="电子邮箱" prop="email">
+          <el-input v-model="form.email" placeholder="请输入电子邮箱" />
+        </el-form-item>
+        <el-form-item label="手机号码" prop="phoneNumber">
+          <el-input v-model="form.phoneNumber" placeholder="请输入手机号码" />
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-select v-model="form.sex" placeholder="请选择性别">
+            <el-option
+              v-for="dict in sexOptions"
+              :key="dict.dictValue"
+              :label="dict.dictLabel"
+              :value="parseInt(dict.dictValue)"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="头像链接地址" prop="avatar">
+          <el-input v-model="form.avatar" placeholder="请输入头像链接地址" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 管理员编辑账户管理对话框 -->
+    <el-dialog :title="title" :visible.sync="openEdit" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="用户昵称" prop="userName">
           <el-input v-model="form.userName" placeholder="请输入用户昵称" />
         </el-form-item>
-<!--        <el-form-item label="用户密码" prop="password">-->
-<!--          <el-input v-model="form.password" placeholder="请输入用户密码" />-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="用户密码" prop="password">-->
+        <!--          <el-input v-model="form.password" placeholder="请输入用户密码" />-->
+        <!--        </el-form-item>-->
         <el-form-item label="用户状态">
           <el-radio-group v-model="form.userStatus">
             <el-radio
@@ -288,10 +350,12 @@
 
 <script>
 import { listUserBasic, getUserBasic, delUserBasic, addUserBasic, updateUserBasic, exportUserBasic, resetUserPwd } from "@/api/travel/userBasic";
+import ScrollPane from "@/layout/components/TagsView/ScrollPane";
 
 export default {
   name: "UserBasic",
   components: {
+    ScrollPane
   },
   data() {
     return {
@@ -313,6 +377,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      openEdit: false,
       openDetail: false,
       // 用户状态字典
       userStatusOptions: [],
@@ -369,6 +434,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.openEdit = false;
       this.openDetail = false;
       this.reset();
     },
@@ -411,14 +477,24 @@ export default {
       this.open = true;
       this.title = "添加账户管理";
     },
-    /** 修改按钮操作 */
+    /** (全字段！！！)修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
       getUserBasic(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改账户管理";
+        this.title = "修改账户信息（管理员）";
+      });
+    },
+    /** 修改按钮操作 */
+    handleAdminEdit(row) {
+      this.reset();
+      const id = row.id || this.ids
+      getUserBasic(id).then(response => {
+        this.form = response.data;
+        this.openEdit = true;
+        this.title = "修改账户信息";
       });
     },
     /** 详细按钮操作 */
@@ -447,6 +523,7 @@ export default {
             updateUserBasic(this.form).then(response => {
               this.msgSuccess("修改成功");
               this.open = false;
+              this.openEdit = false;
               this.getList();
             });
           } else {

@@ -178,7 +178,7 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
+            @click="handleAdminEdit(scope.row)"
             v-hasPermi="['travel:productRoute:edit']"
           >编辑信息</el-button>
           <el-button
@@ -201,19 +201,22 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改产品路线对话框 -->
+    <!-- 全变量！！！添加或修改产品路线对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="130px">
+        <el-form-item label="路线id" prop="id">
+          {{form.id}}
+        </el-form-item>
         <el-form-item label="所属产品id" prop="productId">
-<!--          {{form.productId}}-->
           <el-input v-model="form.productId" placeholder="请输入所属产品id" />
+          <span>绑定到产品后勿随意修改</span>
         </el-form-item>
         <el-form-item label="路线名称" prop="routeName">
           <el-input v-model="form.routeName" placeholder="请输入路线名称" />
         </el-form-item>
-<!--        <el-form-item label="路线价格" prop="price">-->
-<!--          <el-input v-model="form.price" placeholder="请输入路线价格" />-->
-<!--        </el-form-item>-->
+        <el-form-item label="路线价格" prop="price">
+          <el-input v-model="form.price" placeholder="请输入路线价格" />
+        </el-form-item>
         <el-form-item label="交通工具描述" prop="transportType" style="margin-top: 80px">
           <el-input v-model="form.transportType" placeholder="请输入交通工具描述" />
         </el-form-item>
@@ -238,6 +241,45 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 管理员修改产品路线对话框 -->
+    <el-dialog :title="title" :visible.sync="openAdminEdit" width="600px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
+        <el-form-item label="所属产品id" prop="productId">
+          {{form.productId}}
+<!--          <el-input v-model="form.productId" placeholder="请输入所属产品id" />-->
+        </el-form-item>
+        <el-form-item label="路线名称" prop="routeName">
+          <el-input v-model="form.routeName" placeholder="请输入路线名称" />
+        </el-form-item>
+        <!--        <el-form-item label="路线价格" prop="price">-->
+        <!--          <el-input v-model="form.price" placeholder="请输入路线价格" />-->
+        <!--        </el-form-item>-->
+        <el-form-item label="交通工具描述" prop="transportType" style="margin-top: 80px">
+          <el-input v-model="form.transportType" placeholder="请输入交通工具描述" />
+        </el-form-item>
+        <el-form-item label="交通工具部分价格" prop="transportPrice">
+          <el-input v-model="form.transportPrice" placeholder="请输入交通工具部分价格" />
+        </el-form-item>
+        <el-form-item label="宾馆描述" prop="hotelType" style="margin-top: 50px">
+          <el-input v-model="form.hotelType" placeholder="请输入宾馆描述" />
+        </el-form-item>
+        <el-form-item label="宾馆部分价格" prop="hotelPrice">
+          <el-input v-model="form.hotelPrice" placeholder="请输入宾馆部分价格" />
+        </el-form-item>
+        <el-form-item label="旅行描述" prop="travelType" style="margin-top: 50px">
+          <el-input v-model="form.travelType" placeholder="请输入旅行描述" />
+        </el-form-item>
+        <el-form-item label="旅行部分价格" prop="travelPrice">
+          <el-input v-model="form.travelPrice" placeholder="请输入旅行部分价格" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+
     <!-- 查看产品路线详情对话框（不可编辑） -->
     <el-dialog :title="title" :visible.sync="openDetail" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="130px">
@@ -304,6 +346,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      openAdminEdit: false,
       openDetail: false,
       // 查询参数
       queryParams: {
@@ -352,6 +395,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.openAdminEdit = false;
       this.openDetail = false;
       this.reset();
     },
@@ -393,13 +437,23 @@ export default {
       this.open = true;
       this.title = "添加产品路线";
     },
-    /** 修改按钮操作 */
+    /** 全变量！！！修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
       getProductRoute(id).then(response => {
         this.form = response.data;
         this.open = true;
+        this.title = "修改产品路线（管理员）";
+      });
+    },
+    /** 修改按钮操作 */
+    handleAdminEdit(row) {
+      this.reset();
+      const id = row.id || this.ids
+      getProductRoute(id).then(response => {
+        this.form = response.data;
+        this.openAdminEdit = true;
         this.title = "修改产品路线";
       });
     },
@@ -417,6 +471,7 @@ export default {
             updateProductRoute(this.form).then(response => {
               this.msgSuccess("修改成功");
               this.open = false;
+              this.openAdminEdit = false;
               this.getList();
             });
           } else {
