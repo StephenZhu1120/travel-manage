@@ -20,6 +20,14 @@ public interface IUserBasicService
     public UserBasic selectUserBasicById(Integer id);
 
     /**
+     * 查询账户管理
+     * 
+     * @param userName 账户名称
+     * @return 账户管理
+     */
+    public UserBasic selectUserBasicByUserName(String userName);
+
+    /**
      * 查询账户管理列表
      * 
      * @param userBasic 账户管理

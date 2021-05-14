@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.travel.mapper.UserBasicMapper">
-    
+
     <resultMap type="UserBasic" id="UserBasicResult">
         <result property="id"    column="id"    />
         <result property="userName"    column="user_name"    />
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectUserBasicList" parameterType="UserBasic" resultMap="UserBasicResult">
         <include refid="selectUserBasicVo"/>
-        <where>  
+        <where>
             <if test="id != null "> and id = #{id}</if>
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="userStatus != null "> and user_status = #{userStatus}</if>
@@ -36,12 +36,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sex != null "> and sex = #{sex}</if>
         </where>
     </select>
-    
+
     <select id="selectUserBasicById" parameterType="Integer" resultMap="UserBasicResult">
         <include refid="selectUserBasicVo"/>
         where id = #{id}
     </select>
-        
+
+    <select id="selectUserBasicByUserName" parameterType="String" resultMap="UserBasicResult">
+        <include refid="selectUserBasicVo"/>
+        where userName = #{userName}
+    </select>
+
     <insert id="insertUserBasic" parameterType="UserBasic" useGeneratedKeys="true" keyProperty="id">
         insert into travel_user_basic
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -92,7 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteUserBasicByIds" parameterType="String">
-        delete from travel_user_basic where id in 
+        delete from travel_user_basic where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

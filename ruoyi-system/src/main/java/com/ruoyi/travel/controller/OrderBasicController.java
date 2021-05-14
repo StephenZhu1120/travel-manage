@@ -3,9 +3,9 @@ package com.ruoyi.travel.controller;
 import java.util.List;
 
 import com.ruoyi.travel.domain.FinanceBasic;
+import com.ruoyi.travel.domain.ProductBasic;
 import com.ruoyi.travel.service.IFinanceBasicService;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.poi.ss.usermodel.DateUtil;
+import com.ruoyi.travel.service.IProductBasicService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,6 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RestController
 @RequestMapping(value = {
         "/travel/orderBasic",
-        "/travel/orderSaleDept"
 })
 public class OrderBasicController extends BaseController
 {
@@ -43,6 +42,9 @@ public class OrderBasicController extends BaseController
 
     @Autowired
     private IFinanceBasicService financeBasicService;
+
+    @Autowired
+    private IProductBasicService productBasicService;
 
     /**
      * 查询订单管理列表
@@ -87,6 +89,9 @@ public class OrderBasicController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody OrderBasic orderBasic)
     {
+        ProductBasic  productBasic = productBasicService.selectProductBasicById(orderBasic.getProductId());
+        orderBasic.setProductName(productBasic.getProductName());
+        orderBasic.setOrderStatus(0L);
         return toAjax(orderBasicService.insertOrderBasic(orderBasic));
     }
 

@@ -33,6 +33,18 @@ public class UserBasicServiceImpl implements IUserBasicService
     }
 
     /**
+     * 查询账户管理
+     *
+     * @param userName 账户名称
+     * @return 账户管理
+     */
+    @Override
+    public UserBasic selectUserBasicByUserName(String userName)
+    {
+        return userBasicMapper.selectUserBasicByUserName(userName);
+    }
+
+    /**
      * 查询账户管理列表
      *
      * @param userBasic 账户管理
