@@ -53,7 +53,7 @@ public class UserMallController extends BaseController {
     /**
      * 判断用户登录逻辑
      */
-    @GetMapping("/login")
+    @PostMapping("/login")
     public AjaxResult login(@RequestBody UserBasic userBasic)
     {
         if(userBasic.getUserName() == null)

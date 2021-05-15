@@ -29,7 +29,7 @@ public class ProductMallController extends BaseController{
     /**
      * 获取所有旅游产品的列表信息
      */
-    @GetMapping("/getAllProductByPage")
+    @GetMapping("/getAllProductList")
     public TableDataInfo list(@RequestBody ProductBasic productBasic)
     {
         startPage();
