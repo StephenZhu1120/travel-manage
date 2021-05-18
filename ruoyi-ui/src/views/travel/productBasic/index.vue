@@ -207,8 +207,8 @@
 
     <!-- 全变量修改！！！添加或修改产品信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="旅游产品名称" prop="id">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+        <el-form-item label="旅游产品id" prop="id">
           {{form.id}}
         </el-form-item>
         <el-form-item label="旅游产品名称" prop="productName">

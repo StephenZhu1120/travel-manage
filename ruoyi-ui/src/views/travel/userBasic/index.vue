@@ -149,7 +149,7 @@
 <!--      <el-table-column label="真实姓名" align="center" prop="userIdName" />-->
 <!--      <el-table-column label="身份证号" align="center" prop="userIdCard" />-->
 <!--      <el-table-column label="电子邮箱" align="center" prop="email" />-->
-      <el-table-column label="手机号码" align="center" prop="phoneNumber" />
+      <el-table-column label="手机号码" align="center" prop="phoneNumber" width="250"/>
 <!--      <el-table-column label="性别" align="center" prop="sex" :formatter="sexFormat" />-->
 <!--      <el-table-column label="头像链接地址" align="center" prop="avatar" />-->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
