@@ -1,14 +1,7 @@
-/*
- * @Description: 全局变量
- * @Author: hai-27
- * @Date: 2020-02-23 13:40:18
- * @LastEditors: hai-27
- * @LastEditTime: 2020-03-05 01:41:50
- */
 let base = {};
 base.install = function (Vue) {
-  Vue.prototype.$target = "http://47.98.145.198:7000/"; // 线上后端地址
-  //Vue.prototype.$target = "http://localhost:7000/"; // 本地后端地址
+  //Vue.prototype.$target = "http://47.98.145.198:7000/"; // 线上后端地址
+  Vue.prototype.$target = "http://localhost:18080/api/"; // 本地后端地址
 
   // 封装提示成功的弹出框
   Vue.prototype.notifySucceed = function (msg) {

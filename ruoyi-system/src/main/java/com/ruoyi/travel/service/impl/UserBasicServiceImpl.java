@@ -2,6 +2,7 @@ package com.ruoyi.travel.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.travel.mapper.UserBasicMapper;
@@ -66,6 +67,7 @@ public class UserBasicServiceImpl implements IUserBasicService
     public int insertUserBasic(UserBasic userBasic)
     {
         userBasic.setCreateTime(DateUtils.getNowDate());
+        userBasic.setPassword(SecurityUtils.encryptPassword(userBasic.getPassword()));
         return userBasicMapper.insertUserBasic(userBasic);
     }
 

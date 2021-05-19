@@ -1,18 +1,11 @@
-<!--
- * @Description: 菜单组件，用于首页商品展示模块的右上角菜单
- * @Author: hai-27
- * @Date: 2020-02-07 16:23:00
- * @LastEditors: hai-27
- * @LastEditTime: 2020-02-26 22:52:35
- -->
 <template>
   <div class="myMenu" id="myMenu">
     <ul>
       <li
-        v-for="item in val"
-        :key="item"
-        :class="activeClass == item ? 'active':''"
-        @mouseover="mouseover($event,item)"
+          v-for="item in val"
+          :key="item"
+          :class="activeClass == item ? 'active':''"
+          @mouseover="mouseover($event,item)"
       >
         <router-link to>
           <slot :name="item"></slot>

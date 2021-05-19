@@ -118,9 +118,8 @@
   </div>
 </template>
 <script>
-import SeckillList from "../components/SeckillList";
 export default {
-  components: {SeckillList},
+  components: {},
   data() {
     return {
       carousel: "", // 轮播图数据

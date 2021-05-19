@@ -1,10 +1,3 @@
-/*
- * 入口文件
- * @Author: hai-27
- * @Date: 2020-02-07 16:23:00
- * @LastEditors: hai-27
- * @LastEditTime: 2020-03-04 23:38:41
- */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -19,44 +12,44 @@ import Global from './Global';
 Vue.use(Global);
 
 import Axios from 'axios';
-Axios.defaults.baseURL='http://47.98.145.198:7000/';
-//Axios.defaults.baseURL='http://localhost:7000/';
+//Axios.defaults.baseURL='http://47.98.145.198:7000/';
+Axios.defaults.baseURL='http://localhost:18080/api/';
 Axios.defaults.withCredentials = true;
 Vue.use(Axios);
 Vue.prototype.$axios = Axios;
 // 全局请求拦截器
 Axios.interceptors.request.use(
-  config => {
-    return config;
-  },
-  error => {
-    // 跳转error页面
-    router.push({ path: "/error" });
-    return Promise.reject(error);
-  }
+    config => {
+      return config;
+    },
+    error => {
+      // 跳转error页面
+      router.push({ path: "/error" });
+      return Promise.reject(error);
+    }
 );
 // 全局响应拦截器
 Axios.interceptors.response.use(
-  res => {
-    if (res.data.code === "401") {
-      // 401表示没有登录
-      // 提示没有登录
-      Vue.prototype.notifyError(res.data.msg);
-      // 修改vuex的showLogin状态,显示登录组件
-      store.dispatch("setShowLogin", true);
-    }
-    if (res.data.code === "500") {
-      // 500表示服务器异常
+    res => {
+      if (res.data.code === "401") {
+        // 401表示没有登录
+        // 提示没有登录
+        Vue.prototype.notifyError(res.data.msg);
+        // 修改vuex的showLogin状态,显示登录组件
+        store.dispatch("setShowLogin", true);
+      }
+      if (res.data.code === "500") {
+        // 500表示服务器异常
+        // 跳转error页面
+        router.push({ path: "/error" });
+      }
+      return res;
+    },
+    error => {
       // 跳转error页面
       router.push({ path: "/error" });
+      return Promise.reject(error);
     }
-    return res;
-  },
-  error => {
-    // 跳转error页面
-    router.push({ path: "/error" });
-    return Promise.reject(error);
-  }
 );
 
 // 全局拦截器,在进入需要用户权限的页面前校验是否已经登录
@@ -102,10 +95,6 @@ Vue.filter('dateFormat', (dataStr) => {
 //全局组件
 import MyMenu from './components/MyMenu';
 Vue.component(MyMenu.name, MyMenu);
-import MyList from './components/MyList';
-Vue.component(MyList.name, MyList);
-import SeckillList from './components/SeckillList';
-Vue.component(SeckillList.name, SeckillList);
 import MyLogin from './components/MyLogin';
 Vue.component(MyLogin.name, MyLogin);
 import MyRegister from './components/MyRegister';

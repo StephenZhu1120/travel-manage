@@ -37,14 +37,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectUserBasicById" parameterType="Integer" resultMap="UserBasicResult">
+    <select id="selectUserBasicById" parameterType="Integer" resultType="UserBasic">
         <include refid="selectUserBasicVo"/>
         where id = #{id}
     </select>
 
-    <select id="selectUserBasicByUserName" parameterType="String" resultMap="UserBasicResult">
-        <include refid="selectUserBasicVo"/>
-        where userName = #{userName}
+    <select id="selectUserBasicByUserName" parameterType="String" resultType="UserBasic">
+        SELECT * FROM travel_user_basic WHERE user_name LIKE "#{userName}"
     </select>
 
     <insert id="insertUserBasic" parameterType="UserBasic" useGeneratedKeys="true" keyProperty="id">

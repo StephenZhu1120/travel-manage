@@ -1,41 +1,34 @@
-<!--
- * @Description: 用户注册组件
- * @Author: hai-27
- * @Date: 2020-02-19 22:20:35
- * @LastEditors: hai-27
- * @LastEditTime: 2020-03-01 15:34:34
- -->
 <template>
   <div id="register">
     <el-dialog title="注册" width="300px" center :visible.sync="isRegister">
       <el-form
-        :model="RegisterUser"
-        :rules="rules"
-        status-icon
-        ref="ruleForm"
-        class="demo-ruleForm"
+          :model="RegisterUser"
+          :rules="rules"
+          status-icon
+          ref="ruleForm"
+          class="demo-ruleForm"
       >
         <el-form-item prop="name">
           <el-input
-            prefix-icon="el-icon-user-solid"
-            placeholder="请输入账号"
-            v-model="RegisterUser.name"
+              prefix-icon="el-icon-user-solid"
+              placeholder="请输入账号"
+              v-model="RegisterUser.name"
           ></el-input>
         </el-form-item>
         <el-form-item prop="pass">
           <el-input
-            prefix-icon="el-icon-view"
-            type="password"
-            placeholder="请输入密码"
-            v-model="RegisterUser.pass"
+              prefix-icon="el-icon-view"
+              type="password"
+              placeholder="请输入密码"
+              v-model="RegisterUser.pass"
           ></el-input>
         </el-form-item>
         <el-form-item prop="confirmPass">
           <el-input
-            prefix-icon="el-icon-view"
-            type="password"
-            placeholder="请再次输入密码"
-            v-model="RegisterUser.confirmPass"
+              prefix-icon="el-icon-view"
+              type="password"
+              placeholder="请再次输入密码"
+              v-model="RegisterUser.confirmPass"
           ></el-input>
         </el-form-item>
         <el-form-item>
@@ -46,7 +39,6 @@
   </div>
 </template>
 <script>
-  import md5 from 'js-md5';
 export default {
   name: "MyRegister",
   props: ["register"],
@@ -56,28 +48,29 @@ export default {
       if (!value) {
         return callback(new Error("请输入用户名"));
       }
-      // 用户名以字母开头,长度在5-16之间,允许字母数字下划线
-      const userNameRule = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+      // 用户名可以为中、英文、数字、下划线，长度为4~20位之间
+      const userNameRule = /^[a-zA-Z0-9\u4E00-\u9FA5\uFE30-\uFFA0_][a-zA-Z0-9\u4E00-\u9FA5\uFE30-\uFFA0_]{3,21}$/;
+      //([\u4E00-\u9FA5]|[\uFE30-\uFFA0]|[_\a-zA-Z0-9]|[\s])
       if (userNameRule.test(value)) {
         //判断数据库中是否已经存在该用户名
         this.$axios
-          .post("user/findUserName", {
-            userName: this.RegisterUser.name
-          },{withCredentials : true})
-          .then(res => {
-            // “001”代表用户名不存在，可以注册
-            if (res.data.code == "001") {
-              this.$refs.ruleForm.validateField("checkPass");
-              return callback();
-            } else {
-              return callback(new Error(res.data.msg));
-            }
-          })
-          .catch(err => {
-            return Promise.reject(err);
-          });
+            .get("/user/isNameLegal", {
+              params:{userName: this.RegisterUser.name}
+            },{withCredentials : true})
+            .then(res => {
+              // “200”代表用户名不存在，可以注册
+              if (res.data.code == "200") {
+                this.$refs.ruleForm.validateField("checkPass");
+                return callback();
+              } else {
+                return callback(new Error(res.data.msg));
+              }
+            })
+            .catch(err => {
+              return Promise.reject(err);
+            });
       } else {
-        return callback(new Error("字母开头,长度5-16之间,允许字母数字下划线"));
+        return callback(new Error("用户名限制字符长度4-20"));
       }
     };
     // 密码的校验方法
@@ -85,14 +78,14 @@ export default {
       if (value === "") {
         return callback(new Error("请输入密码"));
       }
-      // 密码以字母开头,长度在6-18之间,允许字母数字和下划线
-      const passwordRule = /^[a-zA-Z]\w{5,17}$/;
+      // 密码同时包含字母和数字,长度在6-20之间,允许字母数字和下划线
+      const passwordRule = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,21}$/;
       if (passwordRule.test(value)) {
         this.$refs.ruleForm.validateField("checkPass");
         return callback();
       } else {
         return callback(
-          new Error("字母开头,长度6-18之间,允许字母数字和下划线")
+            new Error("字母开头,长度6-18之间,允许字母数字和下划线")
         );
       }
     };
@@ -140,37 +133,32 @@ export default {
     }
   },
   methods: {
-    //使用md5对密码加密
-    md5Util(password){
-      let salt = '1a2b3c4d';
-      let str = salt.charAt(0)+salt.charAt(3)+password+salt.charAt(6)+salt.charAt(5);
-      return md5(str);
-    },
     Register() {
       // 通过element自定义表单校验规则，校验用户输入的用户信息
       this.$refs["ruleForm"].validate(valid => {
         //如果通过校验开始注册
         if (valid) {
           this.$axios
-            .post("user/register", {
-              userName: this.RegisterUser.name,
-              password: this.md5Util(this.RegisterUser.pass)
-            },{withCredentials : true})
-            .then(res => {
-              // “001”代表注册成功，其他的均为失败
-              if (res.data.code === "001") {
-                // 隐藏注册组件
-                this.isRegister = false;
-                // 弹出通知框提示注册成功信息
-                this.notifySucceed(res.data.msg);
-              } else {
-                // 弹出通知框提示注册失败信息
-                this.notifyError(res.data.msg);
-              }
-            })
-            .catch(err => {
-              return Promise.reject(err);
-            });
+              .post("user/signup", {
+                userName: this.RegisterUser.name,
+                password: this.RegisterUser.pass
+              },{withCredentials : true})
+              .then(res => {
+                // “200”代表注册成功，其他的均为失败
+                debugger
+                if (res.data.code === 200) {
+                  // 隐藏注册组件
+                  this.isRegister = false;
+                  // 弹出通知框提示注册成功信息
+                  this.notifySucceed(res.data.msg);
+                } else {
+                  // 弹出通知框提示注册失败信息
+                  this.notifyError(res.data.msg);
+                }
+              })
+              .catch(err => {
+                return Promise.reject(err);
+              });
         } else {
           return false;
         }
