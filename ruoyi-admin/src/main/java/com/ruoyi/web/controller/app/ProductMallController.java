@@ -7,6 +7,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.travel.domain.ProductBasic;
 import com.ruoyi.travel.domain.ProductRoute;
+import com.ruoyi.travel.domain.Product_Route_Img;
 import com.ruoyi.travel.service.IProductBasicService;
 import com.ruoyi.travel.service.IProductRouteService;
 
@@ -44,6 +45,7 @@ public class ProductMallController extends BaseController{
     @GetMapping("/getProduct")
     public AjaxResult getProduct(@RequestBody ProductBasic productBasic)
     {
+        Product_Route_Img product_route_img;
         return AjaxResult.success(productBasicService.selectProductBasicById(productBasic.getId()));
     }
 
