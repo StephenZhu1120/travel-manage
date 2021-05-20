@@ -145,7 +145,6 @@ export default {
               },{withCredentials : true})
               .then(res => {
                 // “200”代表注册成功，其他的均为失败
-                debugger
                 if (res.data.code === 200) {
                   // 隐藏注册组件
                   this.isRegister = false;

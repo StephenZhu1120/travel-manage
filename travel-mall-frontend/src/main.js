@@ -15,7 +15,7 @@ import Axios from 'axios';
 //Axios.defaults.baseURL='http://47.98.145.198:7000/';
 Axios.defaults.baseURL='http://localhost:18080/api/';
 Axios.defaults.withCredentials = true;
-Vue.use(Axios);
+// Vue.use(Axios);//前台会报404的错
 Vue.prototype.$axios = Axios;
 // 全局请求拦截器
 Axios.interceptors.request.use(
@@ -95,6 +95,8 @@ Vue.filter('dateFormat', (dataStr) => {
 //全局组件
 import MyMenu from './components/MyMenu';
 Vue.component(MyMenu.name, MyMenu);
+import MyList from './components/MyList';
+Vue.component(MyList.name, MyList);
 import MyLogin from './components/MyLogin';
 Vue.component(MyLogin.name, MyLogin);
 import MyRegister from './components/MyRegister';

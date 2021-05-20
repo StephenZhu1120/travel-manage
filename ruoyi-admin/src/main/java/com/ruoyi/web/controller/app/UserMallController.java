@@ -62,9 +62,9 @@ public class UserMallController extends BaseController {
     @PostMapping("/login")
     public AjaxResult login(@RequestBody UserBasic userBasic)
     {
-        if(userBasic.getUserName() == null)
+        if(userBasic.getUserName().equals(""))
             return error("用户名不能为空，请输入用户名");
-        if(userBasic.getPassword() == null)
+        if(userBasic.getPassword().equals(""))
             return error("密码不能为空，请输入密码");
 
         List<UserBasic> userBasicList = userBasicService.selectUserBasicList(userBasic);

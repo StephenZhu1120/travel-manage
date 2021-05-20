@@ -1,10 +1,3 @@
-<!--
- * @Description: 项目根组件
- * @Author: hai-27
- * @Date: 2020-02-07 16:23:00
- * @LastEditors: hai-27
- * @LastEditTime: 2020-04-05 13:14:48
- -->
 <template>
   <div id="app" name="app">
     <el-container>
@@ -31,15 +24,6 @@
             <li>
               <router-link to="/order">我的订单</router-link>
             </li>
-            <li>
-              <router-link to="/collect">我的收藏</router-link>
-            </li>
-            <li :class="getNum > 0 ? 'shopCart-full' : 'shopCart'">
-              <router-link to="/shoppingCart">
-                <i class="el-icon-shopping-cart-full"></i> 购物车
-                <span class="num">({{getNum}})</span>
-              </router-link>
-            </li>
           </ul>
         </div>
       </div>
@@ -48,11 +32,11 @@
       <!-- 顶栏容器 -->
       <el-header>
         <el-menu
-          :default-active="activeIndex"
-          class="el-menu-demo"
-          mode="horizontal"
-          active-text-color="#409eff"
-          router
+            :default-active="activeIndex"
+            class="el-menu-demo"
+            mode="horizontal"
+            active-text-color="#409eff"
+            router
         >
           <div class="logo">
             <router-link to="/">
@@ -61,7 +45,6 @@
           </div>
           <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="/goods">全部商品</el-menu-item>
-          <el-menu-item index="/about">关于我们</el-menu-item>
 
           <div class="so">
             <el-input placeholder="请输入搜索内容" v-model="search">
@@ -88,20 +71,7 @@
       <!-- 底栏容器 -->
       <el-footer>
         <div class="footer">
-          <div class="ng-promise-box">
-            <div class="ng-promise">
-              <p class="text">
-                <a class="icon1" href="javascript:;">7天无理由退换货</a>
-                <a class="icon2" href="javascript:;">满99元全场免邮</a>
-                <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
-              </p>
-            </div>
-          </div>
-          <div class="github">
-            <a href="https://github.com/liuxianchun/mistore" target="_blank">
-              <div class="github-but"></div>
-            </a>
-          </div>
+          <div><p>`</p></div>
           <div class="mod_help">
             <p>
               <router-link to="/">首页</router-link>
@@ -110,7 +80,7 @@
               <span>|</span>
               <router-link to="/about">关于我们</router-link>
             </p>
-            <p class="coty">商城版权所有 &copy; 2012-2021</p>
+            <p class="coty">奥游旅行社版权所有 &copy; 2020~2021</p>
           </div>
         </div>
       </el-footer>
@@ -147,52 +117,12 @@ export default {
       // 如果已经登录，设置vuex登录状态
       this.setUser(JSON.parse(localStorage.getItem("user")));
     }
-    /* window.setTimeout(() => {
-      this.$message({
-        duration: 0,
-        showClose: true,
-        message: `
-        <p>如果觉得这个项目还不错，</p>
-        <p style="padding:10px 0">您可以给项目源代码仓库点Star支持一下，谢谢！</p>
-        <p><a href="https://github.com/hai-27/vue-store" target="_blank">Github传送门</a></p>`,
-        dangerouslyUseHTMLString: true,
-        type: "success"
-      });
-    }, 1000 * 60); */
   },
   computed: {
     ...mapGetters(["getUser", "getNum"])
   },
-  watch: {
-
-    // 获取vuex的登录状态
-    getUser: function(val) {
-      if (val === "") {
-        // 用户没有登录
-        this.setShoppingCart([]);
-      } else {
-        // 用户已经登录,获取该用户的购物车信息
-        this.$axios
-          .post("shoppingCart/getShoppingCart", {
-            user_id: val.user_id
-          },{withCredentials : true})
-          .then(res => {
-            if (res.data.code === "001") {
-              // 001 为成功, 更新vuex购物车状态
-              this.setShoppingCart(res.data.shoppingCartData);
-            } else {
-              // 提示失败信息
-              this.notifyError(res.data.msg);
-            }
-          })
-          .catch(err => {
-            return Promise.reject(err);
-          });
-      }
-    }
-  },
   methods: {
-    ...mapActions(["setUser", "setShowLogin", "setShoppingCart"]),
+    ...mapActions(["setUser", "setShowLogin"]),
     login() {
       // 点击登录按钮, 通过更改vuex的showLogin值显示登录组件
       this.setShowLogin(true);
@@ -217,11 +147,11 @@ export default {
     },
     // 点击搜索按钮
     searchClick() {
-      if (this.search != "") {
+      //if (this.search != "") {
         // 跳转到全部商品页面,并传递搜索条件
         this.$router.push({ path: "/goods", query: { search: this.search } });
-        this.search = "";
-      }
+        //this.search = "";
+      //}
     }
   }
 };

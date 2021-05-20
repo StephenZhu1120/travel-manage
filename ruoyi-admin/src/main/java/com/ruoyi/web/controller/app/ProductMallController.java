@@ -30,9 +30,10 @@ public class ProductMallController extends BaseController{
      * 获取所有旅游产品的列表信息
      */
     @GetMapping("/getAllProductList")
-    public TableDataInfo list(@RequestBody ProductBasic productBasic)
+    public TableDataInfo list(ProductBasic productBasic)
     {
         startPage();
+        productBasic.setProductStatus(3L);
         List<ProductBasic> product_list = productBasicService.selectProductBasicList(productBasic);
         return getDataTable(product_list);
     }
