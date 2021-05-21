@@ -15,7 +15,7 @@
             <img :src="item.imgUrl" alt />
             <h2>{{item.productName}}</h2>
             <p>
-              <span v-if="item.priceStart !== null ">{{item.priceStart}}元起</span>
+              <span v-if="item.priceStart !== null ">{{item.priceStart}} 元起</span>
               <span v-else>暂无报价</span>
             </p>
           </router-link>
@@ -98,7 +98,7 @@ export default {
   display: block;
   width: 285px;
   height: 200px;
-  background: url(../assets/imgs/placeholder.png) no-repeat 50%;
+  background: url(../assets/imgs/product_img_error.png) no-repeat 50%;
   margin: 0 auto;
 }
 .myList ul li h2 {

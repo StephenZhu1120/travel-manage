@@ -38,6 +38,13 @@ public class ProductMallController extends BaseController{
         startPage();
         productBasic.setProductStatus(3L);
         List<ProductBasic> product_list = productBasicService.selectProductBasicList(productBasic);
+        if(product_list.size() != 0)
+        for(int i=0; i<product_list.size(); i++){
+            String img_string = product_list.get(i).getImgUrl();
+            if(!(img_string == null || img_string.equals("")))
+                if(img_string.contains(";"))
+                    product_list.get(i).setImgUrl(img_string.substring(0, img_string.indexOf(";")));
+        }
         return getDataTable(product_list);
     }
 
@@ -45,7 +52,7 @@ public class ProductMallController extends BaseController{
      * 根据id获取某个产品的详细信息
      */
     @GetMapping("/getProduct")
-    public AjaxResult getProduct(@RequestBody ProductBasic productBasic)
+    public AjaxResult getProduct(ProductBasic productBasic)
     {
         Product_Route_Img product_route_img = new Product_Route_Img();//新建一个前端商城信息展示类
 
@@ -65,7 +72,7 @@ public class ProductMallController extends BaseController{
             for (int i = 0; i < new_productRoute.size(); i++) {//对路线详细报价进行隐藏屏蔽，不显示给客户
                 new_productRoute.get(i).setHotelPrice(null);
                 new_productRoute.get(i).setTransportPrice(null);
-                new_productRoute.get(i).setTravelType(null);
+                new_productRoute.get(i).setTravelPrice(null);
             }
             product_route_img.setProductRoutes(new_productRoute);
         }
@@ -75,11 +82,11 @@ public class ProductMallController extends BaseController{
     /**
      * 根据产品id获取所有路线的详细信息列表
      */
-    @GetMapping("/getRouteByProduct")
-    public AjaxResult getRoute(@RequestBody Long productId)
-    {
-        ProductRoute productRoute = new ProductRoute();
-        productRoute.setProductId(productId);
-        return AjaxResult.success(productRouteService.selectProductRouteList(productRoute));
-    }
+    // @GetMapping("/getRouteByProduct")
+    // public AjaxResult getRoute(@RequestBody Long productId)
+    // {
+    //     ProductRoute productRoute = new ProductRoute();
+    //     productRoute.setProductId(productId);
+    //     return AjaxResult.success(productRouteService.selectProductRouteList(productRoute));
+    // }
 }

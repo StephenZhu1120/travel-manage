@@ -10,17 +10,14 @@
     <!-- 头部 -->
     <div class="page-header">
       <div class="title">
-        <p>{{productDetails.product_name}}</p>
+        <p>{{productDetails.productName}}</p>
         <div class="list">
           <ul>
             <li>
               <router-link to>概述</router-link>
             </li>
             <li>
-              <router-link to>参数</router-link>
-            </li>
-            <li>
-              <router-link to>用户评价</router-link>
+              <router-link to>旅游产品详情</router-link>
             </li>
           </ul>
         </div>
@@ -32,15 +29,14 @@
     <div class="main">
       <!-- 左侧商品轮播图 -->
       <div class="block">
-        <el-carousel height="560px" v-if="productPicture.length>1">
-          <el-carousel-item v-for="item in productPicture" :key="item.id">
-            <img style="height:560px;" :src="$target + item.product_picture" :alt="item.introduction" />
+        <el-carousel class="pictureplay" v-if="productDetails.imgs.length>1" indicator-position="outside" height="373px">
+          <el-carousel-item v-for="(item, i) in productDetails.imgs" :key="item">
+            <img :src="productDetails.imgs[i]" :alt="productDetails.productName" />
           </el-carousel-item>
         </el-carousel>
         <div v-if="productPicture.length==1">
           <img
-            style="height:560px;"
-            :src="$target + productPicture[0].product_picture"
+            :src="productDetails.imgs[0]"
             :alt="productPicture[0].introduction"
           />
         </div>
@@ -49,15 +45,30 @@
 
       <!-- 右侧内容区 -->
       <div class="content">
-        <h1 class="name">{{productDetails.product_name}}</h1>
-        <p class="intro">{{productDetails.product_intro}}</p>
-        <p class="store">小米自营</p>
+        <span class="store">奥游出品</span>
+        <span class="name">{{productDetails.productName}}</span>
+        <p class="intro">{{productDetails.description}}</p>
         <div class="price">
-          <span>{{productDetails.product_selling_price}}元</span>
-          <span
-            v-show="productDetails.product_price != productDetails.product_selling_price"
-            class="del"
-          >{{productDetails.product_price}}元</span>
+          <span>{{productDetails.priceStart}}元起</span>
+<!--          <span-->
+<!--            v-show="productDetails.product_price != productDetails.priceStart"-->
+<!--            class="del"-->
+<!--          >{{productDetails.product_price}}元</span>-->
+        </div>
+        <div class="detail">
+          <p>
+            <span class="title">出发地：</span>
+            <span class="info">{{productDetails.birthland}}</span>
+          </p>
+          <p>
+            <span class="title">目的地：</span>
+            <span class="info">{{productDetails.destination}}</span>
+          </p>
+          <p>
+            <span class="title">旅行天数：</span>
+            <span class="info">{{productDetails.productDay}}</span>
+          </p>
+
         </div>
         <div class="pro-list">
           <span class="pro-name">{{productDetails.product_name}}</span>
@@ -72,28 +83,34 @@
         </div>
         <!-- 内容区底部按钮 -->
         <div class="button">
-          <el-button class="shop-cart" :disabled="dis" @click="addShoppingCart">加入购物车</el-button>
-          <el-button class="like" @click="addCollect">喜欢</el-button>
+<!--          <el-button class="shop-cart" :disabled="dis" @click="addShoppingCart">加入购物车</el-button>-->
+<!--          <el-button class="like" @click="addCollect">喜欢</el-button>-->
+          <el-button class="order" @click="addOrder" type="primary">立即下单</el-button>
         </div>
         <!-- 内容区底部按钮END -->
         <div class="pro-policy">
           <ul>
             <li>
-              <i class="el-icon-circle-check"></i> 小米自营
+              <i class="el-icon-circle-check"></i> 专属导游
             </li>
             <li>
-              <i class="el-icon-circle-check"></i> 小米发货
+              <i class="el-icon-circle-check"></i> 专业客服全程服务
             </li>
             <li>
-              <i class="el-icon-circle-check"></i> 7天无理由退货
+              <i class="el-icon-circle-check"></i> 出发前7天无理由取消
             </li>
-            <li>
-              <i class="el-icon-circle-check"></i> 7天价格保护
-            </li>
+<!--            <li>-->
+<!--              <i class="el-icon-circle-check"></i> 7天价格保护-->
+<!--            </li>-->
           </ul>
         </div>
       </div>
       <!-- 右侧内容区END -->
+<!--      这一部分是展示产品的图文介绍-->
+      <div>
+        <span v-html="productDetails.productDetailAds"></span>
+
+      </div>
     </div>
     <!-- 主要内容END -->
   </div>
@@ -119,7 +136,7 @@ export default {
     // 监听商品id的变化，请求后端获取商品数据
     productID: function(val) {
       this.getDetails(val);
-      this.getDetailsPicture(val);
+      // this.getDetailsPicture(val);
     }
   },
   methods: {
@@ -127,92 +144,111 @@ export default {
     // 获取商品详细信息
     getDetails(val) {
       this.$axios
-        .post("product/getDetails", {
-          productID: val
-        })
-        .then(res => {
-          this.productDetails = res.data.Product[0];
-        })
-        .catch(err => {
-          return Promise.reject(err);
-        });
+          .get("product/getProduct", {
+            params:{id: val}
+          },{withCredentials : true})
+          .then(res => {
+            if(res.data.code === 200){
+              this.productDetails = res.data.data;
+            } else{
+              this.notifyError(res.data.msg);
+            }
+          })
+          .catch(res => {
+            return Promise.reject(res.data.msg);
+          });
+        // .get("product/getDetails", {
+        //   productID: val
+        // })
+        // .then(res => {
+        //   this.productDetails = res.data.Product[0];
+        // })
+        // .catch(err => {
+        //   return Promise.reject(err);
+        // });
     },
+
+    //图片获取方式不同，原作者内容直接注释掉
     // 获取商品图片
-    getDetailsPicture(val) {
-      this.$axios
-        .post("product/getDetailsPicture", {
-          productID: val
-        })
-        .then(res => {
-          this.productPicture = res.data.ProductPicture;
-        })
-        .catch(err => {
-          return Promise.reject(err);
-        });
-    },
-    // 加入购物车
-    addShoppingCart() {
-      // 判断是否登录,没有登录则显示登录组件
-      if (!this.$store.getters.getUser) {
-        this.$store.dispatch("setShowLogin", true);
-        return;
-      }
-      console.log(this.$store.getters.getUser.user_id);
-      console.log(this.productID);
-      this.$axios
-        .post("shoppingCart/addShoppingCart", {
-          user_id: this.$store.getters.getUser.user_id,
-          product_id: this.productID
-        },{withCredentials : true})
-        .then(res => {
-          switch (res.data.code) {
-            case "001":
-              // 新加入购物车成功
-              this.unshiftShoppingCart(res.data.shoppingCartData[0]);
-              this.notifySucceed(res.data.msg);
-              break;
-            case "002":
-              // 该商品已经在购物车，数量+1
-              this.addShoppingCartNum(this.productID);
-              this.notifySucceed(res.data.msg);
-              break;
-            case "003":
-              // 商品数量达到限购数量
-              this.dis = true;
-              this.notifyError(res.data.msg);
-              break;
-            default:
-              this.notifyError(res.data.msg);
-          }
-        })
-        .catch(err => {
-          return Promise.reject(err);
-        });
-    },
-    addCollect() {
-      // 判断是否登录,没有登录则显示登录组件
-      if (!this.$store.getters.getUser) {
-        this.$store.dispatch("setShowLogin", true);
-        return;
-      }
-      this.$axios
-        .post("collect/addCollect", {
-          user_id: this.$store.getters.getUser.user_id,
-          product_id: this.productID
-        },{withCredentials : true})
-        .then(res => {
-          if (res.data.code == "001") {
-            // 添加收藏成功
-            this.notifySucceed(res.data.msg);
-          } else {
-            // 添加收藏失败
-            this.notifyError(res.data.msg);
-          }
-        })
-        .catch(err => {
-          return Promise.reject(err);
-        });
-    }
+    // getDetailsPicture(val) {
+    //   this.$axios
+    //     .post("product/getDetailsPicture", {
+    //       productID: val
+    //     })
+    //     .then(res => {
+    //       this.productPicture = res.data.ProductPicture;
+    //     })
+    //     .catch(err => {
+    //       return Promise.reject(err);
+    //     });
+    // },
+
+    //加购物车  暂不实现
+    // // 加入购物车
+    // addShoppingCart() {
+    //   // 判断是否登录,没有登录则显示登录组件
+    //   if (!this.$store.getters.getUser) {
+    //     this.$store.dispatch("setShowLogin", true);
+    //     return;
+    //   }
+    //   console.log(this.$store.getters.getUser.user_id);
+    //   console.log(this.productID);
+    //   this.$axios
+    //     .post("shoppingCart/addShoppingCart", {
+    //       user_id: this.$store.getters.getUser.user_id,
+    //       product_id: this.productID
+    //     },{withCredentials : true})
+    //     .then(res => {
+    //       switch (res.data.code) {
+    //         case "001":
+    //           // 新加入购物车成功
+    //           this.unshiftShoppingCart(res.data.shoppingCartData[0]);
+    //           this.notifySucceed(res.data.msg);
+    //           break;
+    //         case "002":
+    //           // 该商品已经在购物车，数量+1
+    //           this.addShoppingCartNum(this.productID);
+    //           this.notifySucceed(res.data.msg);
+    //           break;
+    //         case "003":
+    //           // 商品数量达到限购数量
+    //           this.dis = true;
+    //           this.notifyError(res.data.msg);
+    //           break;
+    //         default:
+    //           this.notifyError(res.data.msg);
+    //       }
+    //     })
+    //     .catch(err => {
+    //       return Promise.reject(err);
+    //     });
+    // },
+
+    //加入个人收藏，暂时不实现
+    // addCollect() {
+    //   // 判断是否登录,没有登录则显示登录组件
+    //   if (!this.$store.getters.getUser) {
+    //     this.$store.dispatch("setShowLogin", true);
+    //     return;
+    //   }
+    //   this.$axios
+    //     .post("collect/addCollect", {
+    //       user_id: this.$store.getters.getUser.user_id,
+    //       product_id: this.productID
+    //     },{withCredentials : true})
+    //     .then(res => {
+    //       if (res.data.code == "001") {
+    //         // 添加收藏成功
+    //         this.notifySucceed(res.data.msg);
+    //       } else {
+    //         // 添加收藏失败
+    //         this.notifyError(res.data.msg);
+    //       }
+    //     })
+    //     .catch(err => {
+    //       return Promise.reject(err);
+    //     });
+    // }
   }
 };
 </script>
@@ -266,31 +302,47 @@ export default {
 }
 #details .main .block {
   float: left;
+  margin-top: 30px;
   width: 560px;
-  height: 560px;
+  height: 471px;
 }
+#details .main .block img{
+  width: 100%;
+  height: 100%;
+}
+
 #details .el-carousel .el-carousel__indicator .el-carousel__button {
   background-color: rgba(163, 163, 163, 0.8);
 }
 #details .main .content {
   float: left;
-  margin-left: 25px;
-  width: 640px;
+  margin-left: 45px;
+  width: 620px;
+  margin-top: 20px;
 }
 #details .main .content .name {
-  height: 30px;
-  line-height: 30px;
+  /*height: 30px;*/
+  /*line-height: 30px;*/
   font-size: 24px;
   font-weight: normal;
-  color: #212121;
+  color: #212121
 }
 #details .main .content .intro {
   color: #b0b0b0;
   padding-top: 10px;
 }
 #details .main .content .store {
-  color: #ff6700;
-  padding-top: 10px;
+  color: #ffffff;
+  /*padding-top: 10px;*/
+  width: 75px;
+  height: 25px;
+  text-align: center;
+  vertical-align: center;
+  background-color: rgba(50, 125, 255, 0.7);
+  border-radius: 5px;
+  /*padding: 0 5px 0;*/
+  margin-right: 5px;
+  display: inline-block;
 }
 #details .main .content .price {
   display: block;
