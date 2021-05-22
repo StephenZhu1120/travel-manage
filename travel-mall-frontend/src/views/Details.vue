@@ -233,7 +233,7 @@ export default {
           .post("order",{
             userId: this.$store.getters.getUser.id,
             productId: this.productDetails.id,
-            routeId: this.selectRoute,
+            routeId: this.productRouteList[this.selectRoute].routeId,
             peopleNumber: this.selectPeople,
             travelTime: this.selectDate
           },{withCredentials : true})

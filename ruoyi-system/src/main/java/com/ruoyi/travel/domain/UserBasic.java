@@ -17,7 +17,7 @@ public class UserBasic extends BaseEntity
 
     /** 用户id */
     @Excel(name = "用户id")
-    private Integer id;
+    private Long id;
 
     /** 用户昵称 */
     @Excel(name = "用户昵称")
@@ -29,7 +29,7 @@ public class UserBasic extends BaseEntity
 
     /** 用户状态 */
     @Excel(name = "用户状态")
-    private Integer userStatus;
+    private Long userStatus;
 
     /** 真实姓名 */
     @Excel(name = "真实姓名")
@@ -49,18 +49,18 @@ public class UserBasic extends BaseEntity
 
     /** 性别 */
     @Excel(name = "性别")
-    private Integer sex;
+    private Long sex;
 
     /** 头像链接地址 */
     @Excel(name = "头像链接地址")
     private String avatar;
 
-    public void setId(Integer id) 
+    public void setId(Long id) 
     {
         this.id = id;
     }
 
-    public Integer getId() 
+    public Long getId() 
     {
         return id;
     }
@@ -82,12 +82,12 @@ public class UserBasic extends BaseEntity
     {
         return password;
     }
-    public void setUserStatus(Integer userStatus) 
+    public void setUserStatus(Long userStatus) 
     {
         this.userStatus = userStatus;
     }
 
-    public Integer getUserStatus() 
+    public Long getUserStatus() 
     {
         return userStatus;
     }
@@ -127,12 +127,12 @@ public class UserBasic extends BaseEntity
     {
         return phoneNumber;
     }
-    public void setSex(Integer sex) 
+    public void setSex(Long sex) 
     {
         this.sex = sex;
     }
 
-    public Integer getSex() 
+    public Long getSex() 
     {
         return sex;
     }
