@@ -29,15 +29,15 @@
     <div class="main">
       <!-- 左侧商品轮播图 -->
       <div class="block">
-        <el-carousel class="pictureplay" v-if="productDetails.imgs.length>1" indicator-position="outside" height="373px">
-          <el-carousel-item v-for="(item, i) in productDetails.imgs" :key="item">
-            <img :src="productDetails.imgs[i]" :alt="productDetails.productName" />
+        <el-carousel class="pictureplay" v-if="productPicture.length>1" indicator-position="outside" height="373px">
+          <el-carousel-item v-for="(item, i) in productPicture" :key="item">
+            <img :src="productPicture[i]" :alt="productDetails.productName" />
           </el-carousel-item>
         </el-carousel>
-        <div v-if="productPicture.length==1">
+        <div v-else>
           <img
-            :src="productDetails.imgs[0]"
-            :alt="productPicture[0].introduction"
+            :src="productPicture[0]"
+            :alt="productDetails.productName"
           />
         </div>
       </div>
@@ -71,21 +71,42 @@
 
         </div>
         <div class="pro-list">
-          <span class="pro-name">{{productDetails.product_name}}</span>
-          <span class="pro-price">
-            <span>{{productDetails.product_selling_price}}元</span>
-            <span
-              v-show="productDetails.product_price != productDetails.product_selling_price"
-              class="pro-del"
-            >{{productDetails.product_price}}元</span>
-          </span>
-          <p class="price-sum">总计 : {{productDetails.product_selling_price}}元</p>
+<!--          <span class="pro-name">{{productDetails.productName}}</span>-->
+          <p class="pro-price">
+<!--            <span>{{productDetails.product_selling_price}}元</span>-->
+<!--            <span-->
+<!--              v-show="productDetails.product_price != productDetails.product_selling_price"-->
+<!--              class="pro-del"-->
+<!--            >{{productDetails.product_price}}元</span>-->
+            <span class="pro-date" >出行日期：
+              <el-date-picker
+                v-model="selectDate"
+                type="date"
+                placeholder="请选择日期">
+              </el-date-picker>
+            </span>
+            <span class="pro-route">产品路线选择：
+              <el-select v-model="selectRoute" placeholder="请选择路线" size="small" @change="calcPrice">
+                <el-option
+                          v-for="item in productRouteList"
+                          :key="item.routeId"
+                          :label="item.routeName"
+                          :value="item.index">
+                </el-option>
+              </el-select>
+            </span>
+            <span class="pro-people">人数：
+              <el-input-number v-model="selectPeople" :min="0" :max="20" label="人数" size="small" placeholder="请选择人数" @change="calcPrice"></el-input-number>
+            </span>
+          </p>
+          <p v-if="totalNumber === 0" class="price-sum">请选择路线和人数</p>
+          <p v-else class="price-sum">预估价格总计：{{totalNumber}} 元</p>
         </div>
         <!-- 内容区底部按钮 -->
         <div class="button">
 <!--          <el-button class="shop-cart" :disabled="dis" @click="addShoppingCart">加入购物车</el-button>-->
 <!--          <el-button class="like" @click="addCollect">喜欢</el-button>-->
-          <el-button class="order" @click="addOrder" type="primary">立即下单</el-button>
+          <el-button class="order" @click="createOrder" type="primary">立即下单</el-button>
         </div>
         <!-- 内容区底部按钮END -->
         <div class="pro-policy">
@@ -123,7 +144,12 @@ export default {
       dis: false, // 控制“加入购物车按钮是否可用”
       productID: "", // 商品id
       productDetails: "", // 商品详细信息
-      productPicture: "" // 商品图片
+      productPicture: "", // 商品图片
+      productRouteList: [],
+      totalNumber: 0,
+      selectPeople: undefined,
+      selectRoute: null,
+      selectDate: null
     };
   },
   // 通过路由获取商品id
@@ -141,6 +167,14 @@ export default {
   },
   methods: {
     ...mapActions(["unshiftShoppingCart", "addShoppingCartNum"]),
+
+
+    calcPrice(){
+      if(this.selectRoute === null || this.selectPeople === 0 || this.selectPeople === undefined)
+        this.totalNumber = 0;
+      else
+        this.totalNumber = this.productRouteList[this.selectRoute].price * this.selectPeople;
+    },
     // 获取商品详细信息
     getDetails(val) {
       this.$axios
@@ -150,6 +184,8 @@ export default {
           .then(res => {
             if(res.data.code === 200){
               this.productDetails = res.data.data;
+              this.productPicture = res.data.data.imgs;
+              this.productRouteList = res.data.data.productRoutes;
             } else{
               this.notifyError(res.data.msg);
             }
@@ -167,6 +203,52 @@ export default {
         //   return Promise.reject(err);
         // });
     },
+
+    createOrder(){
+      if(!this.$store.getters.getUser){
+        this.$store.dispatch("setShowLogin", true);
+        return;
+      }
+      //
+      // console.log("userid:"+this.$store.getters.getUser.id);
+      // console.log("productid:"+this.productDetails.id);
+      // console.log("routeindex:"+this.selectRoute);
+      // console.log("peoplenumber:"+this.selectPeople);
+      // console.log("selectDate:"+this.selectDate);
+
+      if(this.selectRoute === null){
+        this.notifyError("请选择出行路线");
+        return;
+      }
+      if(this.selectPeople === 0 || this.selectPeople === undefined){
+        this.notifyError("请选择出行人数");
+        return;
+      }
+      if(this.selectDate === null){
+        this.notifyError("请选择出行时间");
+        return;
+      }
+
+      this.$axios
+          .post("order",{
+            userId: this.$store.getters.getUser.id,
+            productId: this.productDetails.id,
+            routeId: this.selectRoute,
+            peopleNumber: this.selectPeople,
+            travelTime: this.selectDate
+          },{withCredentials : true})
+          .then(res =>{
+            if(res.data.code === 200){
+              this.notifySucceed(res.data.msg);
+            }
+            else
+              this.notifyError(res.data.msg);
+          })
+      .catch(err => {
+        return Promise.reject(err);
+      });
+
+    }
 
     //图片获取方式不同，原作者内容直接注释掉
     // 获取商品图片
@@ -361,13 +443,24 @@ export default {
   background: #f9f9fa;
   padding: 30px 60px;
   margin: 50px 0 50px;
+  width: 90%;
 }
 #details .main .content .pro-list span {
   line-height: 30px;
   color: #616161;
 }
+#details .main .content .pro-list .pro-date{
+  display: block;
+}
+#details .main .content .pro-list .pro-route{
+  display: block;
+}
+#details .main .content .pro-list .pro-people{
+  display: block;
+}
 #details .main .content .pro-list .pro-price {
-  float: right;
+  /*float: left;*/
+  display: block;
 }
 #details .main .content .pro-list .pro-price .pro-del {
   margin-left: 10px;
@@ -376,7 +469,8 @@ export default {
 #details .main .content .pro-list .price-sum {
   color: #ff6700;
   font-size: 24px;
-  padding-top: 20px;
+  float: left;
+  /*padding-top: 20px;*/
 }
 #details .main .content .button {
   height: 55px;

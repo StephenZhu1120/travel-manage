@@ -4,16 +4,16 @@
     <div class="block">
       <el-carousel height="550px">
         <el-carousel-item>
-          <img style="height:550px;" src="../assets/img_banner/lunbo01.jpg" :alt="欢迎来到奥游旅行社" />
+          <img style="height:550px;" src="../assets/img_banner/lunbo01.jpg" :alt="'欢迎来到奥游旅行社'" />
         </el-carousel-item>
         <el-carousel-item>
-          <img style="height:550px;" src="../assets/img_banner/lunbo02.jpg" :alt="欢迎来到奥游旅行社" />
+          <img style="height:550px;" src="../assets/img_banner/lunbo02.jpg" :alt="'欢迎来到奥游旅行社'" />
         </el-carousel-item>
         <el-carousel-item>
-          <img style="height:550px;" src="../assets/img_banner/lunbo03.jpg" :alt="欢迎来到奥游旅行社" />
+          <img style="height:550px;" src="../assets/img_banner/lunbo03.jpg" :alt="'欢迎来到奥游旅行社'" />
         </el-carousel-item>
 <!--        <el-carousel-item>-->
-<!--          <img style="height:550px;" src="../assets/img_banner/lunbo04.jpg" :alt="欢迎来到奥游旅行社" />-->
+         <!-- <img style="height:550px;" src="../assets/img_banner/lunbo04.jpg" :alt="'欢迎来到奥游旅行社'" /> -->
 <!--        </el-carousel-item>-->
       </el-carousel>
     </div>

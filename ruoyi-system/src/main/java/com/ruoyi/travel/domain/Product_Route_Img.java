@@ -40,7 +40,7 @@ public class Product_Route_Img {
     private String productDetailAds;
 
     /** 路线详细内容 */
-    private List<ProductRoute> productRoutes;
+    private List<Route_Mall> productRoutes;
 
     public void setId(Long id)
     {
@@ -130,11 +130,11 @@ public class Product_Route_Img {
     {
         return productDetailAds;
     }
-    public void setProductRoutes(List<ProductRoute> productRoutes)
+    public void setProductRoutes(List<Route_Mall> productRoutes)
     {
         this.productRoutes = productRoutes;
     }
-    public List<ProductRoute> getProductRoutes()
+    public List<Route_Mall> getProductRoutes()
     {
         return productRoutes;
     }
