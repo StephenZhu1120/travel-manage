@@ -71,7 +71,7 @@
       <!-- 底栏容器 -->
       <el-footer>
         <div class="footer">
-          <div><p>`</p></div>
+<!--          <div><p>`</p></div>-->
           <div class="mod_help">
             <p>
               <router-link to="/">首页</router-link>
@@ -257,33 +257,36 @@ a:hover {
 }
 /* 顶栏容器CSS END */
 
+
+
 /* 底栏容器CSS */
 .footer {
   width: 100%;
   text-align: center;
   background: #2f2f2f;
-  padding-bottom: 20px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
-.footer .ng-promise-box {
-  border-bottom: 1px solid #3d3d3d;
-  line-height: 145px;
-}
-.footer .ng-promise-box {
-  margin: 0 auto;
-  border-bottom: 1px solid #3d3d3d;
-  line-height: 145px;
-}
-.footer .ng-promise-box .ng-promise p a {
-  color: #fff;
-  font-size: 20px;
-  margin-right: 210px;
-  padding-left: 44px;
-  height: 40px;
-  display: inline-block;
-  line-height: 40px;
-  text-decoration: none;
-  background: url("./assets/imgs/us-icon.png") no-repeat left 0;
-}
+/*.footer .ng-promise-box {*/
+/*  border-bottom: 1px solid #3d3d3d;*/
+/*  line-height: 145px;*/
+/*}*/
+/*.footer .ng-promise-box {*/
+/*  margin: 0 auto;*/
+/*  border-bottom: 1px solid #3d3d3d;*/
+/*  line-height: 145px;*/
+/*}*/
+/*.footer .ng-promise-box .ng-promise p a {*/
+/*  color: #fff;*/
+/*  font-size: 20px;*/
+/*  margin-right: 210px;*/
+/*  padding-left: 44px;*/
+/*  height: 40px;*/
+/*  display: inline-block;*/
+/*  line-height: 40px;*/
+/*  text-decoration: none;*/
+/*  background: url("./assets/imgs/us-icon.png") no-repeat left 0;*/
+/*}*/
 .footer .github {
   height: 50px;
   line-height: 50px;

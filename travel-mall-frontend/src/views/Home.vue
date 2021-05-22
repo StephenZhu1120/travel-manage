@@ -34,4 +34,10 @@ export default {
 </script>
 <style scoped>
 @import "../assets/css/index.css";
+#home{
+  height: 648px;
+}
+#home .block{
+  margin-top: 30px;
+}
 </style>

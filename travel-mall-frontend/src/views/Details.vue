@@ -127,8 +127,12 @@
         </div>
       </div>
       <!-- 右侧内容区END -->
+<!--      分隔栏-->
+      <div class="seperate-line">
+        <span class="word">产品详情</span>
+      </div>
 <!--      这一部分是展示产品的图文介绍-->
-      <div>
+      <div class="ads-detail">
         <span v-html="productDetails.productDetailAds"></span>
 
       </div>
@@ -443,7 +447,7 @@ export default {
   background: #f9f9fa;
   padding: 30px 60px;
   margin: 50px 0 50px;
-  width: 90%;
+  width: 81%;
 }
 #details .main .content .pro-list span {
   line-height: 30px;
@@ -504,6 +508,22 @@ export default {
   float: left;
   margin-right: 20px;
   color: #b0b0b0;
+}
+#details .main .seperate-line{
+  background-color: #f9f9fa;
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#details .main .seperate-line .word{
+  color: #616161;
+  font-size: 20px;
+  margin: 10px 30px 0 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 /* 主要内容CSS END */
 </style>
