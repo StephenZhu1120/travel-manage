@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectUserBasicById" parameterType="Integer" resultType="UserBasic">
+    <select id="selectUserBasicById" parameterType="Long" resultType="UserBasic">
         <include refid="selectUserBasicVo"/>
         where id = #{id}
     </select>
@@ -91,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-    <delete id="deleteUserBasicById" parameterType="Integer">
+    <delete id="deleteUserBasicById" parameterType="Long">
         delete from travel_user_basic where id = #{id}
     </delete>
 

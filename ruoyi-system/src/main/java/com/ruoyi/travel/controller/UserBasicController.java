@@ -24,7 +24,7 @@ import com.ruoyi.common.utils.SecurityUtils;
 
 /**
  * 账户管理Controller
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-11
  */
@@ -65,7 +65,7 @@ public class UserBasicController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('travel:userBasic:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Integer id)
+    public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return AjaxResult.success(userBasicService.selectUserBasicById(id));
     }
@@ -112,7 +112,7 @@ public class UserBasicController extends BaseController
     @PreAuthorize("@ss.hasPermi('travel:userBasic:remove')")
     @Log(title = "账户管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Integer[] ids)
+    public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(userBasicService.deleteUserBasicByIds(ids));
     }

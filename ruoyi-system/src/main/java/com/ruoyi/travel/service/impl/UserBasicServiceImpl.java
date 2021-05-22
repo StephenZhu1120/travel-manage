@@ -28,7 +28,7 @@ public class UserBasicServiceImpl implements IUserBasicService
      * @return 账户管理
      */
     @Override
-    public UserBasic selectUserBasicById(Integer id)
+    public UserBasic selectUserBasicById(Long id)
     {
         return userBasicMapper.selectUserBasicById(id);
     }
@@ -90,7 +90,7 @@ public class UserBasicServiceImpl implements IUserBasicService
      * @return 结果
      */
     @Override
-    public int deleteUserBasicByIds(Integer[] ids)
+    public int deleteUserBasicByIds(Long[] ids)
     {
         return userBasicMapper.deleteUserBasicByIds(ids);
     }
@@ -102,7 +102,7 @@ public class UserBasicServiceImpl implements IUserBasicService
      * @return 结果
      */
     @Override
-    public int deleteUserBasicById(Integer id)
+    public int deleteUserBasicById(Long id)
     {
         return userBasicMapper.deleteUserBasicById(id);
     }

@@ -55,7 +55,7 @@ public class OrderMallController extends BaseController{
     @PostMapping
     public AjaxResult createOrder(@RequestBody OrderBasic orderBasic)
     {
-        UserBasic userBasic = userBasicService.selectUserBasicById((int)orderBasic.getUserId().intValue());
+        UserBasic userBasic = userBasicService.selectUserBasicById(orderBasic.getUserId());
         ProductBasic productBasic = productBasicService.selectProductBasicById(orderBasic.getProductId());
         ProductRoute productRoute = productRouteService.selectProductRouteById(orderBasic.getRouteId());
         orderBasic.setPhonenumber(userBasic.getPhoneNumber());
