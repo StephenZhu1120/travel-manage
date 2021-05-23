@@ -128,16 +128,17 @@
       </div>
       <!-- 右侧内容区END -->
 <!--      分隔栏-->
-      <div class="seperate-line">
-        <span class="word">产品详情</span>
-      </div>
-<!--      这一部分是展示产品的图文介绍-->
-      <div class="ads-detail">
-        <span v-html="productDetails.productDetailAds"></span>
 
-      </div>
     </div>
     <!-- 主要内容END -->
+    <div class="seperate-line">
+      <span class="word">产品详情</span>
+    </div>
+    <!--      这一部分是展示产品的图文介绍-->
+    <div class="ads-detail">
+      <span v-html="productDetails.productDetailAds"></span>
+
+    </div>
   </div>
 </template>
 <script>
@@ -382,7 +383,7 @@ export default {
 /* 主要内容CSS */
 #details .main {
   width: 1225px;
-  height: 560px;
+  height: 660px;
   padding-top: 30px;
   margin: 0 auto;
 }
@@ -509,21 +510,24 @@ export default {
   margin-right: 20px;
   color: #b0b0b0;
 }
-#details .main .seperate-line{
+#details .seperate-line{
   background-color: #f9f9fa;
-  float: left;
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 1225px;
+  margin: 20px auto 20px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#details .main .seperate-line .word{
+#details .seperate-line .word{
   color: #616161;
   font-size: 20px;
-  margin: 10px 30px 0 15px;
+  /*margin: 10px 30px 0 15px;*/
   padding-left: 10px;
   padding-right: 10px;
+}
+
+#details .ads-detail{
+  width: 1225px;
+  margin: 0 auto;
 }
 /* 主要内容CSS END */
 </style>
