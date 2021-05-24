@@ -19,67 +19,69 @@
     <!-- 我的订单头部END -->
 
     <!-- 我的订单主要内容 -->
-    <div class="order-content" v-if="orders.length>0">
+    <div class="order-content" v-if="total>0">
+      <span>当前用户名称：{{$store.getters.getUser.userName}}</span>
+      <span>共有：{{total}}个订单记录</span>
       <div class="content" v-for="(item,index) in orders" :key="index">
         <ul>
           <!-- 我的订单表头 -->
           <li class="order-info">
-            <div class="order-id">订单编号: {{item[0].order_id}}</div>
-            <div class="order-time">订单时间: {{item[0].order_time | dateFormat}}</div>
+            <div class="order-id">订单编号: {{item.orderId}}</div>
+            <div class="order-time">订单时间: {{item.orderTime | dateFormat}}</div>
           </li>
           <li class="header">
             <div class="pro-img"></div>
-            <div class="pro-name">商品名称</div>
-            <div class="pro-price">单价</div>
-            <div class="pro-num">数量</div>
-            <div class="pro-total">小计</div>
+            <div class="pro-name">产品名称</div>
+            <div class="pro-route-name">路线名称</div>
+            <div class="pro-phonenumber">下单手机号</div>
+            <div class="pro-peoplenumber">旅行人数</div>
+
           </li>
           <!-- 我的订单表头END -->
 
           <!-- 订单列表 -->
-          <li class="product-list" v-for="(product,i) in item" :key="i">
+          <li class="product-list">
             <div class="pro-img">
-              <router-link :to="{ path: 'goods/details', query: {productID:product.product_id} }">
-                <img :src="$target + product.product_picture" />
+              <router-link :to="{ path: 'goods/getProduct', query: {id:item.productId}}">
+                <img :src= "item.imgUrl" :alt="item.productName"/>
               </router-link>
             </div>
             <div class="pro-name">
-              <router-link
-                :to="{ path: 'goods/details', query: {productID:product.product_id} }"
-              >{{product.product_name}}</router-link>
+              {{item.productName}}
             </div>
-            <div class="pro-price">{{product.product_price}}元</div>
-            <div class="pro-num">{{product.product_num}}</div>
-            <div class="pro-total pro-total-in">{{product.product_price*product.product_num}}元</div>
+            <div class="pro-route-name">{{item.routeName}}</div>
+            <div class="pro-phonenumber">{{item.phoneNumber}}</div>
+            <div class="pro-peoplenumber">{{item.peopleNumber}}</div>
+
           </li>
         </ul>
-        <div class="order-bar">
-          <div class="order-bar-left">
-            <span class="order-total">
-              共
-              <span class="order-total-num">{{total[index].totalNum}}</span> 件商品
-            </span>
-          </div>
-          <div class="order-bar-right">
-            <span>
-              <span class="total-price-title">合计：</span>
-              <span class="total-price">{{total[index].totalPrice}}元</span>
-            </span>
-          </div>
-        </div>
-        <div class="order-bar" id="order_status">
-          <div class="status_right"  v-if="item[0].status=='0'">
-            <p>订单已失效</p>
-          </div>
-          <div class="status_right"  v-else-if="item[0].pay_time==null">
-            <span>本订单尚未支付，请您尽快付款</span>
-            <el-button size="medium" class="el-button--primary" @click="orderPay(item[0].order_id)">付款</el-button>
-          </div>
-          <div class="status_right"  v-else>
-            <p>付款时间：{{item[0].pay_time|dateFormat}}</p>
-          </div>
-      <!-- 订单列表END -->
-    </div>
+<!--        <div class="order-bar">-->
+<!--          <div class="order-bar-left">-->
+<!--            <span class="order-total">-->
+<!--              共-->
+<!--              <span class="order-total-num">{{total[index].totalNum}}</span> 件商品-->
+<!--            </span>-->
+<!--          </div>-->
+<!--          <div class="order-bar-right">-->
+<!--            <span>-->
+<!--              <span class="total-price-title">合计：</span>-->
+<!--              <span class="total-price">{{total[index].totalPrice}}元</span>-->
+<!--            </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="order-bar" id="order_status" v-if="orders">-->
+<!--          <div class="status_right"  v-if="item[0].status=='0'">-->
+<!--            <p>订单已失效</p>-->
+<!--          </div>-->
+<!--          <div class="status_right"  v-else-if="item[0].pay_time==null">-->
+<!--            <span>本订单尚未支付，请您尽快付款</span>-->
+<!--            <el-button size="medium" class="el-button&#45;&#45;primary" @click="orderPay(item[0].order_id)">付款</el-button>-->
+<!--          </div>-->
+<!--          <div class="status_right"  v-else>-->
+<!--            <p>付款时间：{{item[0].pay_time|dateFormat}}</p>-->
+<!--          </div>-->
+<!--      &lt;!&ndash; 订单列表END &ndash;&gt;-->
+<!--    </div>-->
   </div>
   <div style="margin-top:-40px;"></div>
   </div>
@@ -100,62 +102,84 @@ export default {
   data() {
     return {
       orders: [], // 订单列表
-      total: [] // 每个订单的商品数量及总价列表
+      total: 0,
     };
   },
   activated() {
-    // 获取订单数据
-    this.$axios
-      .get("order/getOrderList", {
-        params:{user_id: this.$store.getters.getUser.id}
-      },{withCredentials : true})
-      .then(res => {
-        //返回200即为查询订单列表成功
-        if (res.data.code === "200") {
-          this.orders = res.data.orders;
-          console.log(this.orders[0][0].pay_time==null);
-          console.log(this.orders[1][0].pay_time==null);
-        } else {
-          this.notifyError(res.data.msg);
-        }
-      })
-      .catch(err => {
-        return Promise.reject(err);
-      });
+  },
+  created() {
+    this.getData();
   },
   watch: {
     // 通过订单信息，计算出每个订单的商品数量及总价
-    orders: function(val) {
-      let total = [];
-      for (let i = 0; i < val.length; i++) {
-        const element = val[i];
-
-        let totalNum = 0;
-        let totalPrice = 0;
-        for (let j = 0; j < element.length; j++) {
-          const temp = element[j];
-          totalNum += temp.product_num;
-          totalPrice += temp.product_price * temp.product_num;
-        }
-        total.push({ totalNum, totalPrice });
-      }
-      this.total = total;
-    }
+    // orders: function(val) {
+    //   let total = [];
+    //   for (let i = 0; i < val.length; i++) {
+    //     const element = val[i];
+    //
+    //     let totalNum = 0;
+    //     let totalPrice = 0;
+    //     for (let j = 0; j < element.length; j++) {
+    //       const temp = element[j];
+    //       totalNum += temp.product_num;
+    //       totalPrice += temp.product_price * temp.product_num;
+    //     }
+    //     total.push({ totalNum, totalPrice });
+    //   }
+    //   this.total = total;
+    // }
   },
   methods:{
-    orderPay(val) {
+    // orderPay(val) {
+    //   this.$axios
+    //       .post("order/orderPay", {
+    //         order_id: val,
+    //         user_id: this.$store.getters.getUser.user_id
+    //       },{withCredentials : true})
+    //       .then(res => {
+    //         if(res.data.code=="001"){
+    //           this.notifySucceed(res.data.msg);
+    //           this.$router.go(0);  //刷新
+    //         }
+    //         else
+    //           this.notifyError(res.data.msg);
+    //       })
+    //       .catch(err => {
+    //         return Promise.reject(err);
+    //       });
+    // }
+    getData(){
       this.$axios
-          .post("order/orderPay", {
-            order_id: val,
-            user_id: this.$store.getters.getUser.user_id
+          .get("user/isExist", {
+            params:{id: this.$store.getters.getUser.id}
           },{withCredentials : true})
           .then(res => {
-            if(res.data.code=="001"){
-              this.notifySucceed(res.data.msg);
-              this.$router.go(0);  //刷新
-            }
-            else
+            //返回200即为查询订单列表成功
+            if (res.data.code === 200) {
+              console.log("用户存在");
+              // 获取订单数据
+              this.$axios
+                  .get("order/getAllOrderList", {
+                    params:{userId: this.$store.getters.getUser.id}
+                  },{withCredentials : true})
+                  .then(res => {
+                    //返回200即为查询订单列表成功
+                    if (res.data.code === 200) {
+                      console.log(this);
+                      this.orders = res.data.data;
+                      this.total = this.orders.length;
+                      console.log(this.total);
+                    } else {
+                      this.notifyError(res.data.msg);
+                    }
+                  })
+                  .catch(err => {
+                    return Promise.reject(err);
+                  });
+            } else {
               this.notifyError(res.data.msg);
+              return;
+            }
           })
           .catch(err => {
             return Promise.reject(err);
@@ -249,18 +273,18 @@ export default {
 .order .content ul .pro-name a:hover {
   color: #ff6700;
 }
-.order .content ul .pro-price {
+.order .content ul .pro-route-name {
   float: left;
   width: 160px;
   padding-right: 18px;
   text-align: center;
 }
-.order .content ul .pro-num {
+.order .content ul .pro-peoplenumber {
   float: left;
   width: 190px;
   text-align: center;
 }
-.order .content ul .pro-total {
+.order .content ul .pro-phonenumber {
   float: left;
   width: 160px;
   padding-right: 81px;

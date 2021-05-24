@@ -57,6 +57,18 @@ public class UserMallController extends BaseController {
     }
 
     /**
+     * 判断用户id是否存在
+     */
+    @GetMapping("/isExist")
+    public AjaxResult isUserExist(UserBasic userBasic)
+    {
+        UserBasic new_userBasic = userBasicService.selectUserBasicById(userBasic.getId());
+        if(new_userBasic == null)
+            return error("该用户不存在");
+        return success();
+    }
+
+    /**
      * 判断用户登录逻辑
      */
     @PostMapping("/login")

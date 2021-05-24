@@ -7,6 +7,7 @@ import java.util.List;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.travel.domain.*;
 import com.ruoyi.travel.service.IOrderBasicService;
@@ -43,10 +44,7 @@ public class OrderMallController extends BaseController{
     @GetMapping("getAllOrderList")
     public AjaxResult getOrderList(OrderBasic orderBasic)
     {
-
         UserBasic userBasic = userBasicService.selectUserBasicById(orderBasic.getUserId());
-        if(userBasic == null)
-            return AjaxResult.error("该用户不存在");
         OrderBasic temp = new OrderBasic();
         temp.setUserId(orderBasic.getUserId());
 
@@ -61,6 +59,12 @@ public class OrderMallController extends BaseController{
                 ProductRoute productRoute = productRouteService.selectProductRouteById(orderBasicList.get(i).getRouteId());
                 order_mall.setOrderId(orderBasicList.get(i).getId());
                 order_mall.setProductName(productBasic.getProductName());
+                String img = productBasic.getImgUrl();
+                if(!(img == null || img.equals("")))
+                    if(img.contains(";"))
+                        order_mall.setImgUrl(img.substring(0, img.indexOf(";")));
+                    else
+                        order_mall.setImgUrl(img);
                 order_mall.setRouteName(productRoute.getRouteName());
                 order_mall.setUserName(userBasic.getUserName());
                 order_mall.setPhoneNumber(userBasic.getPhoneNumber());

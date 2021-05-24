@@ -12,6 +12,9 @@ public class Order_Mall {
     /** 产品名称 */
     private String productName;
 
+    /** 产品图片地址 */
+    private String imgUrl;
+
     /** 路线名称 */
     private String routeName;
 
@@ -63,6 +66,14 @@ public class Order_Mall {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getRouteName() {
