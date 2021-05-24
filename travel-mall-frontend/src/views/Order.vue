@@ -106,11 +106,12 @@ export default {
   activated() {
     // 获取订单数据
     this.$axios
-      .post("order/getOrder", {
-        user_id: this.$store.getters.getUser.user_id
+      .get("order/getOrderList", {
+        params:{user_id: this.$store.getters.getUser.id}
       },{withCredentials : true})
       .then(res => {
-        if (res.data.code === "001") {
+        //返回200即为查询订单列表成功
+        if (res.data.code === "200") {
           this.orders = res.data.orders;
           console.log(this.orders[0][0].pay_time==null);
           console.log(this.orders[1][0].pay_time==null);

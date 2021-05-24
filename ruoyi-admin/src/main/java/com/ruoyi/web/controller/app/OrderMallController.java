@@ -1,15 +1,14 @@
 package com.ruoyi.web.controller.app;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.travel.domain.OrderBasic;
-import com.ruoyi.travel.domain.ProductBasic;
-import com.ruoyi.travel.domain.ProductRoute;
-import com.ruoyi.travel.domain.UserBasic;
+import com.ruoyi.travel.domain.*;
 import com.ruoyi.travel.service.IOrderBasicService;
 import com.ruoyi.travel.service.IProductBasicService;
 import com.ruoyi.travel.service.IProductRouteService;
@@ -42,13 +41,42 @@ public class OrderMallController extends BaseController{
      * 查询订单列表
      */
     @GetMapping("getAllOrderList")
-    public AjaxResult getOrderList(@RequestBody OrderBasic orderBasic)
+    public AjaxResult getOrderList(OrderBasic orderBasic)
     {
-        ProductBasic productBasic = productBasicService.selectProductBasicById(orderBasic.getProductId());
-        ProductRoute productRoute = productRouteService.selectProductRouteById(orderBasic.getRouteId());
-        orderBasic.setProductName(productBasic.getProductName());
-        orderBasic.setOrderStatus(0L);
-        return toAjax(orderBasicService.insertOrderBasic(orderBasic));
+
+        UserBasic userBasic = userBasicService.selectUserBasicById(orderBasic.getUserId());
+        if(userBasic == null)
+            return AjaxResult.error("该用户不存在");
+        OrderBasic temp = new OrderBasic();
+        temp.setUserId(orderBasic.getUserId());
+
+        List<OrderBasic> orderBasicList = orderBasicService.selectOrderBasicList(temp);
+        List<Order_Mall> orderMallList = new ArrayList<Order_Mall>();
+        if(orderBasicList.size() == 0)
+            return AjaxResult.success(orderMallList);
+        else {
+            for(int i=0; i<orderBasicList.size(); i++){
+                Order_Mall order_mall = new Order_Mall();
+                ProductBasic productBasic = productBasicService.selectProductBasicById(orderBasicList.get(i).getProductId());
+                ProductRoute productRoute = productRouteService.selectProductRouteById(orderBasicList.get(i).getRouteId());
+                order_mall.setOrderId(orderBasicList.get(i).getId());
+                order_mall.setProductName(productBasic.getProductName());
+                order_mall.setRouteName(productRoute.getRouteName());
+                order_mall.setUserName(userBasic.getUserName());
+                order_mall.setPhoneNumber(userBasic.getPhoneNumber());
+                order_mall.setOrderTime(orderBasicList.get(i).getOrderTime());
+                order_mall.setTravelTime(orderBasicList.get(i).getTravelTime());
+                order_mall.setOrderStatus(orderBasicList.get(i).getOrderStatus());
+                order_mall.setPrice(orderBasicList.get(i).getPrice());
+                order_mall.setPeopleNumber(orderBasicList.get(i).getPeopleNumber());
+                order_mall.setPayWay(orderBasicList.get(i).getPayWay());
+                order_mall.setPayTime(orderBasicList.get(i).getPayTime());
+                order_mall.setRefundTime(orderBasicList.get(i).getRefundTime());
+
+                orderMallList.add(order_mall);
+            }
+        }
+        return AjaxResult.success(orderMallList);
     }
 
     @Log(title = "订单管理", businessType = BusinessType.INSERT)

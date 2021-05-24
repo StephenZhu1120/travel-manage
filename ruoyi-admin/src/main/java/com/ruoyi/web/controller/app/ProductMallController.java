@@ -16,7 +16,6 @@ import com.ruoyi.travel.service.IProductRouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,12 +39,12 @@ public class ProductMallController extends BaseController{
         productBasic.setProductStatus(3L);
         List<ProductBasic> product_list = productBasicService.selectProductBasicList(productBasic);
         if(product_list.size() != 0)
-        for(int i=0; i<product_list.size(); i++){
-            String img_string = product_list.get(i).getImgUrl();
-            if(!(img_string == null || img_string.equals("")))
-                if(img_string.contains(";"))
-                    product_list.get(i).setImgUrl(img_string.substring(0, img_string.indexOf(";")));
-        }
+            for(int i=0; i<product_list.size(); i++){
+                String img_string = product_list.get(i).getImgUrl();
+                if(!(img_string == null || img_string.equals("")))
+                    if(img_string.contains(";"))
+                        product_list.get(i).setImgUrl(img_string.substring(0, img_string.indexOf(";")));
+            }
         return getDataTable(product_list);
     }
 
