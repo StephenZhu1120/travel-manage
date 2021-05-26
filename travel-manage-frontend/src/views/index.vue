@@ -84,7 +84,6 @@
             <ul>
               <li>SpringBoot</li>
               <li>Spring Security</li>
-              <li>Apache Shiro</li>
               <li>JWT</li>
               <li>MyBatis</li>
               <li>Druid</li>
@@ -163,13 +162,28 @@
           <div slot="header" class="clearfix">
             <span>更新日志</span>
           </div>
-          <el-collapse accordion>
-            <el-collapse-item title="v1.0.1 - 2021-05-04">
+          <el-collapse>
+            <el-collapse-item title="v2.0.1 - 2021-05-17">
+              <ol>
+                <p>修复问题，提升系统稳定性</p>
+              </ol>
+            </el-collapse-item>
+            <el-collapse-item title="v2.0.0 - 2021-05-15">
+              <ol>
+                <p>新增多部门角色管理，各部门可按权限查看并办理业务</p>
+              </ol>
+            </el-collapse-item>
+            <el-collapse-item title="v1.0.2 - 2021-05-04">
               <ol>
                 <p>版本升级，新增财务管理模块</p>
               </ol>
             </el-collapse-item>
-            <el-collapse-item title="v1.0.0 - 2021-04-30">
+            <el-collapse-item title="v1.0.1 - 2021-05-01">
+              <ol>
+                <p>完善订单业务操作</p>
+              </ol>
+            </el-collapse-item>
+            <el-collapse-item title="v1.0.0 - 2021-04-25">
               <ol>
                 <p>奥游管理系统初版正式上线</p>
                 <p>功能模块：客户管理、产品管理、订单管理</p>
@@ -205,7 +219,7 @@ export default {
   data() {
     return {
       // 版本号
-      version: "1.0.1",
+      version: "2.0.1",
     };
   },
   methods: {

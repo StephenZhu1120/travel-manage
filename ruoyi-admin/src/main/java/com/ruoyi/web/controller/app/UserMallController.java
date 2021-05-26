@@ -37,6 +37,7 @@ public class UserMallController extends BaseController {
     @Log(title = "账户管理", businessType = BusinessType.INSERT)
     public AjaxResult signUp(@RequestBody UserBasic userBasic)
     {
+        userBasic.setUserStatus(1L);
         AjaxResult ajaxResult = toAjax(userBasicService.insertUserBasic(userBasic));
         return ajaxResult;
     }
@@ -91,6 +92,8 @@ public class UserMallController extends BaseController {
         else{
             if(! SecurityUtils.matchesPassword(userBasic.getPassword(), new_userBasic.getPassword()))
                 return error("密码填写错误，请重新输入");
+            if(new_userBasic.getUserStatus() != 1L)
+                return error("账户封禁中，请联系客服人员");
         }
         AjaxResult ajaxResult = AjaxResult.success();
         ajaxResult.put("user", new_userBasic);

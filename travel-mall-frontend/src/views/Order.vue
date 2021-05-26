@@ -20,8 +20,10 @@
 
     <!-- 我的订单主要内容 -->
     <div class="order-content" v-if="total>0">
-      <span>当前用户名称：{{$store.getters.getUser.userName}}</span>
-      <span>共有：{{total}}个订单记录</span>
+      <div class="head-info">
+        <span class="username">当前用户名称：{{$store.getters.getUser.userName}}</span>
+        <span class="ordercount" style="float: right">共有：{{total}}个订单记录</span>
+      </div>
       <div class="content" v-for="(item,index) in orders" :key="index">
         <ul>
           <!-- 我的订单表头 -->
@@ -55,20 +57,26 @@
 
           </li>
         </ul>
-<!--        <div class="order-bar">-->
-<!--          <div class="order-bar-left">-->
-<!--            <span class="order-total">-->
-<!--              共-->
-<!--              <span class="order-total-num">{{total[index].totalNum}}</span> 件商品-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div class="order-bar-right">-->
-<!--            <span>-->
-<!--              <span class="total-price-title">合计：</span>-->
-<!--              <span class="total-price">{{total[index].totalPrice}}元</span>-->
-<!--            </span>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="order-bar">
+          <div class="order-bar-left">
+            <span class="order-status">
+              订单状态：
+              <span class="order-status-word" v-if="item.orderStatus === 0">已下单，暂未支付</span>
+              <span class="order-status-word" v-else-if="item.orderStatus === 1">已支付</span>
+              <span class="order-status-word" v-else-if="item.orderStatus === 2">未支付，超时自动取消</span>
+              <span class="order-status-word" v-else-if="item.orderStatus === 3">未支付，已主动取消</span>
+              <span class="order-status-word" v-else-if="item.orderStatus === 4">已取消，待财务退款</span>
+              <span class="order-status-word" v-else-if="item.orderStatus === 5">已退款</span>
+              <span class="order-status-word" v-else-if="item.orderStatus === 6">已完成</span>
+            </span>
+          </div>
+          <div class="order-bar-right">
+            <span>
+              <span class="total-price-title">订单价格：</span>
+              <span class="total-price">{{item.price}}元</span>
+            </span>
+          </div>
+        </div>
 <!--        <div class="order-bar" id="order_status" v-if="orders">-->
 <!--          <div class="status_right"  v-if="item[0].status=='0'">-->
 <!--            <p>订单已失效</p>-->
@@ -211,6 +219,20 @@ export default {
   font-weight: normal;
   color: #424242;
 }
+
+.order .head-info{
+  width: 1225px;
+  margin: 0 auto;
+}
+
+.order .head-info .username{
+
+}
+
+.order .head-info .ordercount{
+
+}
+
 /* 我的订单头部CSS END */
 .order .content {
   width: 1225px;
@@ -257,15 +279,19 @@ export default {
   float: left;
   height: 85px;
   width: 120px;
-  padding-left: 80px;
+  padding-left: 30px;
+  padding-right: 50px;
 }
 .order .content ul .pro-img img {
   height: 80px;
-  width: 80px;
+  width: 120px;
 }
 .order .content ul .pro-name {
   float: left;
   width: 380px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .order .content ul .pro-name a {
   color: #424242;
@@ -278,6 +304,9 @@ export default {
   width: 160px;
   padding-right: 18px;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .order .content ul .pro-peoplenumber {
   float: left;
@@ -322,10 +351,10 @@ export default {
 .order .order-bar .order-bar-left {
   float: left;
 }
-.order .order-bar .order-bar-left .order-total {
+.order .order-bar .order-bar-left .order-status {
   color: #757575;
 }
-.order .order-bar .order-bar-left .order-total-num {
+.order .order-bar .order-bar-left .order-status-word {
   color: #ff6700;
 }
 .order .order-bar .order-bar-right {
