@@ -107,6 +107,21 @@ public class UserBasicController extends BaseController
     }
 
     /**
+     * 封禁/解封用户
+     */
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:edit')")
+    @Log(title = "账户管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody UserBasic userBasic) {
+        UserBasic new_userBasic = userBasicService.selectUserBasicById(userBasic.getId());
+        if(new_userBasic.getUserStatus() == 1L)
+            new_userBasic.setUserStatus(0L);
+        else if(new_userBasic.getUserStatus() == 0L)
+            new_userBasic.setUserStatus(1L);
+        return toAjax(userBasicService.updateUserBasic(new_userBasic));
+    }
+
+    /**
      * 删除账户管理
      */
     @PreAuthorize("@ss.hasPermi('travel:userBasic:remove')")

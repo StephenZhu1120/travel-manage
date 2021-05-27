@@ -107,7 +107,7 @@
           icon="el-icon-edit"
           size="mini"
           :disabled="single"
-          @click="handleUpdate"
+          @click="handleEdit"
           v-hasPermi="['travel:userBasic:edit']"
         >修改</el-button>
       </el-col>
@@ -159,14 +159,14 @@
             type="info"
             round
             icon="el-icon-edit"
-            @click="handleView(scope.row)"
+            @click="handleDetail(scope.row)"
           >查看详情</el-button>
           <el-button
             size="small"
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleAdminEdit(scope.row)"
+            @click="handleEdit(scope.row)"
             v-hasPermi="['travel:userBasic:edit']"
           >编辑信息</el-button>
           <el-button
@@ -197,8 +197,8 @@
       @pagination="getList"
     />
 
-    <!-- 全变量修改！！！添加或修改账户管理对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+    <!-- 添加账户管理对话框 -->
+    <el-dialog :title="title" :visible.sync="openCreate" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="用户id" prop="id">
           {{form.id}}
@@ -208,7 +208,6 @@
         </el-form-item>
         <el-form-item label="用户密码" prop="password">
           <el-input v-model="form.password" placeholder="请输入用户密码" />
-          <span>(修改密码请用右侧“重置密码”按钮)</span>
         </el-form-item>
         <el-form-item label="用户状态">
           <el-radio-group v-model="form.userStatus">
@@ -219,14 +218,14 @@
             >{{dict.dictLabel}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="账号创建时间" prop="createTime">
-          <el-date-picker clearable size="small"
-            v-model="form.createTime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择账号创建时间">
-          </el-date-picker>
-        </el-form-item>
+<!--        <el-form-item label="账号创建时间" prop="createTime">-->
+<!--          <el-date-picker clearable size="small"-->
+<!--            v-model="form.createTime"-->
+<!--            type="datetime"-->
+<!--            value-format="yyyy-MM-dd HH:mm:ss"-->
+<!--            placeholder="选择账号创建时间">-->
+<!--          </el-date-picker>-->
+<!--        </el-form-item>-->
         <el-form-item label="真实姓名" prop="userIdName">
           <el-input v-model="form.userIdName" placeholder="请输入真实姓名" />
         </el-form-item>
@@ -249,9 +248,9 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="头像链接地址" prop="avatar">
-          <el-input v-model="form.avatar" placeholder="请输入头像链接地址" />
-        </el-form-item>
+<!--        <el-form-item label="头像链接地址" prop="avatar">-->
+<!--          <el-input v-model="form.avatar" placeholder="请输入头像链接地址" />-->
+<!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -259,7 +258,6 @@
       </div>
     </el-dialog>
 
-    <!-- 管理员编辑账户管理对话框 -->
     <el-dialog :title="title" :visible.sync="openEdit" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="用户昵称" prop="userName">
@@ -299,9 +297,9 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="头像链接地址" prop="avatar">
-          <el-input v-model="form.avatar" placeholder="请输入头像链接地址" />
-        </el-form-item>
+<!--        <el-form-item label="头像链接地址" prop="avatar">-->
+<!--          <el-input v-model="form.avatar" placeholder="请输入头像链接地址" />-->
+<!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -376,7 +374,7 @@ export default {
       // 弹出层标题
       title: "",
       // 是否显示弹出层
-      open: false,
+      openCreate: false,
       openEdit: false,
       openDetail: false,
       // 用户状态字典
@@ -401,6 +399,15 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        userName: [
+          { required: true, message: "用户名不能为空", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "密码不能为空", trigger: "blur" }
+        ],
+        phoneNumber: [
+          { required: true, message: "手机号码不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -433,7 +440,7 @@ export default {
     },
     // 取消按钮
     cancel() {
-      this.open = false;
+      this.openCreate = false;
       this.openEdit = false;
       this.openDetail = false;
       this.reset();
@@ -444,7 +451,7 @@ export default {
         id: null,
         userName: null,
         password: null,
-        userStatus: 0,
+        userStatus: null,
         createTime: null,
         userIdName: null,
         userIdCard: null,
@@ -474,31 +481,21 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
-      this.open = true;
+      this.openCreate = true;
       this.title = "添加账户管理";
     },
     /** (全字段！！！)修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
-      const id = row.id || this.ids
-      getUserBasic(id).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改账户信息（管理员）";
-      });
-    },
-    /** 修改按钮操作 */
-    handleAdminEdit(row) {
+    handleEdit(row) {
       this.reset();
       const id = row.id || this.ids
       getUserBasic(id).then(response => {
         this.form = response.data;
         this.openEdit = true;
-        this.title = "修改账户信息";
+        this.title = "修改账户信息（管理员）";
       });
     },
     /** 详细按钮操作 */
-    handleView(row) {
+    handleDetail(row) {
       this.openDetail = true;
       this.title = "详情";
       this.form = row;
@@ -522,14 +519,14 @@ export default {
           if (this.form.id != null) {
             updateUserBasic(this.form).then(response => {
               this.msgSuccess("修改成功");
-              this.open = false;
+              this.openCreate = false;
               this.openEdit = false;
               this.getList();
             });
           } else {
             addUserBasic(this.form).then(response => {
               this.msgSuccess("新增成功");
-              this.open = false;
+              this.openCreate = false;
               this.getList();
             });
           }

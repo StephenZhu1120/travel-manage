@@ -64,3 +64,15 @@ export function resetUserPwd(id, password) {
     data: data
   })
 }
+
+// 重置密码
+export function changeStatus(id) {
+  const data = {
+    id
+  }
+  return request({
+    url: '/travel/userBasic/changeStatus',
+    method: 'put',
+    data: data
+  })
+}

@@ -90,48 +90,6 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['travel:userBasic:add']"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['travel:userBasic:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['travel:userBasic:remove']"
-        >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['travel:userBasic:export']"
-        >导出</el-button>
-      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -159,14 +117,14 @@
             type="info"
             round
             icon="el-icon-edit"
-            @click="handleView(scope.row)"
+            @click="handleDetail(scope.row)"
           >查看详情</el-button>
           <el-button
             size="small"
             type="success"
             round
             icon="el-icon-circle-close"
-            @click="handleAdminEdit(scope.row)"
+            @click="handleStatusBan(scope.row)"
             v-show="scope.row.userStatus === 1"
             v-hasPermi="['travel:userBasic:edit']"
           >封禁用户</el-button>
@@ -175,7 +133,7 @@
             type="success"
             round
             icon="el-icon-circle-check"
-            @click="handleAdminEdit(scope.row)"
+            @click="handleStatusUnBan(scope.row)"
             v-show="scope.row.userStatus === 0"
             v-hasPermi="['travel:userBasic:edit']"
           >解封用户</el-button>
@@ -184,7 +142,7 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleResetPwd(scope.row)"
+            @click="handleEdit(scope.row)"
             v-hasPermi="['travel:userBasic:resetPwd']"
           >编辑资料</el-button>
           <el-button
@@ -215,85 +173,11 @@
       @pagination="getList"
     />
 
-    <!-- 全变量修改！！！添加或修改账户管理对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="110px">
-        <el-form-item label="用户id" prop="id">
-          {{form.id}}
-        </el-form-item>
-        <el-form-item label="用户昵称" prop="userName">
-          <el-input v-model="form.userName" placeholder="请输入用户昵称" />
-        </el-form-item>
-        <el-form-item label="用户密码" prop="password">
-          <el-input v-model="form.password" placeholder="请输入用户密码" />
-          <span>(修改密码请用右侧“重置密码”按钮)</span>
-        </el-form-item>
-        <el-form-item label="用户状态">
-          <el-radio-group v-model="form.userStatus">
-            <el-radio
-              v-for="dict in userStatusOptions"
-              :key="dict.dictValue"
-              :label="parseInt(dict.dictValue)"
-            >{{dict.dictLabel}}</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="账号创建时间" prop="createTime">
-          <el-date-picker clearable size="small"
-                          v-model="form.createTime"
-                          type="datetime"
-                          value-format="yyyy-MM-dd HH:mm:ss"
-                          placeholder="选择账号创建时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="真实姓名" prop="userIdName">
-          <el-input v-model="form.userIdName" placeholder="请输入真实姓名" />
-        </el-form-item>
-        <el-form-item label="身份证号" prop="userIdCard">
-          <el-input v-model="form.userIdCard" placeholder="请输入身份证号" />
-        </el-form-item>
-        <el-form-item label="电子邮箱" prop="email">
-          <el-input v-model="form.email" placeholder="请输入电子邮箱" />
-        </el-form-item>
-        <el-form-item label="手机号码" prop="phoneNumber">
-          <el-input v-model="form.phoneNumber" placeholder="请输入手机号码" />
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-select v-model="form.sex" placeholder="请选择性别">
-            <el-option
-              v-for="dict in sexOptions"
-              :key="dict.dictValue"
-              :label="dict.dictLabel"
-              :value="parseInt(dict.dictValue)"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="头像链接地址" prop="avatar">
-          <el-input v-model="form.avatar" placeholder="请输入头像链接地址" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 管理员编辑账户管理对话框 -->
+    <!-- 编辑账户管理对话框 -->
     <el-dialog :title="title" :visible.sync="openEdit" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="用户昵称" prop="userName">
           <el-input v-model="form.userName" placeholder="请输入用户昵称" />
-        </el-form-item>
-        <!--        <el-form-item label="用户密码" prop="password">-->
-        <!--          <el-input v-model="form.password" placeholder="请输入用户密码" />-->
-        <!--        </el-form-item>-->
-        <el-form-item label="用户状态">
-          <el-radio-group v-model="form.userStatus">
-            <el-radio
-              v-for="dict in userStatusOptions"
-              :key="dict.dictValue"
-              :label="parseInt(dict.dictValue)"
-            >{{dict.dictLabel}}</el-radio>
-          </el-radio-group>
         </el-form-item>
         <el-form-item label="真实姓名" prop="userIdName">
           <el-input v-model="form.userIdName" placeholder="请输入真实姓名" />
@@ -367,7 +251,7 @@
 </template>
 
 <script>
-import { listUserBasic, getUserBasic, delUserBasic, addUserBasic, updateUserBasic, exportUserBasic, resetUserPwd } from "@/api/travel/userBasic";
+import { listUserBasic, getUserBasic, delUserBasic, addUserBasic, updateUserBasic, exportUserBasic, resetUserPwd, changeStatus } from "@/api/travel/userBasic";
 import ScrollPane from "@/layout/components/TagsView/ScrollPane";
 
 export default {
@@ -521,9 +405,30 @@ export default {
       this.title = "详情";
       this.form = row;
     },
+    /** 封禁按钮操作 */
+    handleStatusBan(row) {
+      this.$confirm('你确定要封禁用户"'+row.userName+'"吗', "封禁用户",{
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+      }).then(() => {
+        changeStatus(row.id).then(response => {
+          this.msgSuccess("已封禁用户：" + row.userName);
+        });
+      }).catch(()=>{});
+    },
+    /** 解除封禁按钮操作 */
+    handleStatusUnBan(row) {
+      this.$confirm('你确定要解封用户"'+row.userName+'"吗', "解封用户",{
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+      }).then(({value}) => {
+        changeStatus(row.id).then(response => {
+          this.msgSuccess("已解封用户：" + row.userName);
+        });
+      }).catch(()=>{});
+    },
     /** 密码重置按钮操作 */
     handleResetPwd(row) {
-
       this.$prompt('请输入"'+row.userName+'"的新密码', "重置密码",{
         confirmButtonText: "确定",
         cancelButtonText: "取消"
