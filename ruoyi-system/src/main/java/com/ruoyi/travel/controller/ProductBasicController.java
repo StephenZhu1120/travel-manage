@@ -1,6 +1,8 @@
 package com.ruoyi.travel.controller;
 
 import java.util.List;
+
+import com.ruoyi.travel.domain.UserBasic;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 产品信息Controller
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-12
  */
@@ -76,7 +78,25 @@ public class ProductBasicController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ProductBasic productBasic)
     {
+        productBasic.setProductStatus(0L);
         return toAjax(productBasicService.insertProductBasic(productBasic));
+    }
+
+    /**
+     * 上架/下架产品
+     */
+    @PreAuthorize("@ss.hasPermi('travel:productBasic:edit')")
+    @Log(title = "产品信息", businessType = BusinessType.UPDATE)
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody ProductBasic productBasic) {
+        ProductBasic new_productBasic = productBasicService.selectProductBasicById(productBasic.getId());
+        if(new_productBasic.getProductStatus() == 0L)
+            return AjaxResult.error("当前产品内容缺失，请联系计调部工作人员");
+        else if(new_productBasic.getProductStatus() == 1L || new_productBasic.getProductStatus() == 4L)
+            new_productBasic.setProductStatus(3L);
+        else if(new_productBasic.getProductStatus() == 3L)
+            new_productBasic.setProductStatus(4L);
+        return toAjax(productBasicService.updateProductBasic(new_productBasic));
     }
 
     /**

@@ -204,17 +204,11 @@
     <!-- 添加产品路线对话框 -->
     <el-dialog :title="title" :visible.sync="openCreate" width="700px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px">
-        <el-form-item label="路线id" prop="id">
-          {{form.id}}
-        </el-form-item>
         <el-form-item label="所属产品id" prop="productId">
           <el-input v-model="form.productId" placeholder="请输入所属产品id" />
         </el-form-item>
         <el-form-item label="路线名称" prop="routeName">
           <el-input v-model="form.routeName" placeholder="请输入路线名称" />
-        </el-form-item>
-        <el-form-item label="路线价格" prop="price">
-          <el-input v-model="form.price" placeholder="请输入路线价格" />
         </el-form-item>
         <el-form-item label="交通工具描述" prop="transportType" style="margin-top: 80px">
           <el-input v-model="form.transportType" placeholder="请输入交通工具描述" />
@@ -243,16 +237,12 @@
 
     <!-- 修改产品路线对话框 -->
     <el-dialog :title="title" :visible.sync="openEdit" width="600px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="140px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
         <el-form-item label="所属产品id" prop="productId">
-          <el-input v-model="form.productId" placeholder="请输入所属产品id" />
-          <span>绑定到产品后勿随意修改</span>
+          {{form.productId}}
         </el-form-item>
         <el-form-item label="路线名称" prop="routeName">
           <el-input v-model="form.routeName" placeholder="请输入路线名称" />
-        </el-form-item>
-        <el-form-item label="路线价格" prop="price">
-          <el-input v-model="form.price" placeholder="请输入路线价格" />
         </el-form-item>
         <el-form-item label="交通工具描述" prop="transportType" style="margin-top: 80px">
           <el-input v-model="form.transportType" placeholder="请输入交通工具描述" />
@@ -462,7 +452,7 @@ export default {
             updateProductRoute(this.form).then(response => {
               this.msgSuccess("修改成功");
               this.openCreate = false;
-              this.openAdminEdit = false;
+              this.openEdit = false;
               this.getList();
             });
           } else {

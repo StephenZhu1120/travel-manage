@@ -26,7 +26,7 @@ public interface ProductRouteMapper
      * @param productId 产品路线ID
      * @return 产品路线
      */
-    public int countRouteNumberByProductId(Long productId);
+    public Long countRouteNumberByProductId(Long productId);
 
     /**
      * 查询产品路线列表

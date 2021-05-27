@@ -1,10 +1,12 @@
 package com.ruoyi.travel.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.travel.domain.ProductBasic;
+import com.ruoyi.travel.domain.ProductRoute_Manage;
 import com.ruoyi.travel.service.IProductBasicService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,25 @@ public class ProductRouteController extends BaseController
     {
         startPage();
         List<ProductRoute> list = productRouteService.selectProductRouteList(productRoute);
-        return getDataTable(list);
+        List<ProductRoute_Manage> new_list = new ArrayList<ProductRoute_Manage>();
+        if(list.size()>0){
+            for(int i=0; i<list.size(); i++){
+                ProductRoute_Manage productRoute_manage = new ProductRoute_Manage();
+                productRoute_manage.setId(list.get(i).getId());
+                productRoute_manage.setProductId(list.get(i).getProductId());
+                productRoute_manage.setProductName(productBasicService.selectProductBasicById(list.get(i).getProductId()).getProductName());
+                productRoute_manage.setRouteName(list.get(i).getRouteName());
+                productRoute_manage.setPrice(list.get(i).getPrice());
+                productRoute_manage.setTransportPrice(list.get(i).getTransportPrice());
+                productRoute_manage.setTransportType(list.get(i).getTransportType());
+                productRoute_manage.setHotelPrice(list.get(i).getHotelPrice());
+                productRoute_manage.setHotelType(list.get(i).getHotelType());
+                productRoute_manage.setTravelPrice(list.get(i).getTravelPrice());
+                productRoute_manage.setTravelType(list.get(i).getTravelType());
+                new_list.add(productRoute_manage);
+            }
+        }
+        return getDataTable(new_list);
     }
 
     /**
@@ -86,11 +106,15 @@ public class ProductRouteController extends BaseController
         BigDecimal price_now = productRouteService.calculateRoutePrice(productRoute);//自动计算路线总金额
         productRoute.setPrice(price_now);
         ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
-        productBasic.setRouteNumber(productBasic.getRouteNumber() + 1);//该产品的路线数量加1
+
         BigDecimal present_price = productRouteService.getProductRoutePriceMin(productBasic.getId());//获取插入前的最低价格
         productBasic.setPriceStart(present_price.min(price_now));//找到更小的值
+        if(productBasic.getProductStatus() == 0L)
+            productBasic.setProductStatus(1L);
+        AjaxResult ajaxResult = toAjax(productRouteService.insertProductRoute(productRoute));//执行路线插入
+        productBasic.setRouteNumber(productRouteService.countRouteNumberByProductId(productBasic.getId()));//自动更新路线数量
         productBasicService.updateProductBasic(productBasic);//执行更新
-        return toAjax(productRouteService.insertProductRoute(productRoute));
+        return ajaxResult;
     }
 
     /**
@@ -105,6 +129,7 @@ public class ProductRouteController extends BaseController
         ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
         AjaxResult ajaxResult = toAjax(productRouteService.updateProductRoute(productRoute));
         productBasic.setPriceStart(productRouteService.getProductRoutePriceMin(productBasic.getId()));//还找到产品所有路线中的最低价格
+        productBasic.setRouteNumber(productRouteService.countRouteNumberByProductId(productBasic.getId()));//自动更新路线数量
         productBasicService.updateProductBasic(productBasic);//执行更新
         return ajaxResult;
     }
@@ -122,10 +147,10 @@ public class ProductRouteController extends BaseController
         for(int i=0; i < num; i++){
             ProductRoute productRoute = productRouteService.selectProductRouteById(ids[i]);//先通过路线id定位到路线
             ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
-            productBasic.setRouteNumber(productBasic.getRouteNumber() - 1);//该产品的路线数量减1
             ajaxResult = toAjax(productRouteService.deleteProductRouteById(ids[i]));
 //            if(! (ajaxResult.getCodeTag() == 200))
 //                break;
+            productBasic.setRouteNumber(productRouteService.countRouteNumberByProductId(productBasic.getId()));//更新路线数量
             productBasic.setPriceStart(productRouteService.getProductRoutePriceMin(productBasic.getId()));//找到产品所有路线中的最低价格
             productBasicService.updateProductBasic(productBasic);//自动更新产品的最后编辑时间
         }

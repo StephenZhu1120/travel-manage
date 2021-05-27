@@ -51,3 +51,15 @@ export function exportProductBasic(query) {
     params: query
   })
 }
+
+// 上架/下架产品
+export function changeStatus(id) {
+  const data = {
+    id
+  }
+  return request({
+    url: '/travel/productBasic/changeStatus',
+    method: 'put',
+    data: data
+  })
+}

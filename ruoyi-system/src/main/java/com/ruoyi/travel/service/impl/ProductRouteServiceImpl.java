@@ -113,4 +113,15 @@ public class ProductRouteServiceImpl implements IProductRouteService
     {
         return productRouteMapper.getProductRoutePriceMin(productId);
     }
+
+    /**
+     * 统计某个产品的路线个数
+     *
+     * @param productId 产品id
+     * @return 产品包含的路线数量
+     */
+    public Long countRouteNumberByProductId(Long productId)
+    {
+        return productRouteMapper.countRouteNumberByProductId(productId);
+    }
 }

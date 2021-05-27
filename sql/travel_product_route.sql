@@ -33,11 +33,6 @@ CREATE TABLE `travel_product_route`  (
   `travel_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '旅行描述',
   `travel_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '旅行部分价格',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of travel_product_route
--- ----------------------------
-INSERT INTO `travel_product_route` VALUES (1, 1, '艺术深度游', 1358.80, '高铁往返一等车厢', 288.80, '艺术风情江南民宅', 488.00, '拙政园+乌镇+西湖 尽享江南风情', 582.00);
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

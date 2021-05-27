@@ -94,31 +94,9 @@
           plain
           icon="el-icon-plus"
           size="mini"
-          @click="handleAdd"
+          @click="handleCreate"
           v-hasPermi="['travel:productBasic:add']"
         >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['travel:productBasic:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['travel:productBasic:remove']"
-        >删除</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -182,7 +160,7 @@
             type="success"
             round
             icon="el-icon-edit"
-            @click="handleAdminEdit(scope.row)"
+            @click="handleEdit(scope.row)"
             v-hasPermi="['travel:productBasic:edit']"
           >编辑信息</el-button>
           <el-button
@@ -205,61 +183,23 @@
       @pagination="getList"
     />
 
-    <!-- 全变量修改！！！添加或修改产品信息对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body>
+    <!-- 添加产品信息对话框 -->
+    <el-dialog :title="title" :visible.sync="openCreate" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-        <el-form-item label="旅游产品id" prop="id">
-          {{form.id}}
-        </el-form-item>
         <el-form-item label="旅游产品名称" prop="productName">
           <el-input v-model="form.productName" placeholder="请输入旅游产品名称" />
-        </el-form-item>
-        <el-form-item label="旅游产品状态" prop="productStatus">
-          <el-select v-model="form.productStatus" placeholder="请选择产品状态">
-            <el-option
-              v-for="dict in productStatusOptions"
-              :key="dict.dictValue"
-              :label="dict.dictLabel"
-              :value="parseInt(dict.dictValue)"
-            ></el-option>
-          </el-select>
         </el-form-item>
         <el-form-item label="旅行天数" prop="productDay">
           <el-input v-model="form.productDay" placeholder="请输入旅行天数" />
         </el-form-item>
-        <el-form-item label="产品创建时间" prop="createTime">
-          <el-date-picker clearable size="small"
-                          v-model="form.createTime"
-                          type="datetime"
-                          value-format="yyyy-MM-dd HH:mm:ss"
-                          placeholder="选择产品创建时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="产品最后编辑时间" prop="editTime">
-          <el-date-picker clearable size="small"
-                          v-model="form.editTime"
-                          type="datetime"
-                          value-format="yyyy-MM-dd HH:mm:ss"
-                          placeholder="选择产品最后编辑时间">
-          </el-date-picker>
-        </el-form-item>
         <el-form-item label="产品策划">
           <editor v-model="form.productDesign" :min-height="192"/>
-        </el-form-item>
-        <el-form-item label="产品计划">
-          <editor v-model="form.productPlan" :min-height="192"/>
         </el-form-item>
         <el-form-item label="出发地" prop="birthland">
           <el-input v-model="form.birthland" placeholder="请输入出发地" />
         </el-form-item>
         <el-form-item label="目的地" prop="destination">
           <el-input v-model="form.destination" placeholder="请输入目的地" />
-        </el-form-item>
-        <el-form-item label="起始最低价格" prop="priceStart">
-          <el-input v-model="form.priceStart" placeholder="请输入起始最低价格" :disabled="true"/>
-        </el-form-item>
-        <el-form-item label="订单完成数量" prop="orderNumber">
-          <el-input v-model="form.orderNumber" placeholder="请输入订单完成数量" />
         </el-form-item>
         <el-form-item label="产品描述简介" prop="description">
           <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
@@ -270,9 +210,6 @@
         </el-form-item>
         <el-form-item label="图片宣传内容">
           <editor v-model="form.productDetailAds" :min-height="192"/>
-        </el-form-item>
-        <el-form-item label="路线数量" prop="routeNumber">
-          <el-input v-model="form.routeNumber" placeholder="请输入路线数量" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -281,50 +218,20 @@
       </div>
     </el-dialog>
 
-    <!-- 管理员修改产品信息对话框 -->
-    <el-dialog :title="title" :visible.sync="openAdminEdit" width="1000px" append-to-body>
+    <!-- 修改产品信息对话框 -->
+    <el-dialog :title="title" :visible.sync="openEdit" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="旅游产品名称" prop="productName">
           <el-input v-model="form.productName" placeholder="请输入旅游产品名称" />
         </el-form-item>
-<!--        <el-form-item label="旅游产品状态" prop="productStatus">-->
-<!--          <el-select v-model="form.productStatus" placeholder="请选择产品状态">-->
-<!--            <el-option-->
-<!--              v-for="dict in productStatusOptions"-->
-<!--              :key="dict.dictValue"-->
-<!--              :label="dict.dictLabel"-->
-<!--              :value="parseInt(dict.dictValue)"-->
-<!--            ></el-option>-->
-<!--          </el-select>-->
-<!--        </el-form-item>-->
         <el-form-item label="旅行天数" prop="productDay">
           <el-input v-model="form.productDay" placeholder="请输入旅行天数" />
         </el-form-item>
-        <!--        <el-form-item label="产品最后编辑时间" prop="editTime">-->
-        <!--          <el-date-picker clearable size="small"-->
-        <!--            v-model="form.editTime"-->
-        <!--            type="date"-->
-        <!--            value-format="yyyy-MM-dd"-->
-        <!--            placeholder="选择产品最后编辑时间">-->
-        <!--          </el-date-picker>-->
-        <!--        </el-form-item>-->
-<!--        <el-form-item label="产品策划">-->
-<!--          <editor v-model="form.productDesign" :min-height="192"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="产品计划">-->
-<!--          <editor v-model="form.productPlan" :min-height="192"/>-->
-<!--        </el-form-item>-->
         <el-form-item label="出发地" prop="birthland">
           <el-input v-model="form.birthland" placeholder="请输入出发地" />
         </el-form-item>
         <el-form-item label="目的地" prop="destination">
           <el-input v-model="form.destination" placeholder="请输入目的地" />
-        </el-form-item>
-        <el-form-item label="起始最低价格" prop="priceStart">
-          <el-input v-model="form.priceStart" placeholder="请输入起始最低价格" :disabled="true"/>
-        </el-form-item>
-        <el-form-item label="订单完成数量" prop="orderNumber">
-          <el-input v-model="form.orderNumber" placeholder="请输入订单完成数量" />
         </el-form-item>
         <el-form-item label="产品描述简介" prop="description">
           <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
@@ -335,9 +242,6 @@
         </el-form-item>
         <el-form-item label="图片宣传内容">
           <editor v-model="form.productDetailAds" :min-height="192"/>
-        </el-form-item>
-        <el-form-item label="路线数量" prop="routeNumber">
-          <el-input v-model="form.routeNumber" placeholder="请输入路线数量" :disabled="true"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -406,7 +310,7 @@
       </div>
     </el-dialog>
 
-    <!-- 编辑产品状态对话框 -->
+    <!-- 编辑产品设计对话框 -->
     <el-dialog :title="title" :visible.sync="openDesign" width="1000px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="旅游产品名称" prop="productName">
@@ -452,8 +356,8 @@ export default {
       // 弹出层标题
       title: "",
       // 是否显示弹出层
-      open: false,
-      openAdminEdit: false,
+      openCreate: false,
+      openEdit: false,
       openDetail: false,
       openDesign: false,
       // 旅游产品状态字典
@@ -504,9 +408,9 @@ export default {
     },
     // 取消按钮
     cancel() {
-      this.open = false;
+      this.openCreate = false;
       this.openDetail = false;
-      this.openAdminEdit = false;
+      this.openEdit = false;
       this.openDesign = false;
       this.reset();
     },
@@ -549,28 +453,18 @@ export default {
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
-    handleAdd() {
+    handleCreate() {
       this.reset();
-      this.open = true;
-      this.title = "添加产品信息";
-    },
-    /** 全变量！！！修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
-      const id = row.id || this.ids
-      getProductBasic(id).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改产品信息（管理员）";
-      });
+      this.openCreate = true;
+      this.title = "创建产品信息";
     },
     /** 修改按钮操作 */
-    handleAdminEdit(row) {
+    handleEdit(row) {
       this.reset();
       const id = row.id || this.ids
       getProductBasic(id).then(response => {
         this.form = response.data;
-        this.openAdminEdit = true;
+        this.openEdit = true;
         this.title = "修改产品信息";
       });
     },
@@ -593,15 +487,15 @@ export default {
           if (this.form.id != null) {
             updateProductBasic(this.form).then(response => {
               this.msgSuccess("修改成功");
-              this.open = false;
-              this.openAdminEdit = false;
+              this.openCreate = false;
+              this.openEdit = false;
               this.openDesign = false;
               this.getList();
             });
           } else {
             addProductBasic(this.form).then(response => {
               this.msgSuccess("新增成功");
-              this.open = false;
+              this.openCreate = false;
               this.getList();
             });
           }

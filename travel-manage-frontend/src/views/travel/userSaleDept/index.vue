@@ -373,24 +373,8 @@ export default {
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加账户管理";
-    },
-    /** (全字段！！！)修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
-      const id = row.id || this.ids
-      getUserBasic(id).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改账户信息（管理员）";
-      });
-    },
     /** 修改按钮操作 */
-    handleAdminEdit(row) {
+    handleEdit(row) {
       this.reset();
       const id = row.id || this.ids
       getUserBasic(id).then(response => {
@@ -421,7 +405,7 @@ export default {
       this.$confirm('你确定要解封用户"'+row.userName+'"吗', "解封用户",{
         confirmButtonText: "确定",
         cancelButtonText: "取消"
-      }).then(({value}) => {
+      }).then(({}) => {
         changeStatus(row.id).then(response => {
           this.msgSuccess("已解封用户：" + row.userName);
         });

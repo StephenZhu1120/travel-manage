@@ -75,4 +75,12 @@ public interface IProductRouteService
      * @return 产品路线的最低价格
      */
     public BigDecimal getProductRoutePriceMin(Long productId);
+
+    /**
+     * 统计某产品路线的总数量
+     *
+     * @param productId 产品id
+     * @return 该产品包含的路线数量
+     */
+    public Long countRouteNumberByProductId(Long productId);
 }

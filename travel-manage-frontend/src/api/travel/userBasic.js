@@ -65,7 +65,7 @@ export function resetUserPwd(id, password) {
   })
 }
 
-// 重置密码
+// 封禁/解封用户
 export function changeStatus(id) {
   const data = {
     id
