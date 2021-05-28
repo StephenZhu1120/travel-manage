@@ -28,3 +28,8 @@ npm run build:stage
 # 构建生产环境
 npm run build:prod
 ```
+
+### 手动配置
+为保证滚动条不超高，需手动替换quill中的snow.css
+
+具体操作为将该目录下的quill.snow.css.bkp文件，先删除.bkp的后缀，再将该文件复制到/node_modules/quill/dist目录下替换原有文件
