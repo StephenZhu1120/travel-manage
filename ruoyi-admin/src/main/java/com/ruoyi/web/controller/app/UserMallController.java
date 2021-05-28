@@ -87,7 +87,7 @@ public class UserMallController extends BaseController {
                 new_userBasic = userBasicList.get(i);
             break;
         }
-        if(new_userBasic == null)
+        if(new_userBasic.getId() == null)
             return error("该用户未注册，请先注册");
         else{
             if(! SecurityUtils.matchesPassword(userBasic.getPassword(), new_userBasic.getPassword()))
@@ -98,5 +98,14 @@ public class UserMallController extends BaseController {
         AjaxResult ajaxResult = AjaxResult.success();
         ajaxResult.put("user", new_userBasic);
         return ajaxResult;
+    }
+
+    /**
+     * 判断用户注销逻辑
+     */
+    @PostMapping("/logout")
+    public AjaxResult logout(@RequestBody UserBasic userBasic)
+    {
+        return AjaxResult.success();
     }
 }

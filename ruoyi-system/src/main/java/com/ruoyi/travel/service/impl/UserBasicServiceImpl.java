@@ -34,7 +34,7 @@ public class UserBasicServiceImpl implements IUserBasicService
     }
 
     /**
-     * 查询账户管理
+     * 用户名查询账户管理
      *
      * @param userName 账户名称
      * @return 账户管理
@@ -43,6 +43,18 @@ public class UserBasicServiceImpl implements IUserBasicService
     public UserBasic selectUserBasicByUserName(String userName)
     {
         return userBasicMapper.selectUserBasicByUserName(userName);
+    }
+
+    /**
+     * 手机号码查询账户管理
+     *
+     * @param phoneNumber 账户名称
+     * @return 账户管理
+     */
+    @Override
+    public UserBasic selectUserBasicByPhoneNumber(String phoneNumber)
+    {
+        return userBasicMapper.selectUserBasicByPhoneNumber(phoneNumber);
     }
 
     /**

@@ -90,6 +90,9 @@ public class UserBasicController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody UserBasic userBasic)
     {
+        UserBasic temp = userBasicService.selectUserBasicByPhoneNumber(userBasic.getPhoneNumber());
+        if(temp!=null && temp.getId()!=userBasic.getId())
+            return AjaxResult.error("该手机号已被占用，请尝试绑定其他手机号");
         return toAjax(userBasicService.updateUserBasic(userBasic));
     }
 

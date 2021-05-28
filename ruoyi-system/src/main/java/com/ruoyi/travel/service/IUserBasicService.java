@@ -20,12 +20,20 @@ public interface IUserBasicService
     public UserBasic selectUserBasicById(Long id);
 
     /**
-     * 查询账户管理
+     * 用户名查询账户管理
      *
      * @param userName 账户名称
      * @return 账户管理
      */
     public UserBasic selectUserBasicByUserName(String userName);
+
+    /**
+     * 手机号码查询账户管理
+     *
+     * @param phoneNumber 账户名称
+     * @return 账户管理
+     */
+    public UserBasic selectUserBasicByPhoneNumber(String phoneNumber);
 
     /**
      * 查询账户管理列表

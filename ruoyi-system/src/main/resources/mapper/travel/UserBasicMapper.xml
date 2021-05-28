@@ -45,6 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM travel_user_basic WHERE user_name LIKE "#{userName}"
     </select>
 
+    <select id="selectUserBasicByPhoneNumber" parameterType="String" resultType="UserBasic">
+        SELECT * FROM travel_user_basic WHERE phone_number = #{phoneNumber}
+    </select>
+
     <insert id="insertUserBasic" parameterType="UserBasic" useGeneratedKeys="true" keyProperty="id">
         insert into travel_user_basic
         <trim prefix="(" suffix=")" suffixOverrides=",">

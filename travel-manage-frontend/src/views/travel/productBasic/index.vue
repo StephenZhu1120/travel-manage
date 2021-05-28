@@ -215,10 +215,10 @@
           <el-input v-model="form.productDay" placeholder="请输入旅行天数" />
         </el-form-item>
         <el-form-item label="产品策划">
-          <editor v-model="form.productDesign" :min-height="192"/>
+          <editor v-model="form.productDesign"/>
         </el-form-item>
         <el-form-item label="产品计划">
-          <editor v-model="form.productPlan" :min-height="192"/>
+          <editor v-model="form.productPlan"/>
         </el-form-item>
         <el-form-item label="出发地" prop="birthland">
           <el-input v-model="form.birthland" placeholder="请输入出发地" />

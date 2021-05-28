@@ -28,6 +28,14 @@ public interface UserBasicMapper
     public UserBasic selectUserBasicByUserName(String userName);
 
     /**
+     * 根据手机号查询用户
+     *
+     * @param phoneNumber 电话号码
+     * @return 账户管理
+     */
+    public UserBasic selectUserBasicByPhoneNumber(String phoneNumber);
+
+    /**
      * 查询账户管理列表
      *
      * @param userBasic 账户管理

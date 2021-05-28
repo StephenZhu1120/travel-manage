@@ -49,7 +49,7 @@ export default {
         return callback(new Error("请输入用户名"));
       }
       // 用户名可以为中、英文、数字、下划线，长度为4~20位之间
-      const userNameRule = /^[a-zA-Z0-9\u4E00-\u9FA5\uFE30-\uFFA0_][a-zA-Z0-9\u4E00-\u9FA5\uFE30-\uFFA0_]{3,21}$/;
+      const userNameRule = /^[a-zA-Z0-9\u4E00-\u9FA5\uFE30-\uFFA0_][a-zA-Z0-9\u4E00-\u9FA5\uFE30-\uFFA0_]{2,21}$/;
       //([\u4E00-\u9FA5]|[\uFE30-\uFFA0]|[_\a-zA-Z0-9]|[\s])
       if (userNameRule.test(value)) {
         //判断数据库中是否已经存在该用户名

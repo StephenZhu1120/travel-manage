@@ -1,5 +1,6 @@
 package com.ruoyi.travel.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.ruoyi.travel.domain.UserBasic;
@@ -79,6 +80,9 @@ public class ProductBasicController extends BaseController
     public AjaxResult add(@RequestBody ProductBasic productBasic)
     {
         productBasic.setProductStatus(0L);
+        productBasic.setOrderNumber(0L);
+        productBasic.setRouteNumber(0L);
+        productBasic.setPriceStart(BigDecimal.ZERO);
         return toAjax(productBasicService.insertProductBasic(productBasic));
     }
 
