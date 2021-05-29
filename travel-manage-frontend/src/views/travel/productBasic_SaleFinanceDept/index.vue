@@ -95,14 +95,13 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="旅游产品id" align="center" prop="id" width="100"/>
       <el-table-column label="旅游产品名称" align="center" prop="productName" width="500"/>
-      <el-table-column label="旅游产品状态" align="center" prop="productStatus" :formatter="productStatusFormat" width="200"/>
-<!--      <el-table-column label="旅行天数" align="center" prop="productDay" />-->
-<!--      <el-table-column label="产品创建时间" align="center" prop="createTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-      <el-table-column label="产品最后编辑时间" align="center" prop="editTime" width="300">
+      <el-table-column label="旅游产品状态" align="center" prop="productStatus" :formatter="productStatusFormat" width="140"/>
+      <el-table-column label="产品创建时间" align="center" prop="createTime" width="200">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="产品最后编辑时间" align="center" prop="editTime" width="200">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.editTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
@@ -140,8 +139,8 @@
     />
 
     <!-- 查看产品信息对话框（无法编辑） -->
-    <el-dialog :title="title" :visible.sync="openDetail" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="110px">
+    <el-dialog :title="title" :visible.sync="openDetail" width="1100px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
         <el-form-item label="旅游产品名称" prop="productName">
           {{form.productName}}
         </el-form-item>

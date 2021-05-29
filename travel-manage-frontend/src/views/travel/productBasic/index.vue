@@ -137,14 +137,13 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="旅游产品id" align="center" prop="id" width="100"/>
       <el-table-column label="旅游产品名称" align="center" prop="productName" width="500"/>
-      <el-table-column label="旅游产品状态" align="center" prop="productStatus" :formatter="productStatusFormat" width="200"/>
-<!--      <el-table-column label="旅行天数" align="center" prop="productDay" />-->
-<!--      <el-table-column label="产品创建时间" align="center" prop="createTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-      <el-table-column label="产品最后编辑时间" align="center" prop="editTime" width="300">
+      <el-table-column label="旅游产品状态" align="center" prop="productStatus" :formatter="productStatusFormat" width="140"/>
+      <el-table-column label="产品创建时间" align="center" prop="createTime" width="200">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="产品最后编辑时间" align="center" prop="editTime" width="200">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.editTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
@@ -206,18 +205,18 @@
     />
 
     <!-- 添加产品信息对话框 -->
-    <el-dialog :title="title" :visible.sync="openCreate" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+    <el-dialog :title="title" :visible.sync="openCreate" width="1100px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
         <el-form-item label="旅游产品名称" prop="productName">
           <el-input v-model="form.productName" placeholder="请输入旅游产品名称" />
         </el-form-item>
         <el-form-item label="旅行天数" prop="productDay">
           <el-input v-model="form.productDay" placeholder="请输入旅行天数" />
         </el-form-item>
-        <el-form-item label="产品策划">
+        <el-form-item label="产品设计">
           <editor v-model="form.productDesign"/>
         </el-form-item>
-        <el-form-item label="产品计划">
+        <el-form-item label="产品策划">
           <editor v-model="form.productPlan"/>
         </el-form-item>
         <el-form-item label="出发地" prop="birthland">
@@ -250,8 +249,8 @@
     </el-dialog>
 
     <!-- 管理员修改产品信息对话框 -->
-    <el-dialog :title="title" :visible.sync="openEdit" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="openEdit" width="1100px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
         <el-form-item label="旅游产品id" prop="id">
           <el-input v-model="form.productName" placeholder="请输入旅游产品id" />
         </el-form-item>
@@ -287,10 +286,10 @@
                           placeholder="选择产品最后编辑时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="产品策划">
+        <el-form-item label="产品设计">
           <editor v-model="form.productDesign" :min-height="192"/>
         </el-form-item>
-        <el-form-item label="产品计划">
+        <el-form-item label="产品策划">
           <editor v-model="form.productPlan" :min-height="192"/>
         </el-form-item>
         <el-form-item label="出发地" prop="birthland">
@@ -326,8 +325,8 @@
     </el-dialog>
 
     <!-- 查看产品信息对话框（无法编辑） -->
-    <el-dialog :title="title" :visible.sync="openDetail" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" label-width="110px">
+    <el-dialog :title="title" :visible.sync="openDetail" width="1100px" append-to-body>
+      <el-form ref="form" :model="form" label-width="130px">
         <el-form-item label="旅游产品id" prop="id">
           {{form.id}}
         </el-form-item>
@@ -351,10 +350,10 @@
         <el-form-item label="最后编辑时间" prop="editTime">
           {{form.editTime}}
         </el-form-item>
-        <el-form-item label="产品策划" prop="productDesign">
+        <el-form-item label="产品设计" prop="productDesign">
           <span v-html="form.productDesign"></span>
         </el-form-item>
-        <el-form-item label="产品计划" prop="productPlan">
+        <el-form-item label="产品策划" prop="productPlan">
           <span v-html="form.productPlan"></span>
         </el-form-item>
         <el-form-item label="出发地" prop="birthland">
@@ -389,8 +388,8 @@
     </el-dialog>
 
     <!-- 编辑产品状态对话框 -->
-    <el-dialog :title="title" :visible.sync="openStatus" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="openStatus" width="1100px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="130px">
         <el-form-item label="旅游产品名称" prop="productName">
           {{form.productName}}
         </el-form-item>

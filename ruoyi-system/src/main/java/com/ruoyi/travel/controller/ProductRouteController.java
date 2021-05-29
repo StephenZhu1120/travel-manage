@@ -108,6 +108,8 @@ public class ProductRouteController extends BaseController
         ProductBasic productBasic = productBasicService.selectProductBasicById(productRoute.getProductId());//通过id找到该路线属于的产品
 
         BigDecimal present_price = productRouteService.getProductRoutePriceMin(productBasic.getId());//获取插入前的最低价格
+        if(present_price == null)
+            present_price = BigDecimal.ZERO;
         productBasic.setPriceStart(present_price.min(price_now));//找到更小的值
         if(productBasic.getProductStatus() == 0L)
             productBasic.setProductStatus(1L);

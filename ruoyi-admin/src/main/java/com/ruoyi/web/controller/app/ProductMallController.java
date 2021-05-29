@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.app;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,9 @@ public class ProductMallController extends BaseController{
         List<ProductBasic> product_list = productBasicService.selectProductBasicList(productBasic);
         if(product_list.size() != 0)
             for(int i=0; i<product_list.size(); i++){
+                if(product_list.get(i).getPriceStart() != null)
+                    if(product_list.get(i).getPriceStart().compareTo(BigDecimal.ZERO) == 0)
+                        product_list.get(i).setPriceStart(null);
                 String img_string = product_list.get(i).getImgUrl();
                 if(!(img_string == null || img_string.equals("")))
                     if(img_string.contains(";"))

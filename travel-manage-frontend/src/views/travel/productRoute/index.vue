@@ -462,7 +462,7 @@ export default {
             updateProductRoute(this.form).then(response => {
               this.msgSuccess("修改成功");
               this.openCreate = false;
-              this.openAdminEdit = false;
+              this.openEdit = false;
               this.getList();
             });
           } else {

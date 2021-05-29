@@ -15,7 +15,7 @@
             <img :src="item.imgUrl" alt />
             <h2>{{item.productName}}</h2>
             <p>
-              <span v-if="item.priceStart !== null ">{{item.priceStart}} 元起</span>
+              <span v-if="item.priceStart != null">{{item.priceStart}} 元起</span>
               <span v-else>暂无报价</span>
             </p>
           </router-link>
