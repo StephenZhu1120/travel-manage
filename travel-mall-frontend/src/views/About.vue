@@ -14,15 +14,18 @@
       </div>
     </div>
     <div class="about-content">
-      <MyMarkdown></MyMarkdown>
+      <p>本商城系统是奥游旅行系统的配套前台页面，可以完成客户的登录注册、产品浏览、订单创建、订单查询等功能</p>
+      <p>当前该系统仅满足了业务的最低需求，更多功能请等待新版本开发</p>
+      <p style="margin-top: 30px">开发人员：祝思凡 17373038</p>
+      <p>院校信息：北京航空航天大学 软件学院 2017级</p>
+      <p>微信：13520540878</p>
+      <p>qq：1940323593</p>
     </div>
   </div>
 </template>
 <script>
-import MyMarkdown from "../components/MyMarkdown";
 export default {
   components: {
-    MyMarkdown
   }
 };
 </script>

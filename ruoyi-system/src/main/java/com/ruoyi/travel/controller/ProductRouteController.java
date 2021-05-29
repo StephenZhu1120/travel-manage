@@ -50,26 +50,13 @@ public class ProductRouteController extends BaseController
     public TableDataInfo list(ProductRoute productRoute)
     {
         startPage();
-        List<ProductRoute> list = productRouteService.selectProductRouteList(productRoute);
-        List<ProductRoute_Manage> new_list = new ArrayList<ProductRoute_Manage>();
+        List<ProductRoute_Manage> list = productRouteService.selectProductRouteListWithName(productRoute);
         if(list.size()>0){
             for(int i=0; i<list.size(); i++){
-                ProductRoute_Manage productRoute_manage = new ProductRoute_Manage();
-                productRoute_manage.setId(list.get(i).getId());
-                productRoute_manage.setProductId(list.get(i).getProductId());
-                productRoute_manage.setProductName(productBasicService.selectProductBasicById(list.get(i).getProductId()).getProductName());
-                productRoute_manage.setRouteName(list.get(i).getRouteName());
-                productRoute_manage.setPrice(list.get(i).getPrice());
-                productRoute_manage.setTransportPrice(list.get(i).getTransportPrice());
-                productRoute_manage.setTransportType(list.get(i).getTransportType());
-                productRoute_manage.setHotelPrice(list.get(i).getHotelPrice());
-                productRoute_manage.setHotelType(list.get(i).getHotelType());
-                productRoute_manage.setTravelPrice(list.get(i).getTravelPrice());
-                productRoute_manage.setTravelType(list.get(i).getTravelType());
-                new_list.add(productRoute_manage);
+                list.get(i).setProductName(productBasicService.selectProductBasicById(list.get(i).getProductId()).getProductName());
             }
         }
-        return getDataTable(new_list);
+        return getDataTable(list);
     }
 
     /**

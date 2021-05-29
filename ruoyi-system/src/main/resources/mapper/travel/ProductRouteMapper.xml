@@ -17,11 +17,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="travelPrice"    column="travel_price"    />
     </resultMap>
 
+    <resultMap type="ProductRoute_Manage" id="ProductRouteManageResult">
+        <result property="id"    column="id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="routeName"    column="route_name"    />
+        <result property="price"    column="price"    />
+        <result property="transportType"    column="transport_type"    />
+        <result property="transportPrice"    column="transport_price"    />
+        <result property="hotelType"    column="hotel_type"    />
+        <result property="hotelPrice"    column="hotel_price"    />
+        <result property="travelType"    column="travel_type"    />
+        <result property="travelPrice"    column="travel_price"    />
+        <result property="productName"    column="nullnullnull"    />
+    </resultMap>
+
     <sql id="selectProductRouteVo">
         select id, product_id, route_name, price, transport_type, transport_price, hotel_type, hotel_price, travel_type, travel_price from travel_product_route
     </sql>
 
     <select id="selectProductRouteList" parameterType="ProductRoute" resultMap="ProductRouteResult">
+        <include refid="selectProductRouteVo"/>
+        <where>
+            <if test="id != null "> and id = #{id}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="routeName != null  and routeName != ''"> and route_name like concat('%', #{routeName}, '%')</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="transportType != null  and transportType != ''"> and transport_type = #{transportType}</if>
+            <if test="transportPrice != null "> and transport_price = #{transportPrice}</if>
+            <if test="hotelType != null  and hotelType != ''"> and hotel_type = #{hotelType}</if>
+            <if test="hotelPrice != null "> and hotel_price = #{hotelPrice}</if>
+            <if test="travelType != null  and travelType != ''"> and travel_type = #{travelType}</if>
+            <if test="travelPrice != null "> and travel_price = #{travelPrice}</if>
+        </where>
+    </select>
+
+    <select id="selectProductRouteListWithName" parameterType="ProductRoute" resultMap="ProductRouteManageResult">
         <include refid="selectProductRouteVo"/>
         <where>
             <if test="id != null "> and id = #{id}</if>

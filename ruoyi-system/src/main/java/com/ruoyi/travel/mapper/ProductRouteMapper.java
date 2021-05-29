@@ -3,6 +3,7 @@ package com.ruoyi.travel.mapper;
 import java.math.BigDecimal;
 import java.util.List;
 import com.ruoyi.travel.domain.ProductRoute;
+import com.ruoyi.travel.domain.ProductRoute_Manage;
 
 /**
  * 产品路线Mapper接口
@@ -35,6 +36,14 @@ public interface ProductRouteMapper
      * @return 产品路线集合
      */
     public List<ProductRoute> selectProductRouteList(ProductRoute productRoute);
+
+    /**
+     * 查询产品路线列表带产品名称
+     *
+     * @param productRoute 产品路线
+     * @return 产品路线集合
+     */
+    public List<ProductRoute_Manage> selectProductRouteListWithName(ProductRoute productRoute);
 
     /**
      * 查询产品所有路线的价格最小值

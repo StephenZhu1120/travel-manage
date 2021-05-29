@@ -98,9 +98,11 @@
             <span class="pro-people">人数：
               <el-input-number v-model="selectPeople" :min="0" :max="20" label="人数" size="small" placeholder="请选择人数" @change="calcPrice"></el-input-number>
             </span>
+            <span class="price-title">预估价格估计：</span>
+            <span v-if="totalNumber === 0" class="price-sum">请选择路线和人数</span>
+            <span v-else class="price-sum">{{totalNumber}} 元</span>
           </p>
-          <p v-if="totalNumber === 0" class="price-sum">请选择路线和人数</p>
-          <p v-else class="price-sum">预估价格总计：{{totalNumber}} 元</p>
+
         </div>
         <!-- 内容区底部按钮 -->
         <div class="button">
@@ -447,34 +449,44 @@ export default {
 #details .main .content .pro-list {
   background: #f9f9fa;
   padding: 30px 60px;
-  margin: 50px 0 50px;
+  margin: 50px 0 20px;
   width: 81%;
 }
 #details .main .content .pro-list span {
   line-height: 30px;
   color: #616161;
 }
-#details .main .content .pro-list .pro-date{
+#details .main .content .pro-list .pro-price .pro-date{
   display: block;
+  margin-bottom: 20px;
 }
-#details .main .content .pro-list .pro-route{
+#details .main .content .pro-list .pro-price .pro-route{
   display: block;
+  margin-bottom: 20px;
 }
-#details .main .content .pro-list .pro-people{
+#details .main .content .pro-list .pro-price .pro-people{
   display: block;
+  margin-bottom: 20px;
 }
 #details .main .content .pro-list .pro-price {
   /*float: left;*/
   display: block;
 }
-#details .main .content .pro-list .pro-price .pro-del {
-  margin-left: 10px;
-  text-decoration: line-through;
+/*#details .main .content .pro-list .pro-price .pro-del {*/
+/*  margin-left: 10px;*/
+/*  text-decoration: line-through;*/
+/*}*/
+
+#details .main .content .pro-list .pro-price .price-title{
+  font-size: 20px;
 }
-#details .main .content .pro-list .price-sum {
-  color: #ff6700;
-  font-size: 24px;
-  float: left;
+
+#details .main .content .pro-list .pro-price .price-sum {
+  color: #0bb4f5;
+  font-size: 20px;
+  display: block;
+  white-space: nowrap;
+  display: inline-block;
   /*padding-top: 20px;*/
 }
 #details .main .content .button {

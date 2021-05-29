@@ -2,6 +2,8 @@ package com.ruoyi.travel.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import com.ruoyi.travel.domain.ProductRoute_Manage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.travel.mapper.ProductRouteMapper;
@@ -42,6 +44,17 @@ public class ProductRouteServiceImpl implements IProductRouteService
     public List<ProductRoute> selectProductRouteList(ProductRoute productRoute)
     {
         return productRouteMapper.selectProductRouteList(productRoute);
+    }
+
+    /**
+     * 查询产品路线列表
+     *
+     * @param productRoute 产品路线
+     * @return 产品路线
+     */
+    public List<ProductRoute_Manage> selectProductRouteListWithName(ProductRoute productRoute)
+    {
+        return productRouteMapper.selectProductRouteListWithName(productRoute);
     }
 
     /**

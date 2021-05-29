@@ -39,7 +39,7 @@ export default {
       product: "", // 商品列表
       productList: "",
       total: 0, // 商品总量
-      pageSize: 15, // 每页显示的商品数量
+      pageSize: 8, // 每页显示的商品数量
       // currentPage: 1, //当前页码
       // activeName: "-1", // 分类列表当前选中的id
       pageNum :1, //页码

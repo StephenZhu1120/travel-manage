@@ -41,6 +41,9 @@ public class ProductMallController extends BaseController{
         List<ProductBasic> product_list = productBasicService.selectProductBasicList(productBasic);
         if(product_list.size() != 0)
             for(int i=0; i<product_list.size(); i++){
+                product_list.get(i).setProductDesign(null);
+                product_list.get(i).setProductPlan(null);
+                product_list.get(i).setProductDetailAds(null);
                 if(product_list.get(i).getPriceStart() != null)
                     if(product_list.get(i).getPriceStart().compareTo(BigDecimal.ZERO) == 0)
                         product_list.get(i).setPriceStart(null);

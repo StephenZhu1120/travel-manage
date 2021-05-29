@@ -3,6 +3,7 @@ package com.ruoyi.travel.service;
 import java.math.BigDecimal;
 import java.util.List;
 import com.ruoyi.travel.domain.ProductRoute;
+import com.ruoyi.travel.domain.ProductRoute_Manage;
 
 /**
  * 产品路线Service接口
@@ -27,6 +28,14 @@ public interface IProductRouteService
      * @return 产品路线集合
      */
     public List<ProductRoute> selectProductRouteList(ProductRoute productRoute);
+
+    /**
+     * 查询产品路线列表（带名称）
+     *
+     * @param productRoute 产品路线
+     * @return 产品路线集合
+     */
+    public List<ProductRoute_Manage> selectProductRouteListWithName(ProductRoute productRoute);
 
     /**
      * 新增产品路线
