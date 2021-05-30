@@ -184,7 +184,7 @@ a:hover {
 /* 顶部导航栏CSS */
 .topbar {
   height: 40px;
-  background-color: #3d3d3d;
+  background-color: #32415F;
   margin-bottom: 20px;
 }
 .topbar .nav {
@@ -263,7 +263,7 @@ a:hover {
 .footer {
   width: 100%;
   text-align: center;
-  background: #2f2f2f;
+  background: #32415F;
   padding-top: 1px;
   padding-bottom: 1px;
 }

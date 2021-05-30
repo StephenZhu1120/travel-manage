@@ -50,6 +50,17 @@ public class OrderBasicServiceImpl implements IOrderBasicService
     }
 
     /**
+     * 查询订单管理列表倒序
+     *
+     * @param orderBasic 订单管理
+     * @return 订单管理
+     */
+    public List<OrderBasic> selectOrderBasicListDesc(OrderBasic orderBasic)
+    {
+        return orderBasicMapper.selectOrderBasicListDesc(orderBasic);
+    }
+
+    /**
      * 新增订单管理
      *
      * @param orderBasic 订单管理

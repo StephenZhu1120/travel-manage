@@ -378,7 +378,7 @@ export default {
 }
 #details .page-header .title .list li a:hover {
   font-size: 14px;
-  color: #ff6700;
+  color: #5c8cdc;
 }
 /* 头部CSS END */
 
@@ -436,7 +436,7 @@ export default {
 #details .main .content .price {
   display: block;
   font-size: 18px;
-  color: #ff6700;
+  color: #5c8cdc;
   border-bottom: 1px solid #e0e0e0;
   padding: 25px 0 25px;
 }
@@ -482,7 +482,7 @@ export default {
 }
 
 #details .main .content .pro-list .pro-price .price-sum {
-  color: #0bb4f5;
+  color: #5c8cdc;
   font-size: 20px;
   display: block;
   white-space: nowrap;
@@ -503,10 +503,10 @@ export default {
 }
 #details .main .content .button .shop-cart {
   width: 340px;
-  background-color: #ff6700;
+  background-color: #5c8cdc;
 }
 #details .main .content .button .shop-cart:hover {
-  background-color: #f25807;
+  background-color: #5c8cdc;
 }
 
 #details .main .content .button .like {

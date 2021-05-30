@@ -62,6 +62,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
+    <select id="selectOrderBasicListDesc" parameterType="OrderBasic" resultMap="OrderBasicResult">
+        <include refid="selectOrderBasicVo"/>
+        <where>
+            <if test="id != null "> and id = #{id}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="routeId != null "> and route_id = #{routeId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="phonenumber != null  and phonenumber != ''"> and phonenumber = #{phonenumber}</if>
+            <if test="travelTime != null "> and to_days(travel_time) = to_days(#{travelTime})</if>
+            <if test="orderTime != null "> and to_days(order_time) = to_days(#{orderTime})</if>
+            <if test="peopleNumber != null "> and people_number = #{peopleNumber}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
+            <if test="payTime != null "> and to_days(pay_time) = to_days(#{payTime})</if>
+            <if test="payWay != null "> and pay_way = #{payWay}</if>
+            <if test="refundTime != null "> and to_days(refund_time) = to_days(#{refundTime})</if>
+            <if test="editTime != null "> and edit_time = #{editTime}</if>
+        </where>
+        order by order_time desc
+    </select>
+
     <select id="selectOrderBasicById" parameterType="Long" resultMap="OrderBasicOrderMemberResult">
         select a.id, a.product_id, a.route_id, a.product_name, a.user_id, a.phonenumber, a.travel_time, a.order_time, a.people_number, a.price, a.order_status, a.pay_time, a.pay_comment, a.pay_way, a.refund_time, a.refund_comment, a.edit_time,
             b.id as sub_id, b.order_id as sub_order_id, b.member_name as sub_member_name, b.member_id_card as sub_member_id_card, b.member_phonenumber as sub_member_phonenumber, b.member_sex as sub_member_sex

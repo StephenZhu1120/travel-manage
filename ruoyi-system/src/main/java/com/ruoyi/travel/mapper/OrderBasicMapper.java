@@ -6,15 +6,15 @@ import com.ruoyi.travel.domain.OrderMember;
 
 /**
  * 订单管理Mapper接口
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-12
  */
-public interface OrderBasicMapper 
+public interface OrderBasicMapper
 {
     /**
      * 查询订单管理
-     * 
+     *
      * @param id 订单管理ID
      * @return 订单管理
      */
@@ -22,15 +22,23 @@ public interface OrderBasicMapper
 
     /**
      * 查询订单管理列表
-     * 
+     *
      * @param orderBasic 订单管理
      * @return 订单管理集合
      */
     public List<OrderBasic> selectOrderBasicList(OrderBasic orderBasic);
 
     /**
+     * 查询订单管理列表倒序
+     *
+     * @param orderBasic 订单管理
+     * @return 订单管理集合
+     */
+    public List<OrderBasic> selectOrderBasicListDesc(OrderBasic orderBasic);
+
+    /**
      * 新增订单管理
-     * 
+     *
      * @param orderBasic 订单管理
      * @return 结果
      */
@@ -38,7 +46,7 @@ public interface OrderBasicMapper
 
     /**
      * 修改订单管理
-     * 
+     *
      * @param orderBasic 订单管理
      * @return 结果
      */
@@ -46,7 +54,7 @@ public interface OrderBasicMapper
 
     /**
      * 删除订单管理
-     * 
+     *
      * @param id 订单管理ID
      * @return 结果
      */
@@ -54,7 +62,7 @@ public interface OrderBasicMapper
 
     /**
      * 批量删除订单管理
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -62,24 +70,24 @@ public interface OrderBasicMapper
 
     /**
      * 批量删除订单成员管理
-     * 
+     *
      * @param customerIds 需要删除的数据ID
      * @return 结果
      */
     public int deleteOrderMemberByOrderIds(Long[] ids);
-    
+
     /**
      * 批量新增订单成员管理
-     * 
+     *
      * @param orderMemberList 订单成员管理列表
      * @return 结果
      */
     public int batchOrderMember(List<OrderMember> orderMemberList);
-    
+
 
     /**
      * 通过订单管理ID删除订单成员管理信息
-     * 
+     *
      * @param roleId 角色ID
      * @return 结果
      */

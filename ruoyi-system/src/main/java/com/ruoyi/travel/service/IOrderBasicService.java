@@ -28,6 +28,14 @@ public interface IOrderBasicService
     public List<OrderBasic> selectOrderBasicList(OrderBasic orderBasic);
 
     /**
+     * 查询订单管理列表倒序
+     *
+     * @param orderBasic 订单管理
+     * @return 订单管理集合
+     */
+    public List<OrderBasic> selectOrderBasicListDesc(OrderBasic orderBasic);
+
+    /**
      * 新增订单管理
      *
      * @param orderBasic 订单管理

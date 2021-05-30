@@ -48,7 +48,7 @@ public class OrderMallController extends BaseController{
         OrderBasic temp = new OrderBasic();
         temp.setUserId(orderBasic.getUserId());
 
-        List<OrderBasic> orderBasicList = orderBasicService.selectOrderBasicList(temp);
+        List<OrderBasic> orderBasicList = orderBasicService.selectOrderBasicListDesc(temp);
         List<Order_Mall> orderMallList = new ArrayList<Order_Mall>();
         if(orderBasicList.size() == 0)
             return AjaxResult.success(orderMallList);
