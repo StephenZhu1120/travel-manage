@@ -13,8 +13,8 @@ Vue.use(Global);
 
 import Axios from 'axios';
 //Axios.defaults.baseURL='http://47.98.145.198:7000/';
-// Axios.defaults.baseURL='http://localhost:18080/api/';//不用candy的时候
-Axios.defaults.baseURL='/api/';//用caddy的时候
+Axios.defaults.baseURL='http://localhost:18080/api/';//不用candy的时候
+// Axios.defaults.baseURL='/api/';//用caddy的时候
 Axios.defaults.withCredentials = true;
 // Vue.use(Axios);//前台会报404的错
 Vue.prototype.$axios = Axios;

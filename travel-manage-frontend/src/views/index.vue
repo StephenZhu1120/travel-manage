@@ -163,6 +163,22 @@
             <span>更新日志</span>
           </div>
           <el-collapse>
+            <el-collapse-item title="v2.1.1 - 2021-05-30">
+              <ol>
+                <p>修复问题，提升系统稳定性</p>
+              </ol>
+            </el-collapse-item>
+            <el-collapse-item title="v2.1.0 - 2021-05-26">
+              <ol>
+                <p>增加定时任务</p>
+                <p>修复问题，提升系统稳定性</p>
+              </ol>
+            </el-collapse-item>
+            <el-collapse-item title="v2.0.2 - 2021-05-23">
+              <ol>
+                <p>修复问题，提升系统稳定性</p>
+              </ol>
+            </el-collapse-item>
             <el-collapse-item title="v2.0.1 - 2021-05-17">
               <ol>
                 <p>修复问题，提升系统稳定性</p>
@@ -219,7 +235,7 @@ export default {
   data() {
     return {
       // 版本号
-      version: "2.0.1",
+      version: "2.1.1",
     };
   },
   methods: {

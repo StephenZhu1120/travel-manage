@@ -45,7 +45,7 @@ public class ProductRouteController extends BaseController
     /**
      * 查询产品路线列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:productRoute:list')")
+    @PreAuthorize("@ss.hasPermi('travel:productRoute:list') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping("/list")
     public TableDataInfo list(ProductRoute productRoute)
     {
@@ -62,7 +62,7 @@ public class ProductRouteController extends BaseController
     /**
      * 导出产品路线列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:productRoute:export')")
+    @PreAuthorize("@ss.hasPermi('travel:productRoute:export') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "产品路线", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(ProductRoute productRoute)
@@ -75,7 +75,7 @@ public class ProductRouteController extends BaseController
     /**
      * 获取产品路线详细信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:productRoute:query')")
+    @PreAuthorize("@ss.hasPermi('travel:productRoute:query') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -85,7 +85,7 @@ public class ProductRouteController extends BaseController
     /**
      * 新增产品路线
      */
-    @PreAuthorize("@ss.hasPermi('travel:productRoute:add')")
+    @PreAuthorize("@ss.hasPermi('travel:productRoute:add') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "产品路线", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ProductRoute productRoute)
@@ -109,7 +109,7 @@ public class ProductRouteController extends BaseController
     /**
      * 修改产品路线
      */
-    @PreAuthorize("@ss.hasPermi('travel:productRoute:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:productRoute:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "产品路线", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ProductRoute productRoute)
@@ -126,7 +126,7 @@ public class ProductRouteController extends BaseController
     /**
      * 删除产品路线
      */
-    @PreAuthorize("@ss.hasPermi('travel:productRoute:remove')")
+    @PreAuthorize("@ss.hasPermi('travel:productRoute:remove') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "产品路线", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)

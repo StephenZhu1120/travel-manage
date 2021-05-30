@@ -95,7 +95,6 @@
           icon="el-icon-plus"
           size="mini"
           disabled
-          v-hasPermi="['travel:productBasic:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -105,7 +104,6 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['travel:productBasic:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -144,7 +142,6 @@
             round
             icon="el-icon-edit"
             @click="handleView(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >查看详情</el-button>
           <el-button
             size="small"
@@ -152,7 +149,6 @@
             round
             icon="el-icon-edit"
             @click="handlePlan(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >筹备产品</el-button>
           <el-button
             size="small"
@@ -160,7 +156,6 @@
             round
             icon="el-icon-edit"
             @click="handleEdit(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >编辑信息</el-button>
           <el-button
             size="small"
@@ -169,7 +164,6 @@
             icon="el-icon-circle-check"
             @click="handleStatusOnline(scope.row)"
             v-show="scope.row.productStatus === 0 || scope.row.productStatus === 1 || scope.row.productStatus === 4"
-            v-hasPermi="['travel:userBasic:edit']"
           >上线产品</el-button>
           <el-button
             size="small"
@@ -178,7 +172,6 @@
             icon="el-icon-circle-close"
             @click="handleStatusOffline(scope.row)"
             v-show="scope.row.productStatus === 3"
-            v-hasPermi="['travel:userBasic:edit']"
           >下架产品</el-button>
           <el-button
             size="small"
@@ -186,7 +179,6 @@
             round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['travel:productBasic:remove']"
           >删 除</el-button>
         </template>
       </el-table-column>

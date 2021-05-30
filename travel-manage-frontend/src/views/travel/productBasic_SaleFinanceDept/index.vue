@@ -124,7 +124,6 @@
             round
             icon="el-icon-edit"
             @click="handleDetail(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >查看详情</el-button>
         </template>
       </el-table-column>

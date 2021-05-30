@@ -95,7 +95,6 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleCreate"
-          v-hasPermi="['travel:productBasic:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -105,7 +104,6 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['travel:productBasic:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -144,7 +142,6 @@
             round
             icon="el-icon-edit"
             @click="handleView(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >查看详情</el-button>
           <el-button
             size="small"
@@ -152,7 +149,6 @@
             round
             icon="el-icon-edit"
             @click="handleDesign(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >设计产品</el-button>
           <el-button
             size="small"
@@ -160,7 +156,6 @@
             round
             icon="el-icon-edit"
             @click="handleEdit(scope.row)"
-            v-hasPermi="['travel:productBasic:edit']"
           >编辑信息</el-button>
           <el-button
             size="small"
@@ -168,7 +163,6 @@
             round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['travel:productBasic:remove']"
           >删 除</el-button>
         </template>
       </el-table-column>

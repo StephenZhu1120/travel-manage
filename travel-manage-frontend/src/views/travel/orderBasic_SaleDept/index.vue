@@ -148,7 +148,6 @@
           size="mini"
           disabled="true"
           @click="handleAdd"
-          v-hasPermi="['travel:orderBasic:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -158,7 +157,6 @@
           icon="el-icon-edit"
           size="mini"
           disabled="true"
-          v-hasPermi="['travel:orderBasic:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -169,7 +167,6 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['travel:orderBasic:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -179,7 +176,6 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['travel:orderBasic:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -240,7 +236,6 @@
             icon="el-icon-edit"
             @click="handleSaleEditMember(scope.row)"
             :disabled="! (scope.row.orderStatus===0 || scope.row.orderStatus===1)"
-            v-hasPermi="['travel:orderBasic:edit']"
           >编辑成员</el-button>
           <el-button
             size="small"
@@ -249,7 +244,6 @@
             icon="el-icon-edit"
             @click="handleSalePayOrder(scope.row)"
             :disabled="scope.row.orderStatus !== 0"
-            v-hasPermi="['travel:orderBasic:edit']"
           >支付订单</el-button>
           <el-button
             size="small"
@@ -258,7 +252,6 @@
             icon="el-icon-edit"
             @click="handleSaleCancelOrder(scope.row)"
             :disabled="! (scope.row.orderStatus===0 || scope.row.orderStatus===1)"
-            v-hasPermi="['travel:orderBasic:edit']"
           >取消订单</el-button>
           <el-button
             size="small"
@@ -266,7 +259,6 @@
             round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['travel:orderBasic:remove']"
           >删 除</el-button>
         </template>
       </el-table-column>

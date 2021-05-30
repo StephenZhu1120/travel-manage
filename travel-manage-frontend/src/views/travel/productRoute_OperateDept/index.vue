@@ -113,7 +113,6 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleCreate"
-          v-hasPermi="['travel:productRoute:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -124,7 +123,6 @@
           size="mini"
           :disabled="single"
           @click="handleEdit"
-          v-hasPermi="['travel:productRoute:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -135,7 +133,6 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['travel:productRoute:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -145,7 +142,6 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['travel:productRoute:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -171,7 +167,6 @@
             round
             icon="el-icon-edit"
             @click="handleView(scope.row)"
-            v-hasPermi="['travel:productRoute:edit']"
           >查看详情</el-button>
           <el-button
             size="small"
@@ -179,7 +174,6 @@
             round
             icon="el-icon-edit"
             @click="handleEdit(scope.row)"
-            v-hasPermi="['travel:productRoute:edit']"
           >编辑信息</el-button>
           <el-button
             size="small"
@@ -187,7 +181,6 @@
             round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['travel:productRoute:remove']"
           >删 除</el-button>
         </template>
       </el-table-column>

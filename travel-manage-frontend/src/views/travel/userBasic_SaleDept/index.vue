@@ -126,7 +126,6 @@
             icon="el-icon-circle-close"
             @click="handleStatusBan(scope.row)"
             v-show="scope.row.userStatus === 1"
-            v-hasPermi="['travel:userBasic:edit']"
           >封禁用户</el-button>
           <el-button
             size="small"
@@ -135,7 +134,6 @@
             icon="el-icon-circle-check"
             @click="handleStatusUnBan(scope.row)"
             v-show="scope.row.userStatus === 0"
-            v-hasPermi="['travel:userBasic:edit']"
           >解封用户</el-button>
           <el-button
             size="small"
@@ -143,7 +141,6 @@
             round
             icon="el-icon-edit"
             @click="handleEdit(scope.row)"
-            v-hasPermi="['travel:userBasic:resetPwd']"
           >编辑资料</el-button>
           <el-button
             size="small"
@@ -151,7 +148,6 @@
             round
             icon="el-icon-key"
             @click="handleResetPwd(scope.row)"
-            v-hasPermi="['travel:userBasic:resetPwd']"
           >重置密码</el-button>
           <el-button
             size="small"
@@ -159,7 +155,6 @@
             round
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['travel:userBasic:remove']"
           >删 除</el-button>
         </template>
       </el-table-column>

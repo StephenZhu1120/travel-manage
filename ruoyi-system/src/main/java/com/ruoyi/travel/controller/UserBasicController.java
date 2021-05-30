@@ -38,7 +38,7 @@ public class UserBasicController extends BaseController
     /**
      * 查询账户管理列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:list')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:list') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping("/list")
     public TableDataInfo list(UserBasic userBasic)
     {
@@ -50,7 +50,7 @@ public class UserBasicController extends BaseController
     /**
      * 导出账户管理列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:export')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:export') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "账户管理", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(UserBasic userBasic)
@@ -63,7 +63,7 @@ public class UserBasicController extends BaseController
     /**
      * 获取账户管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:query')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:query') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -73,7 +73,7 @@ public class UserBasicController extends BaseController
     /**
      * 新增账户管理
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:add')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:add') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "账户管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody UserBasic userBasic)
@@ -85,7 +85,7 @@ public class UserBasicController extends BaseController
     /**
      * 修改账户管理
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "账户管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody UserBasic userBasic)
@@ -100,7 +100,7 @@ public class UserBasicController extends BaseController
     /**
      * 重置密码
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:resetPwd')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:resetPwd') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "账户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
     public AjaxResult resetPwd(@RequestBody UserBasic userBasic) {
@@ -112,7 +112,7 @@ public class UserBasicController extends BaseController
     /**
      * 封禁/解封用户
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "账户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody UserBasic userBasic) {
@@ -127,7 +127,7 @@ public class UserBasicController extends BaseController
     /**
      * 删除账户管理
      */
-    @PreAuthorize("@ss.hasPermi('travel:userBasic:remove')")
+    @PreAuthorize("@ss.hasPermi('travel:userBasic:remove') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "账户管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)

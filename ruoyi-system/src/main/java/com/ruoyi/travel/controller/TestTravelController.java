@@ -22,7 +22,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 测试功能Controller
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-11
  */
@@ -36,7 +36,7 @@ public class TestTravelController extends BaseController
     /**
      * 查询测试功能列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:testTravel:list')")
+    @PreAuthorize("@ss.hasPermi('travel:testTravel:list') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping("/list")
     public TableDataInfo list(TestTravel testTravel)
     {
@@ -48,7 +48,7 @@ public class TestTravelController extends BaseController
     /**
      * 导出测试功能列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:testTravel:export')")
+    @PreAuthorize("@ss.hasPermi('travel:testTravel:export') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "测试功能", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(TestTravel testTravel)
@@ -61,7 +61,7 @@ public class TestTravelController extends BaseController
     /**
      * 获取测试功能详细信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:testTravel:query')")
+    @PreAuthorize("@ss.hasPermi('travel:testTravel:query') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -71,7 +71,7 @@ public class TestTravelController extends BaseController
     /**
      * 新增测试功能
      */
-    @PreAuthorize("@ss.hasPermi('travel:testTravel:add')")
+    @PreAuthorize("@ss.hasPermi('travel:testTravel:add') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "测试功能", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody TestTravel testTravel)
@@ -82,7 +82,7 @@ public class TestTravelController extends BaseController
     /**
      * 修改测试功能
      */
-    @PreAuthorize("@ss.hasPermi('travel:testTravel:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:testTravel:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "测试功能", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody TestTravel testTravel)
@@ -93,7 +93,7 @@ public class TestTravelController extends BaseController
     /**
      * 删除测试功能
      */
-    @PreAuthorize("@ss.hasPermi('travel:testTravel:remove')")
+    @PreAuthorize("@ss.hasPermi('travel:testTravel:remove') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "测试功能", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)

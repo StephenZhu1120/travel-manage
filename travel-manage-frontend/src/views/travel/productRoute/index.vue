@@ -171,7 +171,6 @@
             round
             icon="el-icon-edit"
             @click="handleView(scope.row)"
-            v-hasPermi="['travel:productRoute:edit']"
           >查看详情</el-button>
           <el-button
             size="small"

@@ -49,7 +49,7 @@ public class OrderBasicController extends BaseController
     /**
      * 查询订单管理列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:list')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:list') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping("/list")
     public TableDataInfo list(OrderBasic orderBasic)
     {
@@ -61,7 +61,7 @@ public class OrderBasicController extends BaseController
     /**
      * 导出订单管理列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:export')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:export') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(OrderBasic orderBasic)
@@ -74,7 +74,7 @@ public class OrderBasicController extends BaseController
     /**
      * 获取订单管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:query')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:query') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -84,7 +84,7 @@ public class OrderBasicController extends BaseController
     /**
      * 新增订单管理
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:add')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:add') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody OrderBasic orderBasic)
@@ -98,7 +98,7 @@ public class OrderBasicController extends BaseController
     /**
      * 修改订单管理
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody OrderBasic orderBasic)
@@ -110,7 +110,7 @@ public class OrderBasicController extends BaseController
     /**
      * 删除订单管理
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:remove')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:remove') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
@@ -121,16 +121,18 @@ public class OrderBasicController extends BaseController
     /**
      * 取消订单
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.UPDATE)
     @PutMapping("/cancel/{id}")
     public AjaxResult CancelOrderBasic(@PathVariable Long id)
     {
         //需要在财务信息中创建一条退款记录（暂不包括退款时间和退款附言）
         OrderBasic orderBasic = orderBasicService.selectOrderBasicById(id);
-        FinanceBasic financeBasic = new FinanceBasic();
-        financeBasic.setOrderId(orderBasic.getId()); financeBasic.setPrice(orderBasic.getPrice()); financeBasic.setTradeType(1L);
-        financeBasicService.insertFinanceBasicByOrder(financeBasic);
+        if(orderBasic.getOrderStatus() == 1L){
+            FinanceBasic financeBasic = new FinanceBasic();
+            financeBasic.setOrderId(orderBasic.getId()); financeBasic.setPrice(orderBasic.getPrice()); financeBasic.setTradeType(1L);
+            financeBasicService.insertFinanceBasicByOrder(financeBasic);
+        }
         //最后实现取消订单的状态更改
         return toAjax(orderBasicService.cancelOrderBasic(id));
     }
@@ -138,7 +140,7 @@ public class OrderBasicController extends BaseController
     /**
      * 支付订单
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.UPDATE)
     @PutMapping("/pay/status/{id}")
     public AjaxResult payOrderBasic(@PathVariable Long id)
@@ -156,7 +158,7 @@ public class OrderBasicController extends BaseController
     /**
      * 退款订单更改状态
      */
-    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:orderBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "订单管理", businessType = BusinessType.UPDATE)
     @PutMapping("/refund/status/{id}")
     public AjaxResult refundOrderBasic(@PathVariable Long id)

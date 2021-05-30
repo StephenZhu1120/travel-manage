@@ -22,7 +22,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 财务信息Controller
- * 
+ *
  * @author buaa_travel
  * @date 2021-05-12
  */
@@ -36,7 +36,7 @@ public class FinanceBasicController extends BaseController
     /**
      * 查询财务信息列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:financeBasic:list')")
+    @PreAuthorize("@ss.hasPermi('travel:financeBasic:list') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping("/list")
     public TableDataInfo list(FinanceBasic financeBasic)
     {
@@ -48,7 +48,7 @@ public class FinanceBasicController extends BaseController
     /**
      * 导出财务信息列表
      */
-    @PreAuthorize("@ss.hasPermi('travel:financeBasic:export')")
+    @PreAuthorize("@ss.hasPermi('travel:financeBasic:export') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "财务信息", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(FinanceBasic financeBasic)
@@ -61,7 +61,7 @@ public class FinanceBasicController extends BaseController
     /**
      * 获取财务信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:financeBasic:query')")
+    @PreAuthorize("@ss.hasPermi('travel:financeBasic:query') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -71,7 +71,7 @@ public class FinanceBasicController extends BaseController
     /**
      * 新增财务信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:financeBasic:add')")
+    @PreAuthorize("@ss.hasPermi('travel:financeBasic:add') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "财务信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody FinanceBasic financeBasic)
@@ -82,7 +82,7 @@ public class FinanceBasicController extends BaseController
     /**
      * 修改财务信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:financeBasic:edit')")
+    @PreAuthorize("@ss.hasPermi('travel:financeBasic:edit') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "财务信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody FinanceBasic financeBasic)
@@ -93,7 +93,7 @@ public class FinanceBasicController extends BaseController
     /**
      * 删除财务信息
      */
-    @PreAuthorize("@ss.hasPermi('travel:financeBasic:remove')")
+    @PreAuthorize("@ss.hasPermi('travel:financeBasic:remove') or @ss.hasRole('Market_Dept') or @ss.hasRole('Operate_Dept') or @ss.hasRole('Sale_Dept') or @ss.hasRole('Finance_Dept')")
     @Log(title = "财务信息", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
